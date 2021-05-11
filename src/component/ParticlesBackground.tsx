@@ -13,7 +13,7 @@ export default function ParticlesBackground() {
                             outMode: 'out'
                         },
                         color: {
-                            value: ['#EBEBEB', '#FFB8D2', '#F4DC62', '#FFC78B', '#CDC5FF', '#4D4D4D']
+                            value: ['#6AE2DC', '#FFB8D2', '#F4DC62', '#FFC78B', '#CDC5FF', '#4D4D4D']
                         },
                         opacity: {
                             value: 0.5,
