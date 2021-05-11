@@ -35,20 +35,20 @@ export default function App() {
                                     <p className="text-2xl font-bold rainbow-text">Scream is a AMM yield generator and lending protocol powered by fantom.</p>
                                 </div>
                             </div>
-                            <div className="text-2xl space-x-2 rainbow-text">
-                                <a href="">
+                            <div className="text-xl space-x-2">
+                                <a href="# ">
                                     <i className="fab fa-twitter" />
                                 </a>
-                                <a href="">
+                                <a href="# ">
                                     <i className="fab fa-telegram" />
                                 </a>
-                                <a href="">
+                                <a href="# ">
                                     <i className="fab fa-discord" />
                                 </a>
-                                <a href="">
+                                <a href="# ">
                                     <i className="fab fa-github" />
                                 </a>
-                                <a href="">
+                                <a href="# ">
                                     <i className="fab fa-medium" />
                                 </a>
                             </div>
