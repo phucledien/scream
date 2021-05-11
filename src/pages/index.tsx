@@ -14,6 +14,13 @@ export default function App() {
 
     return (
         <div className="h-full flex flex-col">
+            <AnimatePresence>
+                {hide && (
+                    <motion.div animate={{ y: ['-100%', '0%'] }} className="border-b-4 border-rainbow">
+                        <CryptoTicker />
+                    </motion.div>
+                )}
+            </AnimatePresence>
             <Tilt className="tilt  relative z-30 flex flex-col flex-1">
                 {/* <div className="max-w-7xl w-full mx-auto px-12 pt-12 tilt-inner">
                     <div className="flex items-center justify-end">
@@ -68,14 +75,6 @@ export default function App() {
                 </div>
                 <ParticlesBackground />
             </Tilt>
-
-            <AnimatePresence>
-                {hide && (
-                    <motion.div animate={{ y: ['100%', '0%'] }} className="border-t-4 border-rainbow">
-                        <CryptoTicker />
-                    </motion.div>
-                )}
-            </AnimatePresence>
         </div>
     )
 }
