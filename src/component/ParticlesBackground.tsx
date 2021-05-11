@@ -2,7 +2,7 @@ import Particles from 'react-particles-js'
 
 export default function ParticlesBackground() {
     return (
-        <div className="fixed z-0 inset-0 w-full h-full top-0 left-0 bg-opacity-10">
+        <div className="pointer-events-none fixed z-0 inset-0 w-full h-full top-0 left-0 bg-opacity-10">
             <Particles
                 className="w-full h-full"
                 params={{

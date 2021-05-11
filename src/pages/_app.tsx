@@ -14,9 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
                     crossOrigin="anonymous"
                 />
             </Head>
-            <Tilt className="h-full tilt">
-                <Component {...pageProps} />
-            </Tilt>
+            <Component {...pageProps} />
         </>
     )
 }

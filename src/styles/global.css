@@ -20,6 +20,8 @@ html, body, #__next {
     overflow: hidden;
 }
 
+/* .ticker { width: 100%; } */
+
 .rainbow-text {
     background-image: linear-gradient(to left, #6AE2DC, #FFB8D2, #F4DC62, #FFC78B, #CDC5FF);
     -webkit-background-clip: text;
@@ -27,11 +29,11 @@ html, body, #__next {
 }
 
 .tilt {
-  transform-style: preserve-3d
+  transform-style: preserve-3d;
 }
 
 .tilt-inner {
-  transform: translateZ(100px)
+  transform: translateZ(100px);
 }
 
 /* babyblue #6AE2DC */
