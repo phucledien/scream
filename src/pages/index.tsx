@@ -22,7 +22,7 @@ export default function App() {
                     </div>
                 </div>
                 <div className="p-12 flex-1 flex items-center justify-center tilt-inner">
-                    <motion.div layout className="max-w-xl w-full space-y-8">
+                    <motion.div className="max-w-xl w-full space-y-8">
                         {!hide && (
                             <div className="space-y-8 text-center">
                                 <div>
@@ -35,7 +35,7 @@ export default function App() {
                         )}
                         <AnimatePresence>
                             {hide && (
-                                <motion.div animate={{ opacity: [0, 1] }} className="space-y-8">
+                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: [0, 1] }} className="space-y-8">
                                     <div className="">
                                         <img className="w-auto" src="/img/scream-logotype.png" alt="" />
                                     </div>
@@ -71,7 +71,7 @@ export default function App() {
 
             <AnimatePresence>
                 {hide && (
-                    <motion.div animate={{ y: ['100%', '0%'] }} className="bg-white border-t-2 relative">
+                    <motion.div animate={{ y: ['100%', '0%'] }} className="bg-white border-t-2">
                         <CryptoTicker />
                     </motion.div>
                 )}
