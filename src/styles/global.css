@@ -12,6 +12,12 @@ html, body, #__next {
     color: #4D4D4D;
     height: 100vh;
     cursor: url('/img/cursor.png'), auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    overflow: hidden;
 }
 
 .rainbow-text {
