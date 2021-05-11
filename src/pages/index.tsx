@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Ticker from 'react-ticker'
-import Tilt from 'react-tilt'
+import Tilt from 'react-parallax-tilt'
 import Typed from 'react-typed'
 import { motion, AnimatePresence } from 'framer-motion'
 import ParticlesBackground from '../component/ParticlesBackground'
@@ -14,15 +14,15 @@ export default function App() {
 
     return (
         <div className="h-full flex flex-col">
-            <Tilt className="tilt relative z-30 flex flex-col z-10w-full h-full" options={{ reverse: true, reset: true }}>
-                <div className="max-w-7xl w-full mx-auto px-12 pt-12 tilt-inner">
+            <Tilt className="tilt  relative z-30 flex flex-col flex-1">
+                {/* <div className="max-w-7xl w-full mx-auto px-12 pt-12 tilt-inner">
                     <div className="flex items-center justify-end">
                         <button>Open App</button>
                         <button>Open Docs</button>
                     </div>
-                </div>
+                </div> */}
                 <div className="p-12 flex-1 flex items-center justify-center tilt-inner">
-                    <motion.div className="max-w-xl w-full space-y-8">
+                    <motion.div layout className="max-w-xl w-full space-y-8">
                         {!hide && (
                             <div className="space-y-8 text-center">
                                 <div>
@@ -41,7 +41,7 @@ export default function App() {
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                                         <div>
-                                            <p className="text-2xl font-bold rainbow-text">Scream is a AMM yield generator and lending protocol powered by fantom.</p>
+                                            <p className="text-2xl sm:text-4xl font-bold rainbow-text">Scream is a AMM yield generator and lending protocol powered by fantom.</p>
                                         </div>
                                     </div>
                                     <div className="text-xl space-x-2">
@@ -71,7 +71,7 @@ export default function App() {
 
             <AnimatePresence>
                 {hide && (
-                    <motion.div animate={{ y: ['100%', '0%'] }} className="bg-white border-t-2">
+                    <motion.div animate={{ y: ['100%', '0%'] }} className="border-t-4 border-rainbow">
                         <CryptoTicker />
                     </motion.div>
                 )}

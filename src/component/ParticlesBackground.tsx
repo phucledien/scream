@@ -7,6 +7,9 @@ export default function ParticlesBackground() {
                 className="w-full h-full"
                 params={{
                     particles: {
+                        number: {
+                            value: 20
+                        },
                         move: {
                             speed: 0.5,
                             direction: 'left',
