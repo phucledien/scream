@@ -34,7 +34,7 @@ export default function App() {
             <AnimatePresence>
                 {subscribe && (
                     <motion.div initial={{ y: '100%' }} animate={{ y: ['100%', '0%'] }} exit={{ y: ['0%', '100%'] }} transition={{ duration: 0.2 }} className="absolute z-50 bottom-0 right-0 px-6 md:px-12">
-                        <div className="bg-white rounded-b-none overflow-hidden max-w-xs border-rainbow border-2 border-b-0">
+                        <div className="bg-white rounded-b-none overflow-hidden sm:max-w-xs border-rainbow border-2 border-b-0">
                             <div className="bg-animated-rainbow px-4 py-2 flex items-center text-white">
                                 <p className="font-bold text-xs flex-1">Subscribe</p>
                                 <button type="submit" onClick={() => setSubscribe((_) => !_)}>
