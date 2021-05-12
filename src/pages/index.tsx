@@ -80,7 +80,7 @@ export default function App() {
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                                             <div>
                                                 <div className="text-2xl sm:text-4xl font-bold ">
-                                                    <p className="rainbow-text">Scream is DeFi lending protocol powered by </p>
+                                                    <p className="rainbow-text">Scream is a highly scalable decentralized lending protocol powered by </p>
                                                     <a href="https://fantom.foundation" target="_blank" rel="noreferrer" className="inline whitespace-nowrap hover:underline" style={{ color: '#13b5ec' }}>
                                                         <img className="inline-block align-middle h-6 mr-1" src="/img/fantom-logo.svg" alt="" />
                                                         fantom.
