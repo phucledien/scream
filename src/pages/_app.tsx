@@ -1,6 +1,7 @@
 import { GeistProvider } from '@geist-ui/react'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import Meta from '../component/Meta'
 import '../styles/global.css'
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -14,6 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
                     crossOrigin="anonymous"
                 />
             </Head>
+            <Meta />
             <GeistProvider>
                 <Component {...pageProps} />
             </GeistProvider>
