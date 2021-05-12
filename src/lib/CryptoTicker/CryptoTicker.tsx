@@ -7,7 +7,7 @@ export function TickerItem({ ticker, price, percentage }) {
 
     return (
         <div className="inline-block text-xs">
-            <div className="flex items-center space-x-4 p-2 px-4 border-r-4 border-rainbow">
+            <div className="flex items-center space-x-4 p-2 px-4 ">
                 {/* <div>
                     <div className="w-5 h-5 rounded-full bg-gray-200" />
                 </div> */}

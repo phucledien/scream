@@ -26,7 +26,29 @@ export default function ParticlesBackground() {
                             }
                         },
                         shape: {
-                            type: 'edge'
+                            type: 'images',
+                            images: [
+                                {
+                                    src: '/img/screampack/scream-1.png',
+                                    width: 449,
+                                    height: 449
+                                },
+                                {
+                                    src: '/img/screampack/scream-2.png',
+                                    width: 449,
+                                    height: 449
+                                },
+                                {
+                                    src: '/img/screampack/scream-3.png',
+                                    width: 449,
+                                    height: 449
+                                },
+                                {
+                                    src: '/img/screampack/scream-4.png',
+                                    width: 449,
+                                    height: 449
+                                }
+                            ]
                         },
                         line_linked: {
                             enable: false

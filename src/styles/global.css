@@ -47,8 +47,37 @@ html, body, #__next {
     -webkit-text-fill-color: transparent;
 }
 
+.bg-rainbow {
+  background: linear-gradient(to bottom right, #6AE2DC, #FFB8D2, #F4DC62, #FFC78B, #CDC5FF);
+}
+
+.bg-animated-rainbow {
+    background: linear-gradient(270deg, #6ae2dc, #ffb8d2, #f4dc62, #ffc78b, #cdc5ff);
+    background-size: 1000% 1000%;
+
+    -webkit-animation: BgRainbow 5s ease infinite;
+    -moz-animation: BgRainbow 5s ease infinite;
+    animation: BgRainbow 5s ease infinite;
+}
+
+@-webkit-keyframes BgRainbow {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes BgRainbow {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes BgRainbow { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
 .border-rainbow {
   border-image: linear-gradient(to bottom right, #6AE2DC, #FFB8D2, #F4DC62, #FFC78B, #CDC5FF);
+  background-clip: content-box, border-box;
   border-image-slice: 1;
 }
 .tilt {
@@ -57,6 +86,9 @@ html, body, #__next {
 
 .tilt-inner {
   transform: translateZ(100px);
+}
+.tilt-inner-deep {
+  transform: translateZ(200px);
 }
 
 /* babyblue #6AE2DC */

@@ -1,7 +1,7 @@
-import '../styles/global.css'
+import { GeistProvider } from '@geist-ui/react'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import Tilt from 'react-tilt'
+import '../styles/global.css'
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
@@ -14,7 +14,9 @@ export default function App({ Component, pageProps }: AppProps) {
                     crossOrigin="anonymous"
                 />
             </Head>
-            <Component {...pageProps} />
+            <GeistProvider>
+                <Component {...pageProps} />
+            </GeistProvider>
         </>
     )
 }
