@@ -1,26 +1,15 @@
 import faker from 'faker'
+import useSWR from 'swr'
 
 export const tokens = new Array(10).fill({}).map(() => ({
-    price: faker.random.float({
-        min: 1.0,
-        max: 64000.0
-    }),
+    price: 100,
     ticker: faker.finance.currencyCode(),
-    percentage: faker.datatype
-        .float({
-            min: -10.0,
-            max: 20.0
-        })
-        .toFixed(2)
+    percentage: 100
 }))
+// BTC,ETH,BNB,DOGE,USDT,ADA,XRP,ICP,DOT,BCH,UNI,LINK,XLM,USDC,VET,SOL,ETC,EOS,THETA,FIL,AAVE
 
 export default function useTicker() {
-    const data = tokens
+    const { data } = useSWR('/api/prices')
 
-    // const coins = Object.keys(data.data).map((key,index) => return {
-    //     symbol: key,
-
-    // })
-
-    return {}
+    return { data }
 }

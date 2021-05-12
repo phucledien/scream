@@ -1,8 +1,11 @@
 import Ticker from 'react-ticker'
 import classNames from 'classnames'
-import { tokens } from './useTicker'
+import { useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import useTicker, { tokens } from './useTicker'
 
-export function TickerItem({ ticker, price, percentage }) {
+export function TickerItem({ name, symbol, logo, quote }) {
+    const percentage = quote.USD.percent_change_24h
     const isPositive = percentage >= 0
 
     return (
@@ -11,11 +14,20 @@ export function TickerItem({ ticker, price, percentage }) {
                 {/* <div>
                     <div className="w-5 h-5 rounded-full bg-gray-200" />
                 </div> */}
-                <div>
-                    <p className="font-medium ">{ticker}</p>
-                    <div className="flex space-x-2 items-center">
-                        <p>{price}</p>
-                        <p className={classNames('', isPositive ? 'text-green-500' : 'text-red-500')}>{percentage}%</p>
+                <div className="flex space-x-2">
+                    <div>
+                        <img className="h-7" src={logo} alt="" />
+                    </div>
+                    <div>
+                        <p className="">
+                            <span className="font-medium">{name} </span>
+                            <span className="font-medium">${symbol}</span>
+                        </p>
+                        <div className="flex space-x-2 items-center">
+                            <p>${quote.USD.price}</p>
+                            {/* <p>{price}</p> */}
+                            <p className={classNames('', isPositive ? 'text-green-500' : 'text-red-500')}>{percentage}%</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -23,12 +35,22 @@ export function TickerItem({ ticker, price, percentage }) {
     )
 }
 
-export default function CryptoTicker() {
-    const coins = tokens
+export default function CryptoTicker({ visible }) {
+    const { data: coins } = useTicker()
 
     return (
-        <div className="w-full h-full whitespace-nowrap">
-            <Ticker>{({ index }) => tokens.map((coin) => <TickerItem {...coin} />)}</Ticker>
-        </div>
+        <>
+            <AnimatePresence>
+                {coins && visible && (
+                    <>
+                        <motion.div animate={{ y: ['-100%', '0%'] }} className="border-b-2 border-rainbow">
+                            <div className="w-full h-full whitespace-nowrap">
+                                <Ticker>{({ index }) => coins.map((coin) => <TickerItem {...coin} />)}</Ticker>
+                            </div>
+                        </motion.div>
+                    </>
+                )}
+            </AnimatePresence>
+        </>
     )
 }

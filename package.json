@@ -12,6 +12,7 @@
         "@geist-ui/react": "^2.1.5",
         "add": "^2.0.6",
         "autoprefixer": "^10.2.4",
+        "axios": "^0.21.1",
         "classnames": "^2.3.1",
         "faker": "^5.5.3",
         "framer-motion": "^4.1.15",
@@ -24,6 +25,7 @@
         "react-ticker": "^1.2.2",
         "react-tilt": "^0.1.4",
         "react-typed": "^1.2.0",
+        "swr": "^0.5.6",
         "tailwindcss": "^2.1.2",
         "yarn": "^1.22.10"
     },

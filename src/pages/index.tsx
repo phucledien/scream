@@ -7,13 +7,14 @@ import { Input } from '@geist-ui/react'
 import ParticlesBackground from '../component/ParticlesBackground'
 import Loader from '../component/Loader'
 import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
+import useTicker from '../lib/CryptoTicker/useTicker'
 
 export default function App() {
     const [subscribe, setSubscribe] = useState(false)
     const [subscribeInput, setSubscribeInput] = useState('')
     const [hide, setHide] = useState(false)
 
-    useEffect(() => setTimeout(() => setHide(true), 1), [])
+    useEffect(() => setTimeout(() => setHide(true), 3000), [])
 
     const onSubmit = () => {
         alert('Subscribed. This will be replaced with a nice animation.')
@@ -55,13 +56,8 @@ export default function App() {
             </AnimatePresence>
 
             <div className="h-full flex flex-col">
-                <AnimatePresence>
-                    {hide && (
-                        <motion.div animate={{ y: ['-100%', '0%'] }} className="border-b-2 border-rainbow">
-                            <CryptoTicker />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                <CryptoTicker visible={hide} />
+
                 <Tilt className="tilt  relative z-30 flex flex-col flex-1">
                     <div className="p-12 flex-1 flex items-center justify-center tilt-inner">
                         <motion.div layout className="max-w-xl w-full space-y-8">
