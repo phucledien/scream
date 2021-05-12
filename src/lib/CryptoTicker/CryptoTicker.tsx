@@ -16,7 +16,7 @@ export function TickerItem({ name, symbol, logo, quote }) {
                 </div> */}
                 <div className="flex space-x-2">
                     <div>
-                        <img className="h-7" src={logo} alt="" />
+                        <img className="h-5" src={logo} alt="" />
                     </div>
                     <div>
                         <p className="">
@@ -26,7 +26,7 @@ export function TickerItem({ name, symbol, logo, quote }) {
                         <div className="flex space-x-2 items-center">
                             <p>${quote.USD.price}</p>
                             {/* <p>{price}</p> */}
-                            <p className={classNames('', isPositive ? 'text-green-500' : 'text-red-500')}>{percentage}%</p>
+                            <p className={classNames('', isPositive ? 'text-green-500' : 'text-red-500')}>{percentage.toFixed(2)}%</p>
                         </div>
                     </div>
                 </div>
