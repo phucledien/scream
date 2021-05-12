@@ -4,6 +4,7 @@ import Tilt from 'react-parallax-tilt'
 import Typed from 'react-typed'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Input } from '@geist-ui/react'
+import axios from 'axios'
 import ParticlesBackground from '../component/ParticlesBackground'
 import Loader from '../component/Loader'
 import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
@@ -11,15 +12,24 @@ import useTicker from '../lib/CryptoTicker/useTicker'
 
 export default function App() {
     const [subscribe, setSubscribe] = useState(false)
+    const [message, setMessage] = useState('')
     const [subscribeInput, setSubscribeInput] = useState('')
     const [hide, setHide] = useState(false)
 
     useEffect(() => setTimeout(() => setHide(true), 3000), [])
 
-    const onSubmit = () => {
-        alert('Subscribed. This will be replaced with a nice animation.')
-        setSubscribe(false)
-        setSubscribeInput('')
+    const onSubmit = async () => {
+        try {
+            await axios.post('/api/subscribe', { email: subscribeInput })
+            setMessage('You have been added to whitelist.')
+            alert('You have been added to whitelist.')
+            setSubscribe(false)
+            setSubscribeInput('')
+        } catch (error) {
+            console.log(error)
+            setMessage('An errorr occurred. Either you are already subscribed, or a problem occuured. Try with another email or come back later!')
+            alert('An errorr occurred. Either you are already subscribed, or a problem occuured. Try with another email or come back later!')
+        }
     }
 
     return (
@@ -41,7 +51,7 @@ export default function App() {
                                     onSubmit()
                                 }}
                             >
-                                <p className="text-xs">
+                                <p className="text-sm">
                                     <span className="font-medium">
                                         Be the first to know when the <span className="font-extrabold rainbow-text">SCREAM</span> protocol is live.{' '}
                                     </span>
@@ -120,19 +130,19 @@ export default function App() {
                                             </div>
                                         </div>
                                         <div className="text-xl space-x-2">
-                                            <a href="# ">
+                                            <a href="# " target="_blank" rel="noreferrer">
                                                 <i className="fab fa-twitter" />
                                             </a>
-                                            <a href="# ">
+                                            <a href="# " target="_blank" rel="noreferrer">
                                                 <i className="fab fa-telegram" />
                                             </a>
-                                            <a href="# ">
+                                            <a href="https://discord.gg/MNgU35XfMC" target="_blank" rel="noreferrer">
                                                 <i className="fab fa-discord" />
                                             </a>
-                                            <a href="# ">
+                                            <a href="# " target="_blank" rel="noreferrer">
                                                 <i className="fab fa-github" />
                                             </a>
-                                            <a href="# ">
+                                            <a href="# " target="_blank" rel="noreferrer">
                                                 <i className="fab fa-medium" />
                                             </a>
                                         </div>
