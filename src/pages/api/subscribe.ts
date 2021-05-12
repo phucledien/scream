@@ -1,10 +1,10 @@
 const mailchimp = require('@mailchimp/mailchimp_marketing')
 
 mailchimp.setConfig({
-    apiKey: '80ffefb8c34f20fa6efab6a5ae7097d8-us1',
-    server: 'us1'
+    apiKey: process.env.MAILCHIMP_API_KEY,
+    server: process.env.MAILCHIMP_SERVER
 })
-const listId = '24312c586e'
+const listId = process.env.MAILCHIMP_LIST_ID
 
 export default async function run(req, res) {
     const subscribingUser = {

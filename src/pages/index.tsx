@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import Ticker from 'react-ticker'
-import Tilt from 'react-parallax-tilt'
-import Typed from 'react-typed'
-import { motion, AnimatePresence } from 'framer-motion'
 import { Input } from '@geist-ui/react'
 import axios from 'axios'
+import { AnimatePresence, motion } from 'framer-motion'
+import React, { useEffect, useState } from 'react'
+import Tilt from 'react-parallax-tilt'
+import Typed from 'react-typed'
 import ParticlesBackground from '../component/ParticlesBackground'
-import Loader from '../component/Loader'
 import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
-import useTicker from '../lib/CryptoTicker/useTicker'
 
 export default function App() {
     const [subscribe, setSubscribe] = useState(false)
@@ -130,19 +127,19 @@ export default function App() {
                                             </div>
                                         </div>
                                         <div className="text-xl space-x-2">
-                                            <a href="# " target="_blank" rel="noreferrer">
+                                            <a href={process.env.NEXT_PUBLIC_TWITTER_URL} target="_blank" rel="noreferrer">
                                                 <i className="fab fa-twitter" />
                                             </a>
-                                            <a href="# " target="_blank" rel="noreferrer">
+                                            <a href={process.env.NEXT_PUBLIC_TELEGRAM_URL} target="_blank" rel="noreferrer">
                                                 <i className="fab fa-telegram" />
                                             </a>
-                                            <a href="https://discord.gg/MNgU35XfMC" target="_blank" rel="noreferrer">
+                                            <a href={process.env.NEXT_PUBLIC_DISCORD_URL} target="_blank" rel="noreferrer">
                                                 <i className="fab fa-discord" />
                                             </a>
-                                            <a href="# " target="_blank" rel="noreferrer">
+                                            <a href={process.env.NEXT_PUBLIC_GITHUB_URL} target="_blank" rel="noreferrer">
                                                 <i className="fab fa-github" />
                                             </a>
-                                            <a href="# " target="_blank" rel="noreferrer">
+                                            <a href={process.env.NEXT_PUBLIC_MEDIUM_URL} target="_blank" rel="noreferrer">
                                                 <i className="fab fa-medium" />
                                             </a>
                                         </div>
