@@ -24,7 +24,7 @@ export function TickerItem({ name, symbol, logo, quote }) {
                             <span className="font-medium">${symbol}</span>
                         </p>
                         <div className="flex space-x-2 items-center">
-                            <p>${quote.USD.price}</p>
+                            <p>${quote.USD.price.toFixed(5)}</p>
                             {/* <p>{price}</p> */}
                             <p className={classNames('', isPositive ? 'text-green-500' : 'text-red-500')}>{percentage.toFixed(2)}%</p>
                         </div>
