@@ -2,7 +2,7 @@ import Head from 'next/head'
 
 const Meta = () => {
     const title = 'SCREAM'
-    const description = 'Scream is DeFi lending protocol powered by Fantom'
+    const description = 'Scream is a highly scalable decentralized lending protocol powered by Fantom.'
     const url = 'https://scream.sh'
 
     return (
