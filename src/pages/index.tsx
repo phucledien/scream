@@ -44,9 +44,10 @@ export default function App() {
                                     <span className="font-medium">
                                         Be the first to know when the <span className="font-extrabold rainbow-text">SCREAM</span> protocol is live.{' '}
                                     </span>
-                                    <span>Qui in elit incididunt eu aliqua labore aliqua esse.</span>
+                                    <span>Join to become whitelisted.</span>
                                 </p>
                                 <Input width="100%" type="email" value={subscribeInput} onChange={(e) => setSubscribeInput(e.target.value)} label="Email" placeholder="Enter your email" a />
+                                {/* <p className="text-xs">Or join us on Discord</p> */}
                             </form>
                         </div>
                     </motion.div>
@@ -83,7 +84,7 @@ export default function App() {
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                                             <div>
                                                 <div className="text-2xl sm:text-4xl font-bold ">
-                                                    <p className="rainbow-text">Scream is an AMM yield generator and lending protocol powered by </p>
+                                                    <p className="rainbow-text">Scream is DeFi lending protocol powered by </p>
                                                     <a href="https://fantom.foundation" target="_blank" rel="noreferrer" className="inline whitespace-nowrap hover:underline" style={{ color: '#13b5ec' }}>
                                                         <img className="inline-block align-middle h-6 mr-1" src="/img/fantom-logo.svg" alt="" />
                                                         fantom.
