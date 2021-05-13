@@ -19,7 +19,7 @@ const Meta = () => {
             <meta name="twitter:description" content={description} />
             <meta name="twitter:site" content={url} />
             <meta name="twitter:creator" content="@al5ina5" />
-            {/* <link rel="icon" type="image/png" href={"/img/purple-set/012-social-network.svg"} /> */}
+            <link rel="icon" type="image/png" href="/img/scream-multi.png" />
             {/* <link rel="apple-touch-icon" href="/img/purple-set/012-social-network.svg" /> */}
             <meta property="og:image" content="https://scream.sh/img/og-image.png" />
             <meta name="twitter:image" content="https://scream.sh/img/og-image.png" />
