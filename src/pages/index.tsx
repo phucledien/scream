@@ -33,8 +33,14 @@ export default function App() {
         <>
             <AnimatePresence>
                 {subscribe && (
-                    <div className="z-1000 absolute inset-0">
-                        <motion.div initial={{ y: '100%' }} animate={{ y: ['100%', '0%'] }} exit={{ y: ['0%', '100%'] }} transition={{ duration: 0.2 }} className="absolute  bottom-0 right-0 px-6 md:px-12">
+                    <div className="z-1000 absolute inset-0 pointer-events-none">
+                        <motion.div
+                            initial={{ y: '100%' }}
+                            animate={{ y: ['100%', '0%'] }}
+                            exit={{ y: ['0%', '100%'] }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute  bottom-0 right-0 px-6 md:px-12 pointer-events-auto"
+                        >
                             <div className="bg-white rounded-b-none overflow-hidden sm:max-w-xs border-rainbow border-2 border-b-0">
                                 <div className="bg-animated-rainbow px-4 py-2 flex items-center text-white">
                                     <p className="font-bold text-xs flex-1">Subscribe</p>
