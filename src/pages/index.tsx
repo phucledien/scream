@@ -24,8 +24,8 @@ export default function App() {
             setSubscribeInput('')
         } catch (error) {
             console.log(error)
-            setMessage('An errorr occurred. Either you are already subscribed, or a problem occuured. Try with another email or come back later!')
-            alert('An errorr occurred. Either you are already subscribed, or a problem occuured. Try with another email or come back later!')
+            setMessage('An error occurred. Either you are already subscribed, or a problem occuured. Try with another email or come back later!')
+            alert('An error occurred. Either you are already subscribed, or a problem occuured. Try with another email or come back later!')
         }
     }
 
