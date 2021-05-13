@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Meta from '../component/Meta'
 import '../styles/global.css'
+import { GoogleAnalytics } from '../lib/ga'
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </Head>
             <Meta />
             <GeistProvider>
+                <GoogleAnalytics />
                 <Component {...pageProps} />
             </GeistProvider>
         </>
