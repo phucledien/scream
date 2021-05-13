@@ -33,32 +33,34 @@ export default function App() {
         <>
             <AnimatePresence>
                 {subscribe && (
-                    <motion.div initial={{ y: '100%' }} animate={{ y: ['100%', '0%'] }} exit={{ y: ['0%', '100%'] }} transition={{ duration: 0.2 }} className="absolute z-1000 bottom-0 right-0 px-6 md:px-12">
-                        <div className="bg-white rounded-b-none overflow-hidden sm:max-w-xs border-rainbow border-2 border-b-0">
-                            <div className="bg-animated-rainbow px-4 py-2 flex items-center text-white">
-                                <p className="font-bold text-xs flex-1">Subscribe</p>
-                                <button type="submit" onClick={() => setSubscribe((_) => !_)}>
-                                    <i className="fas fa-times" />
-                                </button>
+                    <div className="z-1000 absolute inset-0">
+                        <motion.div initial={{ y: '100%' }} animate={{ y: ['100%', '0%'] }} exit={{ y: ['0%', '100%'] }} transition={{ duration: 0.2 }} className="absolute  bottom-0 right-0 px-6 md:px-12">
+                            <div className="bg-white rounded-b-none overflow-hidden sm:max-w-xs border-rainbow border-2 border-b-0">
+                                <div className="bg-animated-rainbow px-4 py-2 flex items-center text-white">
+                                    <p className="font-bold text-xs flex-1">Subscribe</p>
+                                    <button type="submit" onClick={() => setSubscribe((_) => !_)}>
+                                        <i className="fas fa-times" />
+                                    </button>
+                                </div>
+                                <form
+                                    className="p-4 space-y-2"
+                                    onSubmit={(e) => {
+                                        e.preventDefault()
+                                        onSubmit()
+                                    }}
+                                >
+                                    <p className="text-sm">
+                                        <span className="font-medium">
+                                            Be the first to know when the <span className="font-extrabold rainbow-text">SCREAM</span> protocol is live.{' '}
+                                        </span>
+                                        <span>Join to become whitelisted.</span>
+                                    </p>
+                                    <Input width="100%" type="email" value={subscribeInput} onChange={(e) => setSubscribeInput(e.target.value)} label="Email" placeholder="Enter your email" a />
+                                    {/* <p className="text-xs">Or join us on Discord</p> */}
+                                </form>
                             </div>
-                            <form
-                                className="p-4 space-y-2"
-                                onSubmit={(e) => {
-                                    e.preventDefault()
-                                    onSubmit()
-                                }}
-                            >
-                                <p className="text-sm">
-                                    <span className="font-medium">
-                                        Be the first to know when the <span className="font-extrabold rainbow-text">SCREAM</span> protocol is live.{' '}
-                                    </span>
-                                    <span>Join to become whitelisted.</span>
-                                </p>
-                                <Input width="100%" type="email" value={subscribeInput} onChange={(e) => setSubscribeInput(e.target.value)} label="Email" placeholder="Enter your email" a />
-                                {/* <p className="text-xs">Or join us on Discord</p> */}
-                            </form>
-                        </div>
-                    </motion.div>
+                        </motion.div>
+                    </div>
                 )}
             </AnimatePresence>
 
