@@ -65,7 +65,7 @@ export default function App() {
             <div className="h-full flex flex-col">
                 <CryptoTicker visible={hide} />
 
-                <Tilt className="tilt  relative z-30 flex flex-col flex-1">
+                <Tilt className="tilt relative z-30 flex flex-col flex-1">
                     <div className="p-12 flex-1 flex items-center justify-center tilt-inner">
                         <motion.div layout className="max-w-xl w-full space-y-8">
                             {!hide && (
@@ -122,8 +122,8 @@ export default function App() {
                                                     </button>
                                                 </div>
                                                 {/* <div>
-                                                    <button className="bg-rainbow font-bold rounded-xl px-4 py-2">Docs</button>
-                                                </div> */}
+                                                        <button className="bg-rainbow font-bold rounded-xl px-4 py-2">Docs</button>
+                                                    </div> */}
                                             </div>
                                         </div>
                                         <div className="text-xl space-x-2">

@@ -28,7 +28,8 @@ html { font-family: 'Inter', sans-serif !important; }
 }
 
 .z-1000 {
-  z-index: 1000;
+  z-index: 1000 !important;
+  transform: translateZ(200px) !important;
 }
 
 html, body, #__next {
@@ -85,15 +86,17 @@ html, body, #__next {
   background-clip: content-box, border-box;
   border-image-slice: 1;
 }
+
 .tilt {
   transform-style: preserve-3d;
+  z-index: 100;
 }
+
+.tilt:before { transform: translateZ(-1em); }
 
 .tilt-inner {
   transform: translateZ(100px);
-}
-.tilt-inner-deep {
-  transform: translateZ(200px);
+  z-index: 200;
 }
 
 /* babyblue #6AE2DC */
