@@ -29,7 +29,7 @@ html { font-family: 'Inter', sans-serif !important; }
 
 .z-1000 {
   z-index: 1000 !important;
-  transform: translateZ(200px) !important;
+  transform: translateZ(500px) !important;
 }
 
 html, body, #__next {
