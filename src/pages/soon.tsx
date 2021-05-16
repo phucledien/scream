@@ -3,6 +3,7 @@ import useCountDown from 'react-countdown-hook'
 import Tilt from 'react-parallax-tilt'
 import prettyMilliseconds from 'pretty-ms'
 import dayjs from 'dayjs'
+import Typed from 'react-typed'
 import ParticlesBackground from '../component/ParticlesBackground'
 import SubscribePopup from '../component/SubscribePopup'
 
@@ -30,8 +31,8 @@ export default function App() {
                 <Tilt className="tilt relative z-30 flex flex-col flex-1">
                     <div className="p-12 flex-1 flex items-center justify-center tilt-inner ">
                         <div className="space-y-8 text-center">
-                            <p className="text-2xl rainbow-text">Something is happening.</p>
-                            <p className="text-7xl font-extrabold rainbow-text">{prettyMilliseconds(timeLeft)}</p>
+                            <Typed className="rainbow-text font-mono text-xl" strings={['Something is happening.']} typeSpeed={40} />
+                            <p className="text-6xl md:text-7xl font-extrabold rainbow-text">{prettyMilliseconds(timeLeft)}</p>
                         </div>
                     </div>
                     <ParticlesBackground />
