@@ -6,7 +6,7 @@ import dayjs from 'dayjs'
 import ParticlesBackground from '../component/ParticlesBackground'
 import SubscribePopup from '../component/SubscribePopup'
 
-const date1 = dayjs('2023-06-05')
+const date1 = dayjs('2021-05-20T19:00:00-05:00')
 const date2 = dayjs(Date.now())
 
 const initialTime = date1.diff(date2)
@@ -28,8 +28,11 @@ export default function App() {
 
             <div className="h-full flex flex-col fixed inset-0" onClick={() => setSubscribe((_) => !_)}>
                 <Tilt className="tilt relative z-30 flex flex-col flex-1">
-                    <div className="p-12 flex-1 flex items-center justify-center tilt-inner">
-                        <p className="text-7xl font-extrabold rainbow-text">{prettyMilliseconds(timeLeft)}</p>
+                    <div className="p-12 flex-1 flex items-center justify-center tilt-inner ">
+                        <div className="space-y-8 text-center">
+                            <p className="text-2xl rainbow-text">Something is happening.</p>
+                            <p className="text-7xl font-extrabold rainbow-text">{prettyMilliseconds(timeLeft)}</p>
+                        </div>
                     </div>
                     <ParticlesBackground />
                 </Tilt>
