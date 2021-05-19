@@ -7,7 +7,7 @@ import Typed from 'react-typed'
 import ParticlesBackground from '../component/ParticlesBackground'
 import SubscribePopup from '../component/SubscribePopup'
 
-const date1 = dayjs('2021-05-22T19:00:00-05:00')
+const date1 = dayjs('2021-05-21T19:00:00-01:00')
 const date2 = dayjs(Date.now())
 
 const initialTime = date1.diff(date2)
