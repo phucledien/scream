@@ -2,38 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @import url('https://rsms.me/inter/inter.css');
-html { font-family: 'Inter', sans-serif !important; }
+html {
+    font-family: 'Inter', sans-serif !important;
+}
 @supports (font-variation-settings: normal) {
-  html { font-family: 'Inter var', sans-serif !important; }
+    html {
+        font-family: 'Inter var', sans-serif !important;
+    }
 }
 
 @responsive {
-  .text-shadow {
-    text-shadow: 0 2px 4px rgba(0,0,0,0.10);
-  }
+    .text-shadow {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-  .text-shadow-md {
-    text-shadow: 0 4px 8px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
-  }
+    .text-shadow-md {
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
 
-  .text-shadow-lg {
-    text-shadow: 0 15px 30px rgba(0,0,0,0.11), 0 5px 15px rgba(0,0,0,0.08);
-  }
+    .text-shadow-lg {
+        text-shadow: 0 15px 30px rgba(0, 0, 0, 0.11), 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
 
-  .text-shadow-none {
-    text-shadow: none;
-  }
+    .text-shadow-none {
+        text-shadow: none;
+    }
 }
 
 .z-1000 {
-  z-index: 1000 !important;
-  transform: translateZ(500px) !important;
+    z-index: 1000 !important;
+    transform: translateZ(500px) !important;
 }
 
-html, body, #__next {
-    color: #4D4D4D;
+html,
+body,
+#__next {
+    color: #4d4d4d;
     height: 100%;
     cursor: url('/img/cursor.png'), auto;
     /* position: fixed;
@@ -46,14 +51,14 @@ html, body, #__next {
 
 /* .ticker { width: 100%; } */
 
-.rainbow-text {
-    background-image: linear-gradient(to bottom right, #6AE2DC, #FFB8D2, #F4DC62, #FFC78B, #CDC5FF);
+.text-rainbow {
+    background-image: linear-gradient(to bottom right, #6ae2dc, #ffb8d2, #f4dc62, #ffc78b, #cdc5ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .bg-rainbow {
-  background: linear-gradient(to bottom right, #6AE2DC, #FFB8D2, #F4DC62, #FFC78B, #CDC5FF);
+    background: linear-gradient(to bottom right, #6ae2dc, #ffb8d2, #f4dc62, #ffc78b, #cdc5ff);
 }
 
 .bg-animated-rainbow {
@@ -66,36 +71,56 @@ html, body, #__next {
 }
 
 @-webkit-keyframes BgRainbow {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 @-moz-keyframes BgRainbow {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
-@keyframes BgRainbow { 
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+@keyframes BgRainbow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 .border-rainbow {
-  border-image: linear-gradient(to bottom right, #6AE2DC, #FFB8D2, #F4DC62, #FFC78B, #CDC5FF);
-  background-clip: content-box, border-box;
-  border-image-slice: 1;
+    border-image: linear-gradient(to bottom right, #6ae2dc, #ffb8d2, #f4dc62, #ffc78b, #cdc5ff);
+    background-clip: content-box, border-box;
+    border-image-slice: 1;
 }
 
 .tilt {
-  transform-style: preserve-3d;
-  z-index: 100;
+    transform-style: preserve-3d;
+    z-index: 100;
 }
 
-.tilt:before { transform: translateZ(-1em); }
+.tilt:before {
+    transform: translateZ(-1em);
+}
 
 .tilt-inner {
-  transform: translateZ(100px);
-  z-index: 200;
+    transform: translateZ(100px);
+    z-index: 200;
 }
 
 /* babyblue #6AE2DC */
@@ -104,4 +129,3 @@ html, body, #__next {
 /* orange #FFC78B */
 /* purple #CDC5FF */
 /* gray #4D4D4D */
-

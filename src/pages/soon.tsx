@@ -31,8 +31,8 @@ export default function App() {
                 <Tilt className="tilt relative z-30 flex flex-col flex-1">
                     <div className="p-12 flex-1 flex items-center justify-center tilt-inner ">
                         <div className="space-y-8 text-center">
-                            <Typed className="rainbow-text font-mono text-xl" strings={['Something is happening.']} typeSpeed={40} />
-                            <p className="text-6xl md:text-7xl font-extrabold rainbow-text">{prettyMilliseconds(timeLeft)}</p>
+                            <Typed className="text-rainbow font-mono text-xl" strings={['Something is happening.']} typeSpeed={40} />
+                            <p className="text-6xl md:text-7xl font-extrabold text-rainbow">{prettyMilliseconds(timeLeft)}</p>
                         </div>
                     </div>
                     <ParticlesBackground />

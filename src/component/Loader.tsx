@@ -14,7 +14,7 @@ export default function Loader() {
                     <img className="block w-16 animate-spin mx-auto" src="/img/scream-multi.png" alt="" />
                 </div>
                 <div>
-                    <Typed className="rainbow-text font-mono text-center" strings={['Scream is loading...']} typeSpeed={40} />
+                    <Typed className="text-rainbow font-mono text-center" strings={['Scream is loading...']} typeSpeed={40} />
                 </div>
             </div>
         </div>

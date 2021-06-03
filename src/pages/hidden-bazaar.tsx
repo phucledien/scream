@@ -74,7 +74,7 @@ export default function Shop() {
             <div id="about" className="bg-black text-gray-600 border-8 border-rainbow">
                 <div className="max-w-7xl mx-auto p-12 py-24 md:py-48 space-y-12 md:space-y-24">
                     <div className="space-y-6 max-w-3xl">
-                        <p className="rainbow-text text-5xl font-extrabold">Tell me more.</p>
+                        <p className="text-rainbow text-5xl font-extrabold">Tell me more.</p>
                         <p className="text-2xl">Like any successful project, SCREAM needs funding.</p>
                         <p className="text-2xl">
                             Culpa fugiat in tempor enim veniam dolore irure. Laboris reprehenderit eu incididunt minim est magna duis esse proident eiusmod adipisicing ad cupidatat laboris. Fugiat elit ad aliquip nisi
@@ -86,27 +86,27 @@ export default function Shop() {
                     </div>
                     <div className="space-y-2 grid grid-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-12">
                         <p>
-                            <span className="rainbow-text text-4xl align-middle font-extrabold">One. </span>
+                            <span className="text-rainbow text-4xl align-middle font-extrabold">One. </span>
                             <span className="align-middle text-3xl">You support an awesome project and amazing artists.</span>
                         </p>
                         <p>
-                            <span className="rainbow-text text-4xl align-middle font-extrabold">Two. </span>
+                            <span className="text-rainbow text-4xl align-middle font-extrabold">Two. </span>
                             <span className="align-middle text-3xl">All NFT holders qualify for the initial SCREAM airdrop.</span>
                         </p>
                         <p>
-                            <span className="rainbow-text text-4xl align-middle font-extrabold">Three. </span>
+                            <span className="text-rainbow text-4xl align-middle font-extrabold">Three. </span>
                             <span className="align-middle text-3xl">All NFT holders get an exclusive role in our Discord server.</span>
                         </p>
                         <p>
-                            <span className="rainbow-text text-4xl align-middle font-extrabold">Four. </span>
+                            <span className="text-rainbow text-4xl align-middle font-extrabold">Four. </span>
                             <span className="align-middle text-3xl">All NFT holders gain access to priorty news and announcements.</span>
                         </p>
                         <p>
-                            <span className="rainbow-text text-4xl align-middle font-extrabold">Five. </span>
+                            <span className="text-rainbow text-4xl align-middle font-extrabold">Five. </span>
                             <span className="align-middle text-3xl">All NFT holders qualify for the initial SCREAM airdrop.</span>
                         </p>
                         <p>
-                            <span className="rainbow-text text-4xl align-middle font-extrabold">Six. </span>
+                            <span className="text-rainbow text-4xl align-middle font-extrabold">Six. </span>
                             <span className="align-middle text-3xl">All NFT holders qualify for the initial SCREAM airdrop.</span>
                         </p>
                     </div>

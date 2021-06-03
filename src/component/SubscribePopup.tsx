@@ -51,7 +51,7 @@ export default function SubscribePopup({ visible, hide }) {
                                 >
                                     <p className="text-sm">
                                         <span className="font-medium">
-                                            Be the first to know when the <span className="font-extrabold rainbow-text">SCREAM</span> protocol is live.{' '}
+                                            Be the first to know when the <span className="font-extrabold text-rainbow">SCREAM</span> protocol is live.{' '}
                                         </span>
                                         <span>Join to become whitelisted.</span>
                                     </p>

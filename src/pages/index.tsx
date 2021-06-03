@@ -29,7 +29,7 @@ export default function App() {
                                         <img className="block w-16 animate-spin mx-auto" src="/img/scream-multi.png" alt="" />
                                     </div>
                                     <div>
-                                        <Typed className="rainbow-text font-mono text-center" strings={['Scream is loading...']} typeSpeed={40} />
+                                        <Typed className="text-rainbow font-mono text-center" strings={['Scream is loading...']} typeSpeed={40} />
                                     </div>
                                 </div>
                             )}
@@ -42,7 +42,7 @@ export default function App() {
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                                             <div>
                                                 <div className="text-2xl sm:text-4xl font-bold ">
-                                                    <p className="rainbow-text">Scream is a highly scalable decentralized lending protocol powered by </p>
+                                                    <p className="text-rainbow">Scream is a highly scalable decentralized lending protocol powered by </p>
                                                     <a href="https://fantom.foundation" target="_blank" rel="noreferrer" className="inline whitespace-nowrap hover:underline" style={{ color: '#13b5ec' }}>
                                                         <img className="inline-block align-middle h-6 mr-1" src="/img/fantom-logo.svg" alt="" />
                                                         fantom.
