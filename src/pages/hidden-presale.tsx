@@ -92,12 +92,7 @@ export default function PresalePage() {
                                     <p className="text-3xl text-center font-extrabold text-shadow-lg">Swap</p>
 
                                     <p className="text-xs text-center">
-                                        You will recieve{' '}
-                                        <b>
-                                            {amount / 1000 || 0}
-                                            $SCREAM
-                                        </b>{' '}
-                                        for your <b>{amount || 0} $FTM</b>.
+                                        You will recieve <b>{amount / 1000 || 0} $SCREAM</b> for your <b>{amount || 0} $FTM</b>.
                                     </p>
                                     <Input
                                         type="number"
