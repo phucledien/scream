@@ -16,7 +16,7 @@ export default function PresalePage() {
             await send(amount)
             setToast({ text: 'Success! You have claimed your allotment.' })
         } catch (error) {
-            setToast({ text: 'An error occurred while processing the transaction.' })
+            setToast({ text: 'An error occurred while processing the transaction.', type: 'error' })
         }
     }
 
