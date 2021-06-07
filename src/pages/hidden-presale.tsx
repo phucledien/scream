@@ -3,6 +3,7 @@ import { useState } from 'react'
 import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
 import DisclaimerModal from '../component/DisclaimerModal'
 import useWallet from '../hooks/useWallet'
+import Locker from '../component/Locker'
 
 export default function PresalePage() {
     const [amount, setAmount] = useState(0)
@@ -23,6 +24,7 @@ export default function PresalePage() {
     const maxAllotment = 5000
     return (
         <>
+            <Locker />
             <DisclaimerModal />
 
             <CryptoTicker visible />
