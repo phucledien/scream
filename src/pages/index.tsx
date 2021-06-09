@@ -6,7 +6,7 @@ import Tilt from 'react-parallax-tilt'
 import Typed from 'react-typed'
 import ParticlesBackground from '../component/ParticlesBackground'
 import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
-import SubscribePopup from '../component/SubscribePopup'
+import SubscriberModal from '../component/SubscriberModal'
 import Link from 'next/link'
 export default function App() {
     const [subscribe, setSubscribe] = useState(false)
@@ -16,7 +16,7 @@ export default function App() {
 
     return (
         <>
-            <SubscribePopup visible={subscribe} hide={() => setSubscribe(false)} />
+            <SubscriberModal visible={subscribe} hide={() => setSubscribe(false)} />
             <div className="h-full flex flex-col">
                 <CryptoTicker visible={hide} />
 
