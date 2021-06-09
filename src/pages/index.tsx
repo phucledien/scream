@@ -7,6 +7,7 @@ import Typed from 'react-typed'
 import ParticlesBackground from '../component/ParticlesBackground'
 import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
 import SubscribePopup from '../component/SubscribePopup'
+import Link from 'next/link'
 
 export default function App() {
     const [subscribe, setSubscribe] = useState(false)
@@ -51,14 +52,16 @@ export default function App() {
                                             </div>
                                             <div className="text-left sm:text-right space-y-4">
                                                 <div>
-                                                    <button
-                                                        onClick={() => setSubscribe((_) => !_)}
-                                                        type="button"
-                                                        className="bg-animated-rainbow font-bold rounded-3xl px-8 py-4 text-2xl w-full animate-ping text-white hover:shadow-xl transition ease-in-out duration-150 "
-                                                    >
-                                                        <i className="fas fa-ghost mr-2 " />
-                                                        <span>Open App</span>
-                                                    </button>
+                                                    <Link href="/launchpad">
+                                                        <a
+                                                            href="# "
+                                                            type="button"
+                                                            className="bg-animated-rainbow font-bold rounded-3xl px-8 py-4 text-2xl w-full animate-ping text-white hover:shadow-xl transition ease-in-out duration-150 "
+                                                        >
+                                                            <i className="fas fa-ghost mr-2 " />
+                                                            <span>Open App</span>
+                                                        </a>
+                                                    </Link>
                                                 </div>
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <button
