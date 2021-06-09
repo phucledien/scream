@@ -63,7 +63,6 @@ export default function App() {
                                                         href="https://docs.scream.sh"
                                                         target="_blank"
                                                         rel="noreferrer"
-                                                        type="button"
                                                         className="block bg-animated-rainbow text-center font-medium rounded-3xl px-4 py-2 w-full animate-ping text-white hover:shadow-xl transition ease-in-out duration-150"
                                                     >
                                                         <span>Docs</span>
@@ -76,9 +75,6 @@ export default function App() {
                                                         <span>Subscribe</span>
                                                     </button>
                                                 </div>
-                                                {/* <div>
-                                                        <button className="bg-rainbow font-bold rounded-xl px-4 py-2">Docs</button>
-                                                    </div> */}
                                             </div>
                                         </div>
                                         <div className="text-xl space-x-2">
