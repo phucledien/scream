@@ -28,12 +28,12 @@ export default function LaunchPad() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <a href="# " className="block bg-white rounded-xl shadow-xl hover:shadow transition ease-in-out duration-300 p-6 space-y-2">
                             <p className="text-4xl font-extrabold">Launchpool</p>
-                            <p className="text-xl">Stake your scream tokens. Earn sweet rewards back in a token of your choice.</p>
+                            <p className="text-xl">Stake your scream tokens. Earn sweet rewards in a token of your choice.</p>
                         </a>
 
                         <a href="# " className="block bg-white rounded-xl shadow-xl hover:shadow transition ease-in-out duration-300 p-6 space-y-2">
                             <p className="text-4xl font-extrabold">Farming</p>
-                            <p className="text-xl">Stake your tokens to gain Scream, with the best returns available.</p>
+                            <p className="text-xl">Stake your tokens to earn Scream, with the best returns available.</p>
                         </a>
                     </div>
 
