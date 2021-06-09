@@ -64,7 +64,7 @@ export default function App() {
                                                         target="_blank"
                                                         rel="noreferrer"
                                                         type="button"
-                                                        className="bg-animated-rainbow text-center font-medium rounded-3xl px-4 py-2 w-full animate-ping text-white hover:shadow-xl transition ease-in-out duration-150"
+                                                        className="block bg-animated-rainbow text-center font-medium rounded-3xl px-4 py-2 w-full animate-ping text-white hover:shadow-xl transition ease-in-out duration-150"
                                                     >
                                                         <span>Docs</span>
                                                     </a>
