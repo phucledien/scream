@@ -21,38 +21,38 @@ export default function LaunchPad() {
                         </div>
                     </div>
                     <div>
-                        <a href="# " className="block bg-white rounded-xl shadow-xl hover:shadow transition ease-in-out duration-300 p-6 space-y-2">
+                        <a href="# " className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2">
                             <p className="text-4xl font-extrabold">Lending</p>
                             <p className="text-xl">Borrow & lend over 10 tokens at the best rates.</p>
                         </a>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <a href="# " className="block bg-white rounded-xl shadow-xl hover:shadow transition ease-in-out duration-300 p-6 space-y-2">
+                        <a href="# " className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2">
                             <p className="text-4xl font-extrabold">Launchpool</p>
                             <p className="text-xl">Stake your scream tokens. Earn sweet rewards in a token of your choice.</p>
                         </a>
 
-                        <a href="# " className="block bg-white rounded-xl shadow-xl hover:shadow transition ease-in-out duration-300 p-6 space-y-2">
+                        <a href="# " className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2">
                             <p className="text-4xl font-extrabold">Farming</p>
                             <p className="text-xl">Stake your tokens to earn Scream, with the best returns available.</p>
                         </a>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                        <a href="# " className="sm:col-span-1 block bg-white rounded-xl shadow-xl hover:shadow transition ease-in-out duration-300 p-6 space-y-2">
+                        <a href="# " className="sm:col-span-1 block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2">
                             <p className="text-4xl font-extrabold">Events</p>
                             <p className="text-xl">The Monster hunt has expired, but something may be brewing...</p>
                         </a>
 
-                        <a href="# " className="sm:col-span-2 block bg-white rounded-xl shadow-xl hover:shadow transition ease-in-out duration-150 p-6 space-y-2">
+                        <a href="# " className="sm:col-span-2 block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-150 p-6 space-y-2">
                             <p className="text-4xl font-extrabold">Scream, the Game</p>
                             <p className="text-xl">Join in on the fun in the Scream RPF and earn real crypto competing against other members of the Scream community.</p>
                         </a>
                     </div>
 
                     <div>
-                        <a href="# " className="block bg-white rounded-xl shadow-xl hover:shadow transition ease-in-out duration-150 p-6 space-y-2">
+                        <a href="# " className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-150 p-6 space-y-2">
                             <p className="text-4xl font-extrabold">Scream Merch</p>
                             <p className="text-xl">Love Scream? Show your support and rock some icey colors with Scream Merch. All sizes available.</p>
                         </a>
