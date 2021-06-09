@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import ParticlesBackground from '../component/ParticlesBackground'
 import SubscribeModal from '../component/SubscriberModal'
+import Link from 'next/link'
 const BackgroundGlobe = dynamic(() => import('../component/BackgroundGlobe'), { ssr: false })
 
 export default function LaunchPad() {
@@ -17,12 +18,14 @@ export default function LaunchPad() {
                 <ParticlesBackground />
                 <div className="relative max-w-2xl w-full space-y-6 px-6 py-12 md:px-0">
                     <div className="flex items-center">
-                        <div className="space-y-1 flex-1">
+                        <Link href="/">
+                            <a className="block flex-1">
+                                <motion.img animate={{ rotate: ['0deg', '360deg'] }} transition={{ duration: 5, loop: Infinity }} className="w-12" src="/img/scream-blue-pink.png" alt="" />
+                            </a>
+                        </Link>
+                        <div className="space-y-1 text-right">
                             <p className="text-xs font-medium text-pink-600">Launch an App</p>
                             <h1 className="text-2xl font-bold flex-1">Launchpad</h1>
-                        </div>
-                        <div>
-                            <motion.img animate={{ rotate: ['0deg', '360deg'] }} transition={{ duration: 5, loop: Infinity }} className="w-12" src="/img/scream-blue-pink.png" alt="" />
                         </div>
                     </div>
                     <div>
