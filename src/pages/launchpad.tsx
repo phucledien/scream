@@ -21,19 +21,19 @@ export default function LaunchPad() {
                     <div>
                         <a href="# " className="block bg-white rounded-xl shadow-xl hover:shadow transition ease-in-out duration-300 p-6 space-y-2">
                             <p className="text-4xl font-extrabold">Lending</p>
-                            <p className="text-xl">Occaecat ea ad ut Lorem proident consectetur ea sit ullamco. Dolor nisi pariatur dolore culpa.</p>
+                            <p className="text-xl">Borrow & lend over 10 tokens at the best rates.</p>
                         </a>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <a href="# " className="block bg-white rounded-xl shadow-xl hover:shadow transition ease-in-out duration-300 p-6 space-y-2">
                             <p className="text-4xl font-extrabold">Launchpool</p>
-                            <p className="text-xl">Proident labore tempor exercitation exercitation ut laborum non ut.</p>
+                            <p className="text-xl">Stake your scream tokens. Earn sweet rewards back in a token of your choice.</p>
                         </a>
 
                         <a href="# " className="block bg-white rounded-xl shadow-xl hover:shadow transition ease-in-out duration-300 p-6 space-y-2">
                             <p className="text-4xl font-extrabold">Farming</p>
-                            <p className="text-xl">Tempor laborum id laborum pariatur adipisicing.</p>
+                            <p className="text-xl">Stake your tokens to gain Scream, with the best returns available.</p>
                         </a>
                     </div>
 
@@ -44,16 +44,38 @@ export default function LaunchPad() {
                         </a>
 
                         <a href="# " className="sm:col-span-2 block bg-white rounded-xl shadow-xl hover:shadow transition ease-in-out duration-150 p-6 space-y-2">
-                            <p className="text-4xl font-extrabold">Launchpool</p>
-                            <p className="text-xl">Duis velit nulla cillum sit magna velit fugiat.</p>
+                            <p className="text-4xl font-extrabold">Scream, the Game</p>
+                            <p className="text-xl">Join in on the fun in the Scream RPF and earn real crypto competing against other members of the Scream community.</p>
                         </a>
                     </div>
 
                     <div>
                         <a href="# " className="block bg-white rounded-xl shadow-xl hover:shadow transition ease-in-out duration-150 p-6 space-y-2">
-                            <p className="text-4xl font-extrabold">Scream the Game</p>
-                            <p className="text-xl">Pariatur elit ut laborum sunt.</p>
+                            <p className="text-4xl font-extrabold">Scream Merch</p>
+                            <p className="text-xl">Love Scream? Show your support and rock some icey colors with Scream Merch. All sizes available.</p>
                         </a>
+                    </div>
+                    <div className="flex whitespace-no-wrap overflow-auto text-pink-400">
+                        <div className="space-x-4">
+                            <a className="font-medium" href="# ">
+                                Documentation
+                            </a>
+                            <a className="font-medium" href="# ">
+                                Contact Us
+                            </a>
+                        </div>
+                        <span className="flex-1" />
+                        <div className="space-x-2">
+                            <a href="# ">
+                                <i className="fab fa-twitter" />
+                            </a>
+                            <a href="# ">
+                                <i className="fab fa-discord" />
+                            </a>
+                            <a href="# ">
+                                <i className="fab fa-medium" />
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
