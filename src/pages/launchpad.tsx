@@ -12,7 +12,7 @@ export default function LaunchPad() {
         <>
             <SubscribeModal visible={comingSoon} hide={() => setComingSoon(false)} />
 
-            <div className="relative min-h-full flex items-center justify-center" style={{ backgroundColor: '#FFB8D2' }}>
+            <div className="relative min-h-full w-full flex items-center justify-center" style={{ backgroundColor: '#FFB8D2' }}>
                 {/* <BackgroundGlobe /> */}
                 <ParticlesBackground />
                 <div className="relative max-w-2xl w-full space-y-6 px-6 py-12 md:px-0">
