@@ -31,10 +31,10 @@ export default function LaunchPad() {
                             animate={{ opacity: [0, 1], x: ['-40%', '0%'], y: ['-40%', '0%'] }}
                             href="# "
                             onClick={() => setComingSoon(true)}
-                            className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-4 md:p-6 space-y-2"
+                            className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
                         >
-                            <p className="text-4xl font-extrabold">Lending</p>
-                            <p className="text-xl">Borrow & lend over 10 tokens at the best rates.</p>
+                            <p className="text-3xl font-extrabold">Lending</p>
+                            <p className="text-lg">Borrow & lend over 10 tokens at the best rates.</p>
                         </motion.a>
                     </div>
 
@@ -44,10 +44,10 @@ export default function LaunchPad() {
                             animate={{ opacity: [0, 1], x: ['-40%', '0%'], y: ['-40%', '0%'] }}
                             href="# "
                             onClick={() => setComingSoon(true)}
-                            className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-4 md:p-6 space-y-2"
+                            className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
                         >
-                            <p className="text-4xl font-extrabold">Launchpool</p>
-                            <p className="text-xl">Stake your scream tokens. Earn sweet rewards in a token of your choice.</p>
+                            <p className="text-3xl font-extrabold">Launchpool</p>
+                            <p className="text-lg">Stake your scream tokens. Earn sweet rewards in a token of your choice.</p>
                         </motion.a>
 
                         <motion.a
@@ -55,10 +55,10 @@ export default function LaunchPad() {
                             animate={{ opacity: [0, 1], x: ['40%', '0%'], y: ['40%', '0%'] }}
                             href="# "
                             onClick={() => setComingSoon(true)}
-                            className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-4 md:p-6 space-y-2"
+                            className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
                         >
-                            <p className="text-4xl font-extrabold">Farming</p>
-                            <p className="text-xl">Stake your tokens to earn Scream, with the best returns available.</p>
+                            <p className="text-3xl font-extrabold">Farming</p>
+                            <p className="text-lg">Stake your tokens to earn Scream, with the best returns available.</p>
                         </motion.a>
                     </div>
 
@@ -68,10 +68,10 @@ export default function LaunchPad() {
                             animate={{ opacity: [0, 1], x: ['-40%', '0%'], y: ['-40%', '0%'] }}
                             href="# "
                             onClick={() => setComingSoon(true)}
-                            className="sm:col-span-1 block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-4 md:p-6 space-y-2"
+                            className="sm:col-span-1 block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
                         >
-                            <p className="text-4xl font-extrabold">Events</p>
-                            <p className="text-xl">The Monster hunt has expired, but something may be brewing...</p>
+                            <p className="text-3xl font-extrabold">Events</p>
+                            <p className="text-lg">The Monster hunt has expired, but something may be brewing...</p>
                         </motion.a>
 
                         <motion.a
@@ -79,10 +79,10 @@ export default function LaunchPad() {
                             animate={{ opacity: [0, 1], x: ['40%', '0%'], y: ['40%', '0%'] }}
                             href="# "
                             onClick={() => setComingSoon(true)}
-                            className="sm:col-span-2 block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-150 p-4 md:p-6 space-y-2"
+                            className="sm:col-span-2 block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-150 p-6 space-y-2"
                         >
-                            <p className="text-4xl font-extrabold">Scream, the Game</p>
-                            <p className="text-xl">Join in on the fun in the Scream RPF and earn real crypto competing against other members of the Scream community.</p>
+                            <p className="text-3xl font-extrabold">Scream, the Game</p>
+                            <p className="text-lg">Join in on the fun in the Scream RPF and earn real crypto competing against other members of the Scream community.</p>
                         </motion.a>
                     </div>
 
@@ -92,10 +92,10 @@ export default function LaunchPad() {
                             animate={{ opacity: [0, 1], x: ['40%', '0%'], y: ['40%', '0%'] }}
                             href="# "
                             onClick={() => setComingSoon(true)}
-                            className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-150 p-4 md:p-6 space-y-2"
+                            className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-150 p-6 space-y-2"
                         >
-                            <p className="text-4xl font-extrabold">Scream Merch</p>
-                            <p className="text-xl">Love Scream? Show your support and rock some icey colors with Scream Merch. All sizes available.</p>
+                            <p className="text-3xl font-extrabold">Scream Merch</p>
+                            <p className="text-lg">Love Scream? Show your support and rock some icey colors with Scream Merch. All sizes available.</p>
                         </motion.a>
                     </div>
                     <div className="flex whitespace-no-wrap overflow-auto text-pink-600">
