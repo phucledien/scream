@@ -1,12 +1,14 @@
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
+import ParticlesBackground from '../component/ParticlesBackground'
 const BackgroundGlobe = dynamic(() => import('../component/BackgroundGlobe'), { ssr: false })
 
 export default function LaunchPad() {
     return (
         <>
             <div className="relative min-h-full flex items-center justify-center" style={{ backgroundColor: '#f2e4ff' }}>
-                <BackgroundGlobe />
+                {/* <BackgroundGlobe /> */}
+                <ParticlesBackground />
                 <div className="relative max-w-2xl w-full space-y-6 px-6 py-12 md:p-0">
                     <div className="flex items-center">
                         <div className="space-y-1 flex-1">
