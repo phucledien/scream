@@ -109,13 +109,19 @@ export default function LaunchPad() {
                         </div>
                         <span className="flex-1" />
                         <div className="space-x-2">
-                            <a href="# " target="_blank">
+                            <a href={process.env.NEXT_PUBLIC_TWITTER_URL} target="_blank" rel="noreferrer">
                                 <i className="fab fa-twitter" />
                             </a>
-                            <a href="# ">
+                            <a href={process.env.NEXT_PUBLIC_TELEGRAM_URL} target="_blank" rel="noreferrer">
+                                <i className="fab fa-telegram" />
+                            </a>
+                            <a href={process.env.NEXT_PUBLIC_DISCORD_URL} target="_blank" rel="noreferrer">
                                 <i className="fab fa-discord" />
                             </a>
-                            <a href="# ">
+                            <a href={process.env.NEXT_PUBLIC_GITHUB_URL} target="_blank" rel="noreferrer">
+                                <i className="fab fa-github" />
+                            </a>
+                            <a href={process.env.NEXT_PUBLIC_MEDIUM_URL} target="_blank" rel="noreferrer">
                                 <i className="fab fa-medium" />
                             </a>
                         </div>
