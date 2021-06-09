@@ -27,6 +27,18 @@ export default function LaunchPad() {
                     </div>
                     <div>
                         <motion.a
+                            initial={{ opacity: 0, x: '40%', y: '-40%' }}
+                            animate={{ opacity: [0, 1], x: ['-40%', '0%'], y: ['-40%', '0%'] }}
+                            href="# "
+                            onClick={() => setComingSoon(true)}
+                            className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
+                        >
+                            <p className="text-3xl font-extrabold">Dashboard</p>
+                            <p className="text-lg">View Scream stats, prices, charts, and more in one snapshot.</p>
+                        </motion.a>
+                    </div>
+                    <div>
+                        <motion.a
                             initial={{ opacity: 0, x: '-40%', y: '-40%' }}
                             animate={{ opacity: [0, 1], x: ['-40%', '0%'], y: ['-40%', '0%'] }}
                             href="# "
