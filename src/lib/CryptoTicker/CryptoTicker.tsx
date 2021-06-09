@@ -38,6 +38,10 @@ export function TickerItem({ name, symbol, logo, quote }) {
 export default function CryptoTicker({ visible }) {
     const { data: coins } = useTicker()
 
+    useEffect(() => {
+        console.log(coins)
+    }, [coins])
+
     return (
         <>
             <AnimatePresence>

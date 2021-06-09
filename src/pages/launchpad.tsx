@@ -12,18 +12,17 @@ export default function LaunchPad() {
         <>
             <SubscribeModal visible={comingSoon} hide={() => setComingSoon(false)} />
 
-            <div className="relative min-h-full flex items-center justify-center" style={{ backgroundColor: '#f2e4ff' }}>
+            <div className="relative min-h-full flex items-center justify-center" style={{ backgroundColor: '#FFB8D2' }}>
                 {/* <BackgroundGlobe /> */}
                 <ParticlesBackground />
                 <div className="relative max-w-2xl w-full space-y-6 px-6 py-12 md:px-0">
                     <div className="flex items-center">
                         <div className="space-y-1 flex-1">
-                            <p className="text-xs font-medium text-pink-300">Launch an App</p>
+                            <p className="text-xs font-medium text-pink-600">Launch an App</p>
                             <h1 className="text-2xl font-bold flex-1">Launchpad</h1>
                         </div>
-
                         <div>
-                            <img className="w-12 animate-spin" src="/img/scream-multi.png" alt="" />
+                            <motion.img animate={{ rotate: ['0deg', '360deg'] }} transition={{ duration: 5, loop: Infinity }} className="w-12" src="/img/scream-blue-pink.png" alt="" />
                         </div>
                     </div>
                     <div>
@@ -99,7 +98,7 @@ export default function LaunchPad() {
                             <p className="text-xl">Love Scream? Show your support and rock some icey colors with Scream Merch. All sizes available.</p>
                         </motion.a>
                     </div>
-                    <div className="flex whitespace-no-wrap overflow-auto text-pink-400">
+                    <div className="flex whitespace-no-wrap overflow-auto text-pink-600">
                         <div className="space-x-4">
                             <a href="https://docs.scream.sh/" target="_blank" rel="noreferrer">
                                 Documentation

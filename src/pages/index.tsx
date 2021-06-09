@@ -6,9 +6,8 @@ import Tilt from 'react-parallax-tilt'
 import Typed from 'react-typed'
 import ParticlesBackground from '../component/ParticlesBackground'
 import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
-import SubscribePopup from '../component/SubscribePopup'
+import SubscriberModal from '../component/SubscriberModal'
 import Link from 'next/link'
-
 export default function App() {
     const [subscribe, setSubscribe] = useState(false)
     const [hide, setHide] = useState(false)
@@ -17,9 +16,9 @@ export default function App() {
 
     return (
         <>
-            <SubscribePopup visible={subscribe} hide={() => setSubscribe(false)} />
+            <SubscriberModal visible={subscribe} hide={() => setSubscribe(false)} />
             <div className="h-full flex flex-col">
-                <CryptoTicker visible={hide} />
+                {/* <CryptoTicker visible={hide} /> */}
 
                 <Tilt className="tilt relative z-30 flex flex-col flex-1">
                     <div className="p-12 flex-1 flex items-center justify-center tilt-inner">
@@ -53,11 +52,7 @@ export default function App() {
                                             <div className="text-left sm:text-right space-y-4">
                                                 <div>
                                                     <Link href="/launchpad">
-                                                        <a
-                                                            href="# "
-                                                            type="button"
-                                                            className="bg-animated-rainbow font-bold rounded-3xl px-8 py-4 text-2xl w-full animate-ping text-white hover:shadow-xl transition ease-in-out duration-150 "
-                                                        >
+                                                        <a className="bg-animated-rainbow text-center font-bold rounded-3xl px-8 py-4 text-2xl w-full animate-ping text-white hover:shadow-xl transition ease-in-out duration-150 ">
                                                             <i className="fas fa-ghost mr-2 " />
                                                             <span>Open App</span>
                                                         </a>
