@@ -2,9 +2,10 @@ import { Modal } from '@geist-ui/react'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
+import Link from 'next/link'
 import ParticlesBackground from '../component/ParticlesBackground'
 import SubscribeModal from '../component/SubscriberModal'
-import Link from 'next/link'
+
 const BackgroundGlobe = dynamic(() => import('../component/BackgroundGlobe'), { ssr: false })
 
 export default function LaunchPad() {
@@ -115,9 +116,11 @@ export default function LaunchPad() {
                     </div>
                     <div className="flex whitespace-no-wrap overflow-auto text-pink-600">
                         <div className="space-x-4">
-                            <a href="https://docs.scream.sh/" target="_blank" rel="noreferrer">
+                            <button type="button" onClick={() => setComingSoon(true)}>
                                 Documentation
-                            </a>
+                            </button>
+                            {/* <a href="https://docs.scream.sh/" target="_blank" rel="noreferrer"> */}
+                            {/* </a> */}
                             {/* <a className="font-medium" href="# ">
                                 Contact Us
                             </a> */}

@@ -4,10 +4,11 @@ import { AnimatePresence, motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
 import Typed from 'react-typed'
+import Link from 'next/link'
 import ParticlesBackground from '../component/ParticlesBackground'
 import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
 import SubscriberModal from '../component/SubscriberModal'
-import Link from 'next/link'
+
 export default function App() {
     const [subscribe, setSubscribe] = useState(false)
     const [hide, setHide] = useState(false)
@@ -59,14 +60,13 @@ export default function App() {
                                                     </Link>
                                                 </div>
                                                 <div className="grid grid-cols-2 gap-4">
-                                                    <a
-                                                        href="https://docs.scream.sh"
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                        className="block bg-animated-rainbow text-center font-medium rounded-3xl px-4 py-2 w-full animate-ping text-white hover:shadow-xl transition ease-in-out duration-150"
+                                                    <button
+                                                        onClick={() => setSubscribe((_) => !_)}
+                                                        type="button"
+                                                        className="bg-animated-rainbow font-medium rounded-3xl px-4 py-2 w-full animate-ping text-white hover:shadow-xl transition ease-in-out duration-150"
                                                     >
                                                         <span>Docs</span>
-                                                    </a>
+                                                    </button>
                                                     <button
                                                         onClick={() => setSubscribe((_) => !_)}
                                                         type="button"
