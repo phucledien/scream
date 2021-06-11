@@ -10,19 +10,12 @@ export default function DisclaimerModal() {
                         <Collapse title="General DeFi Risks" initialVisible>
                             <p>
                                 DeFi risks encapsulates a wide range of risks such as impermanent loss to risks of falling for scams such as wallet draining, private key being stolen, et cetera. Hence, DeFi users have to
-                                be careful themselves and learn to educate themselves constantly in this space. You can find a guide to keeping your funds SAFU here.
+                                be careful themselves and learn to educate themselves constantly in this space.
                             </p>
                         </Collapse>
-                        <Collapse title="3rd Party Risks">
+                        <Collapse title="Allotment Rules">
                             <p>
-                                Scream Finance serves as a yield aggregator by providing vaults which auto-compound rewards. However, vaults do not indicate any partnership or support by Scream Finance. We screen all new
-                                vaults carefully to make sure your funds are safe but does not 100% guarantee safety.
-                            </p>
-                        </Collapse>
-                        <Collapse title="Question B">
-                            <p>
-                                In the space of Crypto, especially in the Decentralised Finance (DeFi) space, users have to understand the risks of projects and smart contracts before venturing into DeFi. We call this
-                                DYOR (do your own research).
+                                1 Pastel Ticket = 5 Scream Tokens (1500 FTM), It you have more Pastal Tickets just times the amount of Tickets by 5. Please visit out discord if you need help.
                             </p>
                         </Collapse>
                     </Collapse.Group>
