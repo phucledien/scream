@@ -7,7 +7,7 @@ import Typed from 'react-typed'
 import Link from 'next/link'
 import ParticlesBackground from '../component/ParticlesBackground'
 import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
-import SubscriberModal from '../component/SubscriberModal'
+import SubscribePopup from '../component/SubscribePopup'
 
 export default function App() {
     const [subscribe, setSubscribe] = useState(false)
@@ -17,7 +17,7 @@ export default function App() {
 
     return (
         <>
-            <SubscriberModal visible={subscribe} hide={() => setSubscribe(false)} />
+            <SubscribePopup visible={subscribe} hide={() => setSubscribe(false)} />
             <div className="h-full flex flex-col">
                 <CryptoTicker visible={hide} />
 
