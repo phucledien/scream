@@ -4,6 +4,7 @@ import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
 import DisclaimerModal from '../component/DisclaimerModal'
 import useWallet from '../hooks/useWallet'
 import Locker from '../component/Locker'
+import Binance from 'binance-api-node'
 
 export default function PresalePage() {
     const [amount, setAmount] = useState(0)
@@ -21,7 +22,17 @@ export default function PresalePage() {
         }
     }
 
-    const maxAllotment = 5000
+    const maxAllotment = 1500
+    const binance = Binance()
+    const [tokenPrice, setNum] = useState(0)
+  
+    const getBnbPrice = async () => {
+        let ticker = await binance.prices({ symbol: 'FTMUSDT' })
+        let price = Number(ticker['FTMUSDT'])
+    setNum(price*300)
+  }
+
+  getBnbPrice()
     return (
         <>
             <Locker />
@@ -58,12 +69,12 @@ export default function PresalePage() {
                                         </div>
                                         <div className="flex-1 rounded-2xl bg-red-400 p-4">
                                             <p className="font-medium">$FTM</p>
-                                            <p className="text-4xl uppercase font-extrabold">1000</p>
+                                            <p className="text-4xl uppercase font-extrabold">300</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="flex flex-col space-y-4">
-                                    <Input width="100%" label="Price" disabled value="0.304" />
+                                    <Input width="100%" label="Price" disabled value={tokenPrice} />
                                     <Input width="100%" label="Maximum Allotment" disabled value={maxAllotment} />
                                 </div>
                             </div>
@@ -92,7 +103,7 @@ export default function PresalePage() {
                                     <p className="text-3xl text-center font-extrabold text-shadow-lg">Swap</p>
 
                                     <p className="text-xs text-center">
-                                        You will recieve <b>{amount / 1000 || 0} $SCREAM</b> for your <b>{amount || 0} $FTM</b>.
+                                        You will recieve <b>{amount / 300 || 0} $SCREAM</b> for your <b>{amount || 0} $FTM</b>.
                                     </p>
                                     <Input
                                         type="number"
