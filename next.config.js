@@ -23,7 +23,7 @@ module.exports = {
             },
             {
                 source: '/medium',
-                destination: 'https://screamsh.medium.com/',
+                destination: 'https://screamsh.medium.com',
                 permanent: true
             },
             {

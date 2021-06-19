@@ -42,7 +42,7 @@ export default function SubscribeModal({ visible, hide }) {
                     >
                         <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your Email Address" width="100%" />
                         <div className="flex">
-                            <Button htmlType="submit" type="secondary" className="flex-1">
+                            <Button htmlType="submit" type="secondary" className="flex-1" disabled={!email}>
                                 Subscribe
                             </Button>
                         </div>

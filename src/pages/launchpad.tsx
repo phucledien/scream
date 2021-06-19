@@ -14,7 +14,7 @@ export default function LaunchPad() {
         <>
             <SubscribeModal visible={comingSoon} hide={() => setComingSoon(false)} />
 
-            <div className="relative min-h-full w-full overflow-hidden flex items-center justify-center" style={{ backgroundColor: '#FFB8D2' }}>
+            <div className="relative min-h-full w-full overflow-hidden flex items-center justify-center bg-rainbow">
                 {/* <BackgroundGlobe /> */}
                 <ParticlesBackground />
                 <div className="relative max-w-2xl w-full space-y-6 px-6 py-12 md:px-0">
@@ -25,7 +25,7 @@ export default function LaunchPad() {
                             </a>
                         </Link>
                         <div className="space-y-1 text-right">
-                            <p className="text-xs font-medium text-pink-600">Launch an App</p>
+                            <p className="text-xs font-medium ">Launch an App</p>
                             <h1 className="text-2xl font-bold flex-1">Launchpad</h1>
                         </div>
                     </div>
@@ -114,7 +114,7 @@ export default function LaunchPad() {
                             <p className="text-lg">Love Scream? Show your support and rock some icey colors with Scream Merch. All sizes available.</p>
                         </motion.a>
                     </div>
-                    <div className="flex whitespace-no-wrap overflow-auto text-pink-600">
+                    <div className="flex whitespace-no-wrap overflow-auto ">
                         <div className="space-x-4">
                             <button type="button" onClick={() => setComingSoon(true)}>
                                 Documentation

@@ -65,9 +65,9 @@ body,
     background: linear-gradient(270deg, #6ae2dc, #ffb8d2, #f4dc62, #ffc78b, #cdc5ff);
     background-size: 1000% 1000%;
 
-    -webkit-animation: BgRainbow 5s ease infinite;
-    -moz-animation: BgRainbow 5s ease infinite;
-    animation: BgRainbow 5s ease infinite;
+    -webkit-animation: BgRainbow 10s ease infinite;
+    -moz-animation: BgRainbow 10s ease infinite;
+    animation: BgRainbow 10s ease infinite;
 }
 
 @-webkit-keyframes BgRainbow {
