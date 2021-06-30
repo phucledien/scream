@@ -1,10 +1,10 @@
 import { GeistProvider } from '@geist-ui/react'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import Meta from '../component/Meta'
-import '../styles/global.css'
-import { GoogleAnalytics } from '../lib/ga'
 import { UseWalletProvider } from 'use-wallet'
+import Meta from '../components/Meta'
+import { GoogleAnalytics } from '../lib/ga'
+import '../styles/global.css'
 
 export default function App({ Component, pageProps }: AppProps) {
     return (

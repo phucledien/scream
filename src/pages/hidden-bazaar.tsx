@@ -2,7 +2,7 @@ import { Card, Input, Button, Image, Text } from '@geist-ui/react'
 import Link from 'next/link'
 import { useState } from 'react'
 import Tilt from 'react-parallax-tilt'
-import ProductModal from '../component/ProductModal'
+import ProductModal from '../components/ProductModal'
 import { products } from '../lib/dummy'
 
 export default function Shop() {

@@ -1,42 +1,76 @@
-import { Input, Progress, Button, Modal, useToasts } from '@geist-ui/react'
-import { useState } from 'react'
-import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
-import DisclaimerModal from '../component/DisclaimerModal'
-import useWallet from '../hooks/useWallet'
-import Locker from '../component/Locker'
+import { Button, Input, useToasts } from '@geist-ui/react'
 import Binance from 'binance-api-node'
+import { useEffect, useState } from 'react'
+import { useWallet } from 'use-wallet'
+import Web3 from 'web3'
+import erc721 from '../data/erc721.json'
+import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
 
 export default function PresalePage() {
     const [amount, setAmount] = useState(0)
+    const [status, setStatus] = useState('idle')
+    const [pastelCount, setPastelCount] = useState(0)
 
     const [, setToast] = useToasts()
     const wallet = useWallet()
-    const { send } = wallet
 
     const onSubmit = async () => {
         try {
-            await send(amount)
+            const web3 = new Web3(wallet.ethereum)
+
+            // TODO: Add to address
+            await web3.eth.sendTransaction({ from: wallet.account, to: '', value: web3.utils.toWei(amount.toString()) })
+
+            // await send(amount)
             setToast({ text: 'Success! You have claimed your allotment.' })
         } catch (error) {
             setToast({ text: 'An error occurred while processing the transaction.', type: 'error' })
         }
     }
 
-    const maxAllotment = 1500
-    const binance = Binance()
-    const [tokenPrice, setNum] = useState(0)
-  
-    const getBnbPrice = async () => {
-        let ticker = await binance.prices({ symbol: 'FTMUSDT' })
-        let price = Number(ticker['FTMUSDT'])
-    setNum(price*300)
-  }
+    const maxAllotment = pastelCount * 1500
+    const [ftmPrice, setFtmPrice] = useState(0)
+    const [tokenPrice, setTokenPrice] = useState(0)
 
-  getBnbPrice()
+    useEffect(() => {
+        if (tokenPrice) return
+        const getBnbPrice = async () => {
+            const binance = Binance()
+            const ticker = await binance.prices({ symbol: 'FTMUSDT' })
+            const price = Number(ticker.FTMUSDT)
+            setFtmPrice(price)
+            setTokenPrice(price * 300)
+        }
+        getBnbPrice()
+    }, [])
+
+    useEffect(() => {
+        if (!wallet.account) return
+        if (pastelCount) return
+
+        const func = async () => {
+            setStatus('loading')
+            try {
+                const web3 = new Web3(wallet.ethereum)
+                const contract = await new web3.eth.Contract(erc721, `${process.env.NEXT_PUBLIC_CONTRACT_PASTEL_TICKET}`)
+
+                console.log('wallet', wallet.account)
+
+                const balance = await contract.methods.balanceOf(wallet.account).call()
+
+                setPastelCount(balance)
+            } catch (error) {
+                console.log(error)
+            }
+            setStatus('idle')
+        }
+        func()
+    }, [wallet])
+
     return (
         <>
-            <Locker />
-            <DisclaimerModal />
+            {/* <Locker /> */}
+            {/* <DisclaimerModal /> */}
 
             <CryptoTicker visible />
 
@@ -54,10 +88,10 @@ export default function PresalePage() {
                         </div>
                         <div className="gap-6 md:gap-12 grid grid-cols-1 md:grid-cols-2">
                             <div className="bg-white shadow-xl w-full rounded-2xl space-y-8 p-6 md:p-12">
-                                <div className="space-y-2">
+                                {/* <div className="space-y-2">
                                     <p className="text-xs font-medium text-gray-600">Total Distributed</p>
                                     <Progress type="error" value={21} />
-                                </div>
+                                </div> */}
                                 <div className="space-y-4">
                                     <div className="text-white flex flex-col md:flex-row md:space-x-2 md:space-y-2 space-y-0">
                                         <div className="flex-1 rounded-2xl bg-blue-400 p-4">
@@ -74,8 +108,8 @@ export default function PresalePage() {
                                     </div>
                                 </div>
                                 <div className="flex flex-col space-y-4">
-                                    <Input width="100%" label="Price" disabled value={tokenPrice} />
-                                    <Input width="100%" label="Maximum Allotment" disabled value={maxAllotment} />
+                                    <Input width="100%" label="Price" disabled value={`$${tokenPrice.toFixed(2)}`} />
+                                    <Input width="100%" label="Maximum Allotment" disabled value={`${pastelCount * 5} $SCREAM (${maxAllotment} $FTM)`} />
                                 </div>
                             </div>
                             <div className="bg-white shadow-xl w-full rounded-2xl p-6 md:p-12">
@@ -90,8 +124,8 @@ export default function PresalePage() {
                                         <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-95 z-20">
                                             <Button
                                                 auto
-                                                onClick={() => {
-                                                    wallet.connect()
+                                                onClick={async () => {
+                                                    await wallet.connect()
                                                 }}
                                                 type={wallet.status === 'error' ? 'error' : 'default'}
                                             >
@@ -102,13 +136,24 @@ export default function PresalePage() {
 
                                     <p className="text-3xl text-center font-extrabold text-shadow-lg">Swap</p>
 
-                                    <p className="text-xs text-center">
-                                        You will recieve <b>{amount / 300 || 0} $SCREAM</b> for your <b>{amount || 0} $FTM</b>.
-                                    </p>
+                                    <div className="space-y-1">
+                                        <p className="text-xs text-center">
+                                            You own <b>{pastelCount} PASTEL Tickets</b>, which entitles you to a{' '}
+                                            <b>
+                                                maximum of &nbsp;
+                                                {pastelCount * 5}
+                                                &nbsp; SCREAM
+                                            </b>
+                                            .
+                                        </p>
+                                        <p className="text-xs text-center">
+                                            You will recieve <b>~{(amount / 300 || 0).toFixed(4)} $SCREAM</b> for your <b>{amount || 0} $FTM</b>.
+                                        </p>
+                                    </div>
                                     <Input
                                         type="number"
                                         width="100%"
-                                        label="Amount"
+                                        label="Amount (FTM)"
                                         placeholder="Enter an amount"
                                         value={amount}
                                         onChange={(e) => setAmount(e.target.value > maxAllotment ? maxAllotment : e.target.value)}

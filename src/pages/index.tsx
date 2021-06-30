@@ -5,9 +5,9 @@ import React, { useEffect, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
 import Typed from 'react-typed'
 import Link from 'next/link'
-import ParticlesBackground from '../component/ParticlesBackground'
+import ParticlesBackground from '../components/ParticlesBackground'
 import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
-import SubscribePopup from '../component/SubscribePopup'
+import SubscribePopup from '../components/SubscribePopup'
 
 export default function App() {
     const [subscribe, setSubscribe] = useState(false)
@@ -52,7 +52,7 @@ export default function App() {
                                             </div>
                                             <div className="text-left sm:text-right space-y-4">
                                                 <div>
-                                                    <Link href="/launchpad">
+                                                    <Link href="/launch">
                                                         <a className="block bg-animated-rainbow text-center font-bold rounded-3xl px-8 py-4 text-2xl w-full animate-ping text-white hover:shadow-xl transition ease-in-out duration-150 ">
                                                             <i className="fas fa-ghost mr-2 " />
                                                             <span>Open App</span>

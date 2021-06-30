@@ -49,7 +49,7 @@ export default function CryptoTicker({ visible }) {
                     <>
                         <motion.div animate={{ y: ['-100%', '0%'] }} className="border-b-2 border-rainbow">
                             <div className="w-full h-full whitespace-nowrap">
-                                <Ticker>{({ index }) => coins.map((coin) => <TickerItem {...coin} />)}</Ticker>
+                                <Ticker>{({ index }) => coins.map((coin) => <TickerItem key={coin.ticker} {...coin} />)}</Ticker>
                             </div>
                         </motion.div>
                     </>

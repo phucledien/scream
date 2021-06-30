@@ -3,10 +3,10 @@ import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import Link from 'next/link'
-import ParticlesBackground from '../component/ParticlesBackground'
-import SubscribeModal from '../component/SubscriberModal'
+import ParticlesBackground from '../components/ParticlesBackground'
+import SubscribeModal from '../components/SubscriberModal'
 
-const BackgroundGlobe = dynamic(() => import('../component/BackgroundGlobe'), { ssr: false })
+const BackgroundGlobe = dynamic(() => import('../components/BackgroundGlobe'), { ssr: false })
 
 export default function LaunchPad() {
     const [comingSoon, setComingSoon] = useState(false)
