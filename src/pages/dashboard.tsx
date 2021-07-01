@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic'
 import { useState } from 'react'
 
 // const TVChartContainer = dynamic(() => import('../component/TVChartContainer'), { ssr: false })
-
+// test
 const TVChartContainer = dynamic(() => import('../components/TVChartContainer'), { ssr: false })
 
 export default function Dashboard() {
