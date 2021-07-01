@@ -12,6 +12,21 @@ html {
     }
 }
 
+
+@font-face {
+    font-family: 'Eurostile Extended';
+    src: url('/fonts/EurostileExtended-Black.woff2') format('woff2'),
+        url('/fonts/EurostileExtended-Black.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+.font-extended {
+    font-family: 'Eurostile Extended', sans-serif;
+}
+
 @responsive {
     .text-shadow {
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
