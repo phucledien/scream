@@ -1,13 +1,11 @@
-import { Input } from '@geist-ui/react'
-import axios from 'axios'
 import { AnimatePresence, motion } from 'framer-motion'
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
 import Typed from 'react-typed'
-import Link from 'next/link'
 import ParticlesBackground from '../components/ParticlesBackground'
-import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
 import SubscribePopup from '../components/SubscribePopup'
+import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
 
 export default function App() {
     const [subscribe, setSubscribe] = useState(false)
@@ -18,10 +16,10 @@ export default function App() {
     return (
         <>
             <SubscribePopup visible={subscribe} hide={() => setSubscribe(false)} />
-            <div className="h-full flex flex-col">
+            <div className="h-full flex flex-col overflow-hidden">
                 <CryptoTicker visible={hide} />
 
-                <Tilt className="tilt relative z-30 flex flex-col flex-1">
+                <Tilt options={{ perspective: 2000 }} className="tilt relative z-30 flex flex-col flex-1">
                     <div className="p-12 flex-1 flex items-center justify-center tilt-inner">
                         <motion.div layout className="max-w-xl w-full space-y-8">
                             {!hide && (

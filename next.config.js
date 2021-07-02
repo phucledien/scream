@@ -1,4 +1,6 @@
-module.exports = {
+const withTM = require('next-transpile-modules')(['react-parallax-tilt'])
+
+module.exports = withTM({
     async redirects() {
         return [
             {
@@ -39,5 +41,6 @@ module.exports = {
         // your project has type errors.
         // !! WARN !!
         ignoreBuildErrors: true
-    }
-}
+    },
+    webpack5: false
+})
