@@ -30,60 +30,64 @@ export default function LaunchPad() {
                         </div>
                     </div>
                     <div>
-                        <motion.a
-                            initial={{ opacity: 0, x: '40%', y: '-40%' }}
-                            animate={{ opacity: [0, 1], x: ['-40%', '0%'], y: ['-40%', '0%'] }}
-                            href="# "
-                            onClick={() => setComingSoon(true)}
-                            className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
-                        >
-                            <p className="text-3xl font-extrabold">Dashboard</p>
-                            <p className="text-lg">View Scream stats, prices, charts, and more in one snapshot.</p>
-                        </motion.a>
+                        <Link href="/dashboard">
+                            <motion.a
+                                initial={{ opacity: 0, x: '40%', y: '-40%' }}
+                                animate={{ opacity: [0, 1], x: ['-40%', '0%'], y: ['-40%', '0%'] }}
+                                href="# "
+                                className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
+                            >
+                                <p className="text-3xl font-extrabold">Dashboard</p>
+                                <p className="text-lg">View Scream stats, prices, charts, and more in one snapshot.</p>
+                            </motion.a>
+                        </Link>
                     </div>
                     <div>
-                        <motion.a
-                            initial={{ opacity: 0, x: '-40%', y: '-40%' }}
-                            animate={{ opacity: [0, 1], x: ['-40%', '0%'], y: ['-40%', '0%'] }}
-                            href="# "
-                            onClick={() => setComingSoon(true)}
-                            className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
-                        >
-                            <p className="text-3xl font-extrabold">Lending</p>
-                            <p className="text-lg">Borrow & lend over 10 tokens at the best rates.</p>
-                        </motion.a>
+                        <Link href="/lend">
+                            <motion.a
+                                initial={{ opacity: 0, x: '-40%', y: '-40%' }}
+                                animate={{ opacity: [0, 1], x: ['-40%', '0%'], y: ['-40%', '0%'] }}
+                                href="# "
+                                className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
+                            >
+                                <p className="text-3xl font-extrabold">Lending</p>
+                                <p className="text-lg">Borrow & lend over 10 tokens at the best rates.</p>
+                            </motion.a>
+                        </Link>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <motion.a
-                            initial={{ opacity: 0, x: '-40%', y: '-40%' }}
-                            animate={{ opacity: [0, 1], x: ['-40%', '0%'], y: ['-40%', '0%'] }}
-                            href="# "
-                            onClick={() => setComingSoon(true)}
-                            className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
-                        >
-                            <p className="text-3xl font-extrabold">Launchpool</p>
-                            <p className="text-lg">Stake your scream tokens. Earn sweet rewards in a token of your choice.</p>
-                        </motion.a>
+                        <Link href="/stake">
+                            <motion.a
+                                initial={{ opacity: 0, x: '-40%', y: '-40%' }}
+                                animate={{ opacity: [0, 1], x: ['-40%', '0%'], y: ['-40%', '0%'] }}
+                                href="# "
+                                className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
+                            >
+                                <p className="text-3xl font-extrabold">Launchpool</p>
+                                <p className="text-lg">Stake your scream tokens. Earn sweet rewards in a token of your choice.</p>
+                            </motion.a>
+                        </Link>
 
-                        <motion.a
-                            initial={{ opacity: 0, x: '40%', y: '40%' }}
-                            animate={{ opacity: [0, 1], x: ['40%', '0%'], y: ['40%', '0%'] }}
-                            href="# "
-                            onClick={() => setComingSoon(true)}
-                            className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
-                        >
-                            <p className="text-3xl font-extrabold">Farming</p>
-                            <p className="text-lg">Stake your tokens to earn Scream, with the best returns available.</p>
-                        </motion.a>
+                        {/* <Link href="/farms">
+                            <motion.a
+                                initial={{ opacity: 0, x: '40%', y: '40%' }}
+                                animate={{ opacity: [0, 1], x: ['40%', '0%'], y: ['40%', '0%'] }}
+                                href="# "
+                                onClick={() => setComingSoon(true)}
+                                className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
+                            >
+                                <p className="text-3xl font-extrabold">Farming</p>
+                                <p className="text-lg">Stake your tokens to earn Scream, with the best returns available.</p>
+                            </motion.a>
+                        </Link> */}
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                         <motion.a
                             initial={{ opacity: 0, x: '-40%', y: '-40%' }}
                             animate={{ opacity: [0, 1], x: ['-40%', '0%'], y: ['-40%', '0%'] }}
-                            href="# "
-                            onClick={() => setComingSoon(true)}
+                            href="http://scream.monster/"
                             className="sm:col-span-1 block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
                         >
                             <p className="text-3xl font-extrabold">Events</p>
@@ -116,9 +120,9 @@ export default function LaunchPad() {
                     </div>
                     <div className="flex whitespace-no-wrap overflow-auto ">
                         <div className="space-x-4">
-                            <button type="button" onClick={() => setComingSoon(true)}>
+                            <a href="https://docs.scream.sh/" target="_blank" rel="noreferrer">
                                 Documentation
-                            </button>
+                            </a>
                             {/* <a href="https://docs.scream.sh/" target="_blank" rel="noreferrer"> */}
                             {/* </a> */}
                             {/* <a className="font-medium" href="# ">

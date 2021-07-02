@@ -22,7 +22,7 @@ export default function Stats() {
                     <ConnectWalletButton />
                     <div className="flex-1" />
                     <div className="flex justify-end items-center space-x-4">
-                        <img className="w-40" src="https://scream.sh/img/scream-logotype.png" alt="" />
+                        <img className="hidden md:block w-40" src="https://scream.sh/img/scream-logotype.png" alt="" />
                         <img className="w-8 animate-spin" src="https://scream.sh/img/scream-multi.png" alt="" />
                     </div>
                 </div>
