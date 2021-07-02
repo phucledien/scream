@@ -8,6 +8,8 @@ import SubscribeModal from '../components/SubscriberModal'
 
 const BackgroundGlobe = dynamic(() => import('../components/BackgroundGlobe'), { ssr: false })
 
+// :)
+
 export default function LaunchPad() {
     const [comingSoon, setComingSoon] = useState(false)
     return (
