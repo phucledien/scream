@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { HomeIcon, MenuAlt3Icon } from '@heroicons/react/solid'
+import ConnectWalletButton from '../components/ConnectWalletButton'
 
 interface ButtonProps {
     href: string
@@ -38,7 +39,7 @@ export default function Header() {
                         exit={{ height: 0 }}
                         className="md:hidden bg-white border-b border-color-100 p-6 flex flex-col space-y-2"
                     >
-                        <Link href="/launch">
+                        <Link href="/apps">
                             <a className="text-3xl font-extrabold">All Apps</a>
                         </Link>
                         <Link href="/">
@@ -52,10 +53,19 @@ export default function Header() {
                     <Button href="/">
                         <HomeIcon className="w-4" />
                     </Button>
+
+                    <Button href="/apps">Apps</Button>
                     <Button href="/lend">Lending</Button>
                     <Button href="/stake">Stake</Button>
 
                     <div className="flex-1" />
+
+                    <div className="font-mono text-xs">
+                        <span>$2.34 💚 0.3%</span>
+                    </div>
+                    <div className="hidden md:block">
+                        <ConnectWalletButton />
+                    </div>
                     <button className="md:hidden" type="button" onClick={() => setIsExpanded((_) => !_)}>
                         <MenuAlt3Icon className={classNames('w-4 transform ease-in-out duration-300', isExpanded && 'rotate-90')} />
                     </button>

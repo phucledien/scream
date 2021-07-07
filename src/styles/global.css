@@ -85,6 +85,17 @@ body,
     animation: BgRainbow 10s ease infinite;
 }
 
+.border-glow {
+    /* border: 0.2rem solid #fff; */
+    /* border-radius: 2rem; */
+    /* padding: 0.4em; */
+    box-shadow: 0 0 2rem rgba(254, 19, 254, 0.39),
+                0 0 0.8rem rgba(187, 19, 254, 0.39),
+                0 0 2.8rem rgba(187, 19, 254, 0.39),
+                inset 0 0 1.3rem rgba(187, 19, 254, 0.39);
+}
+
+
 @-webkit-keyframes BgRainbow {
     0% {
         background-position: 0% 50%;
