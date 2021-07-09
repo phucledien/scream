@@ -19,12 +19,13 @@ export default function BorrowTool({ markets, update }) {
                 </button>
             </div>
             <div className="p-6">
-                {activeTab.slug === 'repay' && <RepayTab markets={markets} update={update} />}
-
-                {activeTab.slug === 'borrow' && <BorrowTab markets={markets} update={update} />}
+                {activeTab.slug === 'repay' && (
+                    <RepayTab markets={markets} update={update}/>
+                )}
+                {activeTab.slug === 'borrow' && (
+                    <BorrowTab markets={markets} update={update}/>
+                )}
             </div>
         </ToolWrapper>
     )
 }
-
-// :)

@@ -34,8 +34,8 @@ export default function Stats() {
             setTotalBorrows(tempTB?.dp(2,1).toString(10))
             setTotalSupply(tempTS?.dp(2,1).toString(10))
 
-            setSortedBySupply((markets || []).sort((a, b) => (+a?.totalSupplyUsd >= +b?.totalSupplyUsd)))
-            setSortedByBorrows((markets || []).sort((a, b) => (+a?.totalBorrowsUsd >= +b?.totalBorrowsUsd)))
+            setSortedBySupply((markets || []).sort((a, b) => (+b?.totalSupplyUsd - +a?.totalSupplyUsd)))
+            setSortedByBorrows((markets || []).sort((a, b) => (+b?.totalBorrowsUsd - +a?.totalBorrowsUsd)))
         }
     }, [markets])
 
@@ -65,7 +65,7 @@ export default function Stats() {
                             </div>
                             <div className="space-y-1">
                                 {sortedBySupply && sortedBySupply.length > 0 && sortedBySupply.slice(0, 3).map(market => (
-                                    <TokenPercentageBar key={market?.id} src="" name={market?.underlyingSymbol} value={+totalSupply == 0 ? 0 : (market?.totalSupplyUsd / totalSupply * 100)} />
+                                    <TokenPercentageBar key={market?.id} src="" name={market?.underlyingSymbol} value={+totalSupply == 0 ? 0 : (market?.totalSupplyUsd / totalSupply * 100).toFixed(2)} />
                                 ))}
                             </div>
                         </div>
@@ -77,7 +77,7 @@ export default function Stats() {
                             </div>
                             <div className="space-y-1">
                                 {sortedByBorrows && sortedByBorrows.length > 0 && sortedByBorrows.slice(0, 3).map(market => (
-                                    <TokenPercentageBar key={market?.id} src="" name={market?.underlyingSymbol} value={+totalBorrows == 0 ? 0 : (market?.totalBorrowsUsd / totalBorrows * 100)} />
+                                    <TokenPercentageBar key={market?.id} src="" name={market?.underlyingSymbol} value={+totalBorrows == 0 ? 0 : (market?.totalBorrowsUsd / totalBorrows * 100).toFixed(2)} />
                                 ))}
                             </div>
                         </div>

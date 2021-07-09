@@ -61,15 +61,14 @@ export default function RepayTab({markets, update}) {
             setToast({ text: 'Invalid Asset', type: 'error' })
             return;
         }
+        const scTokenContract = getSctokenContract(id, library.getSigner());
+        const token = CONTRACT_TOKEN_ADDRESS?.[asset.underlyingSymbol.toLowerCase()];
 
         const repayLimit = BigNumber.minimum(asset.borrowBalance, asset.walletBalance);
         if(+amount <= 0 || +amount > repayLimit.toNumber()) {
-            setToast({ text: 'Invalid Amount', type: 'error' })
+            setToast({ text: `Invalid Amount. Your Repay Limit is ${repayLimit.dp(8,1).toString(10)} ${token.symbol.toUpperCase()}`, type: 'error' })
             return;
         }
-
-        const scTokenContract = getSctokenContract(id, library.getSigner());
-        const token = CONTRACT_TOKEN_ADDRESS?.[asset.underlyingSymbol.toLowerCase()];
         const repayAmount = new BigNumber(amount).times(new BigNumber(10).pow(token?.decimals));
 
         if (token && account) {

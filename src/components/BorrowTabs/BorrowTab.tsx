@@ -70,7 +70,7 @@ export default function BorrowTab({markets, update}) {
         
         let borrowAmount = new BigNumber(parseFloat(amount) || 0).times(new BigNumber(10).pow(token?.decimals))
         if(borrowAmount.lte(0) || new BigNumber(amount).gt(borrowLimit)) {
-            setToast({ text: 'Invalid Amount', type: 'error' })
+            setToast({ text: `Invalid Amount! Your borrow Limit is ${borrowLimit.dp(8,1).toString(10)} ${token.symbol.toUpperCase()}`, type: 'error' })
             return;
         }
 

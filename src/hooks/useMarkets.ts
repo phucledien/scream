@@ -54,6 +54,7 @@ export default function useMarkets(refresh = 0) {
                     const temp = await calculateAPY(allMarkets[i], assetsIn, account, library)
                     calculatedMarkets.push(temp)
                 }
+                console.log(calculatedMarkets)
                 setMarkets(calculatedMarkets)
             }
         }
@@ -98,7 +99,7 @@ const calculateAPY = async(market, assetsIn, account, provider) => {
 
         supplyRatePerBlock = new BigNumber(supplyRatePerBlock.toString());
         borrowRatePerBlock = new BigNumber(borrowRatePerBlock.toString());
-        let cash = new BigNumber(getCash.toString()).div(new BigNumber(10).pow(18));
+        let cash = new BigNumber(getCash.toString()).div(new BigNumber(10).pow(token?.decimals));
         const currentUtilizationRate = borrows.eq(0) ? new BigNumber(0) : borrows.div(
             cash.plus(borrows).minus(reserves)
         );

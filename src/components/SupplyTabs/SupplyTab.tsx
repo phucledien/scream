@@ -61,14 +61,14 @@ export default function SupplyTab({markets, update}) {
             setToast({ text: 'Invalid Asset', type: 'error' })
             return;
         }
+        const scTokenContract = getSctokenContract(id, library.getSigner());
+        const token = CONTRACT_TOKEN_ADDRESS?.[asset.underlyingSymbol.toLowerCase()];
 
         if(+amount <= 0 || +amount > asset.walletBalance.toNumber()) {
-            setToast({ text: 'Invalid Amount', type: 'error' })
+            setToast({ text: `Invalid Amount. Your Supply Limit is ${asset.walletBalance.dp(8,1).toString()} ${token.symbol.toUpperCase()}`, type: 'error' })
             return;
         }
 
-        const scTokenContract = getSctokenContract(id, library.getSigner());
-        const token = CONTRACT_TOKEN_ADDRESS?.[asset.underlyingSymbol.toLowerCase()];
         if (token && account) {
             setIsLoading(true);
             
