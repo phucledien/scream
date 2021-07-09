@@ -1,6 +1,4 @@
-const withTM = require('next-transpile-modules')(['react-parallax-tilt'])
-
-module.exports = withTM({
+module.exports = {
     async redirects() {
         return [
             {
@@ -42,5 +40,12 @@ module.exports = withTM({
         // !! WARN !!
         ignoreBuildErrors: true
     },
-    webpack5: false
-})
+    webpack(config) {
+        config.module.rules.push({
+          test: /\.svg$/,
+          use: ["@svgr/webpack"]
+        });
+    
+        return config;
+    }
+}

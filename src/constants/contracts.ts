@@ -1,0 +1,14 @@
+export default {
+  TOKEN: {
+    wftm : '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83',
+    usdc: '0x04068da6c83afcfa0e13ba15a6696662335d5b75',
+    dai: '0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e',
+    scream: '0xe0654C8e6fd4D733349ac7E09f6f23DA256bF475',
+  },
+  SCTOKEN: {
+    wftm : '0x0A0aD52F5B4E267a5237bdC65Da8524b1A9BF75B',
+    usdc: '0x7FEE465db85673EAdAa880F2632B78ebc7B5D2E3',
+    dai: '0xdC65E2B12089118B04307255bA7536B97AA1B33c',
+    scream: '0x340f6B4252a3e4C1F63555abaa975bD98760086a',
+  },
+};

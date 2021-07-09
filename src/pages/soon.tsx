@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import useCountDown from 'react-countdown-hook'
-import Tilt from 'react-parallax-tilt'
 import prettyMilliseconds from 'pretty-ms'
 import dayjs from 'dayjs'
 import Typed from 'react-typed'
 import ParticlesBackground from '../components/ParticlesBackground'
 import SubscribePopup from '../components/SubscribePopup'
+import dynamic from 'next/dynamic'
+
+const Tilt = dynamic(import('react-parallax-tilt'), { ssr: false })
+
 
 const date1 = dayjs('2021-05-21T19:00:00-01:00')
 const date2 = dayjs(Date.now())

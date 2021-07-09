@@ -1,10 +1,12 @@
 import { Button, Input, useToasts } from '@geist-ui/react'
 import Binance from 'binance-api-node'
 import { useEffect, useState } from 'react'
-import { useWallet } from 'use-wallet'
-import Web3 from 'web3'
+import ConnectWalletButton from '../components/WalletConnect/ConnectWalletButton'
 import erc721 from '../data/erc721.json'
+import { useActiveWeb3React } from '../hooks'
 import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
+import { toWei } from '../utils'
+import { getContract } from '../utils/ContractService'
 
 export default function PresalePage() {
     const [amount, setAmount] = useState(0)
@@ -12,14 +14,12 @@ export default function PresalePage() {
     const [pastelCount, setPastelCount] = useState(0)
 
     const [, setToast] = useToasts()
-    const wallet = useWallet()
+    const { account, library } = useActiveWeb3React();
 
     const onSubmit = async () => {
         try {
-            const web3 = new Web3(wallet.ethereum)
-
             // TODO: Add to address
-            await web3.eth.sendTransaction({ from: wallet.account, to: '', value: web3.utils.toWei(amount.toString()) })
+            await library.getSigner().sendTransaction({to: '', value: toWei(amount.toString()) })
 
             // await send(amount)
             setToast({ text: 'Success! You have claimed your allotment.' })
@@ -45,18 +45,14 @@ export default function PresalePage() {
     }, [])
 
     useEffect(() => {
-        if (!wallet.account) return
+        if (!account) return
         if (pastelCount) return
 
         const func = async () => {
             setStatus('loading')
             try {
-                const web3 = new Web3(wallet.ethereum)
-                const contract = await new web3.eth.Contract(erc721, `${process.env.NEXT_PUBLIC_CONTRACT_PASTEL_TICKET}`)
-
-                console.log('wallet', wallet.account)
-
-                const balance = await contract.methods.balanceOf(wallet.account).call()
+                const contract = getContract(`${process.env.NEXT_PUBLIC_CONTRACT_PASTEL_TICKET}`, erc721, library);
+                const balance = await contract.balanceOf(account)
 
                 setPastelCount(balance)
             } catch (error) {
@@ -65,7 +61,7 @@ export default function PresalePage() {
             setStatus('idle')
         }
         func()
-    }, [wallet])
+    }, [account])
 
     return (
         <>
@@ -120,9 +116,10 @@ export default function PresalePage() {
                                     }}
                                     className="flex h-full flex-col justify-center space-y-4 relative"
                                 >
-                                    {!wallet.account && (
+                                    {!account && (
                                         <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-95 z-20">
-                                            <Button
+                                            <ConnectWalletButton />
+                                            {/* <Button
                                                 auto
                                                 onClick={async () => {
                                                     await wallet.connect()
@@ -130,7 +127,7 @@ export default function PresalePage() {
                                                 type={wallet.status === 'error' ? 'error' : 'default'}
                                             >
                                                 {wallet.status === 'error' ? 'Error (Wrong Chain?)' : 'Connect Wallet'}
-                                            </Button>
+                                            </Button> */}
                                         </div>
                                     )}
 

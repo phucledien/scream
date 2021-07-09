@@ -14,7 +14,6 @@ module.exports = {
     },
     plugins: ['react', '@typescript-eslint'],
     rules: {
-        'jsx-a11y/anchor-is-valid': 'off',
         indent: ['error', 4],
         'react/jsx-indent': ['error', 4],
         'react/jsx-indent-props': ['error', 4],

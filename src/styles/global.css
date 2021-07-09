@@ -12,21 +12,6 @@ html {
     }
 }
 
-
-@font-face {
-    font-family: 'Eurostile Extended';
-    src: url('/fonts/EurostileExtended-Black.woff2') format('woff2'),
-        url('/fonts/EurostileExtended-Black.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-
-.font-extended {
-    font-family: 'Eurostile Extended', sans-serif;
-}
-
 @responsive {
     .text-shadow {
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -84,17 +69,6 @@ body,
     -moz-animation: BgRainbow 10s ease infinite;
     animation: BgRainbow 10s ease infinite;
 }
-
-.border-glow {
-    /* border: 0.2rem solid #fff; */
-    /* border-radius: 2rem; */
-    /* padding: 0.4em; */
-    box-shadow: 0 0 2rem rgba(254, 19, 254, 0.39),
-                0 0 0.8rem rgba(187, 19, 254, 0.39),
-                0 0 2.8rem rgba(187, 19, 254, 0.39),
-                inset 0 0 1.3rem rgba(187, 19, 254, 0.39);
-}
-
 
 @-webkit-keyframes BgRainbow {
     0% {

@@ -1,10 +1,18 @@
 import { GeistProvider } from '@geist-ui/react'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { UseWalletProvider } from 'use-wallet'
+import { Web3ReactProvider } from '@web3-react/core'
 import Meta from '../components/Meta'
 import { GoogleAnalytics } from '../lib/ga'
 import '../styles/global.css'
+import getLibrary from '../utils/getLibrary'
+import Web3ReactManager from '../components/Web3ReactManager'
+import dynamic from 'next/dynamic'
+
+const Web3ReactProviderDefault = dynamic(
+    () => import('../components/Provider'),
+    { ssr: false }
+  )
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
@@ -21,10 +29,14 @@ export default function App({ Component, pageProps }: AppProps) {
             </Head>
             <Meta />
             <GeistProvider>
-                <UseWalletProvider chainId={250}>
-                    <GoogleAnalytics />
-                    <Component {...pageProps} />
-                </UseWalletProvider>
+                <Web3ReactProvider getLibrary={getLibrary}>
+                    <Web3ReactProviderDefault getLibrary={getLibrary}>
+                        <GoogleAnalytics />
+                        <Web3ReactManager>
+                            <Component {...pageProps} />
+                        </Web3ReactManager>
+                    </Web3ReactProviderDefault>
+                </Web3ReactProvider>
             </GeistProvider>
         </>
     )

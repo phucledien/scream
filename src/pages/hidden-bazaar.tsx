@@ -1,9 +1,12 @@
 import { Card, Input, Button, Image, Text } from '@geist-ui/react'
 import Link from 'next/link'
 import { useState } from 'react'
-import Tilt from 'react-parallax-tilt'
 import ProductModal from '../components/ProductModal'
 import { products } from '../lib/dummy'
+import dynamic from 'next/dynamic'
+
+const Tilt = dynamic(import('react-parallax-tilt'), { ssr: false })
+
 
 export default function Shop() {
     const [product, setProduct] = useState()
