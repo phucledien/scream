@@ -21,7 +21,7 @@ export default function App() {
     return (
         <>
             <Header />
-            <Stats /> 
+            <Stats markets={markets}/> 
             <div className="max-w-5xl mx-auto p-6 pb-12 md:p-12 md:pb-24">
                 <div className="space-y-6 md:space-y-12">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12">
@@ -29,7 +29,7 @@ export default function App() {
                         <LendTool markets={markets} update={update}/>
                     </div>
                     {/* <RepayTool /> */}
-                    <AssetTable />
+                    <AssetTable markets={markets} update={update}/>
                 </div>
             </div>
             {/* <div className="bg-pink-200">

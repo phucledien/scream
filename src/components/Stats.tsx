@@ -4,23 +4,21 @@ import { Button, Divider } from '@geist-ui/react'
 import dynamic from 'next/dynamic'
 import TokenPercentageBar from './TokenPercentageBar'
 import LiqudityTable from './LiqudityTable'
-import useMarkets from '../hooks/useMarkets'
 import BigNumber from 'bignumber.js'
 import { currencyFormatter } from '../utils'
 
 const ConnectWalletButton = dynamic(() => import('../components/WalletConnect/ConnectWalletButton'), { ssr: false })
 
-export default function Stats() {
+export default function Stats({markets}) {
     const [expand, setExpand] = useState(false)
     const [totalSupply, setTotalSupply] = useState(0);
     const [totalBorrows, setTotalBorrows] = useState(0);
     const [sortedBySupply, setSortedBySupply] = useState([]);
     const [sortedByBorrows, setSortedByBorrows] = useState([]);
 
-    const markets = useMarkets();
-    
+
     useEffect(() => {
-        if(markets) {
+        if(markets && markets?.length) {
             const tempTS = (markets || []).reduce((accumulator, market) => {
                 return new BigNumber(accumulator).plus(
                   new BigNumber(market.totalSupplyUsd)
@@ -34,8 +32,8 @@ export default function Stats() {
             setTotalBorrows(tempTB?.dp(2,1).toString(10))
             setTotalSupply(tempTS?.dp(2,1).toString(10))
 
-            setSortedBySupply((markets || []).sort((a, b) => (+b?.totalSupplyUsd - +a?.totalSupplyUsd)))
-            setSortedByBorrows((markets || []).sort((a, b) => (+b?.totalBorrowsUsd - +a?.totalBorrowsUsd)))
+            setSortedBySupply([...markets].sort((a, b) => (b?.totalSupplyUsd - a?.totalSupplyUsd)))
+            setSortedByBorrows([...markets].sort((a, b) => (b?.totalBorrowsUsd - a?.totalBorrowsUsd)))
         }
     }, [markets])
 

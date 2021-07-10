@@ -20,6 +20,8 @@ export default function RepayTab({markets, update}) {
         if(markets?.length) {
             if(!asset) {
                 setAsset(markets[0])
+            } else {
+                setAsset((markets || []).find(item => item.id == asset.id))
             }
         }
     }, [markets])
@@ -129,7 +131,7 @@ export default function RepayTab({markets, update}) {
                     <ConnectWalletButton className="flex-1" type="secondary"/>
                 )}
                 {account && asset && isEnabled && (
-                    <Button className="flex-1" type="secondary" onClick={repay}>{ isLoading ? 'Loading...' : 'Supply' }</Button>
+                    <Button className="flex-1" type="secondary" onClick={repay}>{ isLoading ? 'Loading...' : 'Repay' }</Button>
                 )}
                 {account && asset && !isEnabled && (
                     <Button className="flex-1" type="secondary" onClick={approve}>{isLoading ? 'Loading...' : 'Apporve'}</Button>

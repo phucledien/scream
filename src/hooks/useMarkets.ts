@@ -13,6 +13,7 @@ export default function useMarkets(refresh = 0) {
 
     useEffect(() => {
         const fetchMarkets = async () => {
+            console.log(' ================== > refreshing markets')
             const marketData = await axios.post(
                 GRAPHQL_URL,
                 {
@@ -49,11 +50,13 @@ export default function useMarkets(refresh = 0) {
             const appContract = getUnitrollerContract(library);
             if(allMarkets) {
                 const assetsIn = account ? await appContract.getAssetsIn(account) : [];
-                let calculatedMarkets = [];
+                
+                let promises = [];
                 for(let i = 0; i < allMarkets.length; i++) {
-                    const temp = await calculateAPY(allMarkets[i], assetsIn, account, library)
-                    calculatedMarkets.push(temp)
+                    promises.push(calculateAPY(allMarkets[i], assetsIn, account, library))
                 }
+                let calculatedMarkets = await Promise.all(promises);
+                console.log("refreshing markets result ===== ")
                 console.log(calculatedMarkets)
                 setMarkets(calculatedMarkets)
             }

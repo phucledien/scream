@@ -19,6 +19,8 @@ export default function WithdrawTab({markets, update}) {
         if(markets?.length) {
             if(!asset) {
                 setAsset(markets[0])
+            } else {
+                setAsset((markets || []).find(item => item.id == asset.id))
             }
         }
     }, [markets])
