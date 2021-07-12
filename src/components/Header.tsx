@@ -38,7 +38,7 @@ export default function Header() {
                         exit={{ height: 0 }}
                         className="md:hidden bg-white border-b border-color-100 p-6 flex flex-col space-y-2"
                     >
-                        <Link href="/launch">
+                        <Link href="/apps">
                             <a className="text-3xl font-extrabold">All Apps</a>
                         </Link>
                         <Link href="/">
@@ -52,6 +52,7 @@ export default function Header() {
                     <Button href="/">
                         <HomeIcon className="w-4" />
                     </Button>
+                    <Button href="/apps">Apps</Button>
                     <Button href="/lend">Lending</Button>
                     <Button href="/stake">Stake</Button>
 

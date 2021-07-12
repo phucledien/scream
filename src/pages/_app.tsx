@@ -9,10 +9,7 @@ import getLibrary from '../utils/getLibrary'
 import Web3ReactManager from '../components/Web3ReactManager'
 import dynamic from 'next/dynamic'
 
-const Web3ReactProviderDefault = dynamic(
-    () => import('../components/Provider'),
-    { ssr: false }
-  )
+const Web3ReactProviderDefault = dynamic(() => import('../components/Provider'), { ssr: false })
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
@@ -28,10 +25,11 @@ export default function App({ Component, pageProps }: AppProps) {
                 <script src="/js/p5.min.js" />
             </Head>
             <Meta />
+
+            <GoogleAnalytics />
             <GeistProvider>
                 <Web3ReactProvider getLibrary={getLibrary}>
                     <Web3ReactProviderDefault getLibrary={getLibrary}>
-                        <GoogleAnalytics />
                         <Web3ReactManager>
                             <Component {...pageProps} />
                         </Web3ReactManager>
