@@ -9,12 +9,13 @@ import { currencyFormatter } from '../utils'
 
 const ConnectWalletButton = dynamic(() => import('../components/WalletConnect/ConnectWalletButton'), { ssr: false })
 
-export default function Stats({ markets }) {
+export default function Stats({markets}) {
     const [expand, setExpand] = useState(false)
     const [totalSupply, setTotalSupply] = useState(0)
     const [totalBorrows, setTotalBorrows] = useState(0)
     const [sortedBySupply, setSortedBySupply] = useState([])
     const [sortedByBorrows, setSortedByBorrows] = useState([])
+
 
     useEffect(() => {
         if (markets && markets?.length) {
@@ -93,7 +94,7 @@ export default function Stats({ markets }) {
                                         collapsed: { opacity: 0, height: 0 }
                                     }}
                                 >
-                                    <LiqudityTable markets={markets} />
+                                    <LiqudityTable markets={markets}/>
                                 </motion.div>
                             )}
                         </AnimatePresence>
