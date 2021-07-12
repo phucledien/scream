@@ -2,38 +2,29 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button, Divider } from '@geist-ui/react'
 import dynamic from 'next/dynamic'
+import BigNumber from 'bignumber.js'
 import TokenPercentageBar from './TokenPercentageBar'
 import LiqudityTable from './LiqudityTable'
-import BigNumber from 'bignumber.js'
 import { currencyFormatter } from '../utils'
 
 const ConnectWalletButton = dynamic(() => import('../components/WalletConnect/ConnectWalletButton'), { ssr: false })
 
-export default function Stats({markets}) {
+export default function Stats({ markets }) {
     const [expand, setExpand] = useState(false)
-    const [totalSupply, setTotalSupply] = useState(0);
-    const [totalBorrows, setTotalBorrows] = useState(0);
-    const [sortedBySupply, setSortedBySupply] = useState([]);
-    const [sortedByBorrows, setSortedByBorrows] = useState([]);
-
+    const [totalSupply, setTotalSupply] = useState(0)
+    const [totalBorrows, setTotalBorrows] = useState(0)
+    const [sortedBySupply, setSortedBySupply] = useState([])
+    const [sortedByBorrows, setSortedByBorrows] = useState([])
 
     useEffect(() => {
-        if(markets && markets?.length) {
-            const tempTS = (markets || []).reduce((accumulator, market) => {
-                return new BigNumber(accumulator).plus(
-                  new BigNumber(market.totalSupplyUsd)
-                );
-            }, new BigNumber(0));
-            const tempTB = (markets || []).reduce((accumulator, market) => {
-                return new BigNumber(accumulator).plus(
-                    new BigNumber(market.totalBorrowsUsd)
-                );
-            }, new BigNumber(0));
-            setTotalBorrows(tempTB?.dp(2,1).toString(10))
-            setTotalSupply(tempTS?.dp(2,1).toString(10))
+        if (markets && markets?.length) {
+            const tempTS = (markets || []).reduce((accumulator, market) => new BigNumber(accumulator).plus(new BigNumber(market.totalSupplyUsd)), new BigNumber(0))
+            const tempTB = (markets || []).reduce((accumulator, market) => new BigNumber(accumulator).plus(new BigNumber(market.totalBorrowsUsd)), new BigNumber(0))
+            setTotalBorrows(tempTB?.dp(2, 1).toString(10))
+            setTotalSupply(tempTS?.dp(2, 1).toString(10))
 
-            setSortedBySupply([...markets].sort((a, b) => (b?.totalSupplyUsd - a?.totalSupplyUsd)))
-            setSortedByBorrows([...markets].sort((a, b) => (b?.totalBorrowsUsd - a?.totalBorrowsUsd)))
+            setSortedBySupply([...markets].sort((a, b) => b?.totalSupplyUsd - a?.totalSupplyUsd))
+            setSortedByBorrows([...markets].sort((a, b) => b?.totalBorrowsUsd - a?.totalBorrowsUsd))
         }
     }, [markets])
 
@@ -45,7 +36,7 @@ export default function Stats({markets}) {
                     <ConnectWalletButton />
                     <div className="flex-1" />
                     <div className="flex justify-end items-center space-x-4">
-                        <img className="w-40" src="https://scream.sh/img/scream-logotype.png" alt="" />
+                        <img className="hidden sm:block w-40" src="https://scream.sh/img/scream-logotype.png" alt="" />
                         <img className="w-8 animate-spin" src="https://scream.sh/img/scream-multi.png" alt="" />
                     </div>
                 </div>
@@ -62,9 +53,13 @@ export default function Stats({markets}) {
                                 <p className="text-3xl">${`${currencyFormatter(totalSupply)}`}</p>
                             </div>
                             <div className="space-y-1">
-                                {sortedBySupply && sortedBySupply.length > 0 && sortedBySupply.slice(0, 3).map(market => (
-                                    <TokenPercentageBar key={market?.id} src="" name={market?.underlyingSymbol} value={+totalSupply == 0 ? 0 : (market?.totalSupplyUsd / totalSupply * 100).toFixed(2)} />
-                                ))}
+                                {sortedBySupply &&
+                                    sortedBySupply.length > 0 &&
+                                    sortedBySupply
+                                        .slice(0, 3)
+                                        .map((market) => (
+                                            <TokenPercentageBar key={market?.id} src="" name={market?.underlyingSymbol} value={+totalSupply == 0 ? 0 : ((market?.totalSupplyUsd / totalSupply) * 100).toFixed(2)} />
+                                        ))}
                             </div>
                         </div>
                         <div className="space-y-4">
@@ -74,9 +69,13 @@ export default function Stats({markets}) {
                                 <div />
                             </div>
                             <div className="space-y-1">
-                                {sortedByBorrows && sortedByBorrows.length > 0 && sortedByBorrows.slice(0, 3).map(market => (
-                                    <TokenPercentageBar key={market?.id} src="" name={market?.underlyingSymbol} value={+totalBorrows == 0 ? 0 : (market?.totalBorrowsUsd / totalBorrows * 100).toFixed(2)} />
-                                ))}
+                                {sortedByBorrows &&
+                                    sortedByBorrows.length > 0 &&
+                                    sortedByBorrows
+                                        .slice(0, 3)
+                                        .map((market) => (
+                                            <TokenPercentageBar key={market?.id} src="" name={market?.underlyingSymbol} value={+totalBorrows == 0 ? 0 : ((market?.totalBorrowsUsd / totalBorrows) * 100).toFixed(2)} />
+                                        ))}
                             </div>
                         </div>
                     </div>
@@ -94,7 +93,7 @@ export default function Stats({markets}) {
                                         collapsed: { opacity: 0, height: 0 }
                                     }}
                                 >
-                                    <LiqudityTable markets={markets}/>
+                                    <LiqudityTable markets={markets} />
                                 </motion.div>
                             )}
                         </AnimatePresence>

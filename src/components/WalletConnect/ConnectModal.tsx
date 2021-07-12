@@ -7,7 +7,7 @@ export default function ConnectModal({ open, login, onDismiss = () => null }) {
         <Modal open={open} onClose={onDismiss}>
             <Modal.Title>Connect Wallet</Modal.Title>
             <Modal.Content>
-                <div className="space-y-8">
+                <div className="space-y-2">
                     {config.map((entry, index) => (
                         <Button
                             style={{ width: '100%' }}
