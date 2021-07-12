@@ -16,7 +16,7 @@ export default function App() {
     const [showSidebar, setShowSidebar] = useState(false)
     const [refreshMarket, setRefreshMarket] = useState(0)
 
-    const { triggerTransactionAlert,, deleteTransactionAlert } = useAlerts()
+    const { triggerTransactionAlert, deleteTransactionAlert } = useAlerts()
 
     const markets = useMarkets(refreshMarket)
 
