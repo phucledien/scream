@@ -8,6 +8,7 @@ import '../styles/global.css'
 import getLibrary from '../utils/getLibrary'
 import Web3ReactManager from '../components/Web3ReactManager'
 import dynamic from 'next/dynamic'
+import { UseAlertsWrapper } from '../hooks/useAlerts'
 
 const Web3ReactProviderDefault = dynamic(() => import('../components/Provider'), { ssr: false })
 
@@ -31,7 +32,9 @@ export default function App({ Component, pageProps }: AppProps) {
                 <Web3ReactProvider getLibrary={getLibrary}>
                     <Web3ReactProviderDefault getLibrary={getLibrary}>
                         <Web3ReactManager>
-                            <Component {...pageProps} />
+                            <UseAlertsWrapper>
+                                <Component {...pageProps} />
+                            </UseAlertsWrapper>
                         </Web3ReactManager>
                     </Web3ReactProviderDefault>
                 </Web3ReactProvider>

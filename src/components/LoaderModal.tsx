@@ -1,4 +1,5 @@
 import Typed from 'react-typed'
+import { motion } from 'framer-motion'
 
 interface LoaderModalProps {
     complete?: boolean
@@ -7,11 +8,11 @@ interface LoaderModalProps {
 
 export default function LoaderModal({ complete, tx = '0xbd7af71cfd7e663f6a306845a72fc05baff982f4cee10c6589a4829524ecb231' }: LoaderModalProps) {
     return (
-        <div className="fixed z-50 bottom-6 right-6 max-w-xs w-full bg-animated-rainbow rounded-2xl shadow-2xl p-1">
-            <div className="bg-white rounded-2xl p-6">
+        <motion.div initial={{ x: '100%' }} animate={{ x: '0' }} exit={{ x: '100%' }} className="w-full bg-animated-rainbow rounded-2xl shadow-2xl p-1">
+            <div className="bg-white rounded-2xl p-4">
                 <div className="flex items-center space-x-4">
-                    <div className="space-y-1 overflow-hidden">
-                        <p className="font-extrabold text-xl truncate">
+                    <div className="flex-1 space-y-1 overflow-hidden">
+                        <p className="font-extrabold text-lg truncate">
                             {complete ? (
                                 'Complete.'
                             ) : (
@@ -29,6 +30,6 @@ export default function LoaderModal({ complete, tx = '0xbd7af71cfd7e663f6a306845
                     )}
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
