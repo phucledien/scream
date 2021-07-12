@@ -9,6 +9,7 @@ import Stats from '../components/Stats'
 import Header from '../components/Header'
 import useMarkets from '../hooks/useMarkets'
 import AssetSidebar from '../components/AssetSidebar'
+import LoaderModal from '../components/LoaderModal'
 
 export const LendingContext = createContext({})
 
@@ -24,6 +25,8 @@ export default function App() {
 
     return (
         <>
+            <LoaderModal tx="0xbd7af71cfd7e663f6a306845a72fc05baff982f4cee10c6589a4829524ecb231" />
+
             <LendingContext.Provider value={{ showSidebar, setShowSidebar }}>
                 <AssetSidebar open={showSidebar} hide={() => setShowSidebar(false)} />
                 <Header />
