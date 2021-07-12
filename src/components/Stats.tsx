@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button, Divider } from '@geist-ui/react'
 import dynamic from 'next/dynamic'
@@ -6,6 +6,7 @@ import BigNumber from 'bignumber.js'
 import TokenPercentageBar from './TokenPercentageBar'
 import LiqudityTable from './LiqudityTable'
 import { currencyFormatter } from '../utils'
+import { LendingContext } from '../pages/lend'
 
 const ConnectWalletButton = dynamic(() => import('../components/WalletConnect/ConnectWalletButton'), { ssr: false })
 
@@ -15,6 +16,8 @@ export default function Stats({ markets }) {
     const [totalBorrows, setTotalBorrows] = useState(0)
     const [sortedBySupply, setSortedBySupply] = useState([])
     const [sortedByBorrows, setSortedByBorrows] = useState([])
+
+    const { setShowSidebar } = useContext(LendingContext)
 
     useEffect(() => {
         if (markets && markets?.length) {
@@ -32,8 +35,10 @@ export default function Stats({ markets }) {
         <div className="relative">
             <div className="absolute z-0 inset-0 bg-gray-100 transform -translate-y-1/4" />
             <div className="relative max-w-5xl mx-auto px-6 pt-6 md:px-12 md:pt-12 space-y-6">
-                <div className="flex">
-                    <ConnectWalletButton />
+                <div className="flex items-center">
+                    <Button onClick={() => setShowSidebar(true)} size="small" auto>
+                        Your Overview
+                    </Button>
                     <div className="flex-1" />
                     <div className="flex justify-end items-center space-x-4">
                         <img className="hidden sm:block w-40" src="https://scream.sh/img/scream-logotype.png" alt="" />
