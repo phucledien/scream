@@ -8,8 +8,6 @@ const TVChartContainer = dynamic(() => import('../components/TVChartContainer'),
 export default function Dashboard() {
     const [hoveredParam, setHoveredParam] = useState(null)
 
-    // const wallet = useWallet()
-
     return (
         <>
             <Header />
