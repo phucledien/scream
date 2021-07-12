@@ -47,7 +47,7 @@ export function UseAlertsWrapper({ children }) {
         >
             <>
                 <AnimatePresence>
-                    <div className="space-y-2 max-w-xs w-full fixed bottom-6 right-6">
+                    <div className="z-50 space-y-2 max-w-xs w-full fixed bottom-6 right-6">
                         {transactions.map((transaction) => (
                             <LoaderModal tx={transaction.tx} complete={transaction.complete} />
                         ))}
