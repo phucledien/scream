@@ -59,8 +59,10 @@ export default function Header() {
 
                     <div className="flex-1" />
 
-                    <p className="text-xs font-mono">$12.23 💚</p>
-                    <ConnectWalletButton />
+                    <p className="hidden md:block text-xs font-mono">$12.23 💚</p>
+                    <div className="hidden md:block">
+                        <ConnectWalletButton />
+                    </div>
 
                     <button className="md:hidden" type="button" onClick={() => setIsExpanded((_) => !_)}>
                         <MenuAlt3Icon className={classNames('w-4 transform ease-in-out duration-300', isExpanded && 'rotate-90')} />
