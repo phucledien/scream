@@ -1,7 +1,7 @@
 import Typed from 'react-typed'
 
 interface LoaderModalProps {
-    complete: boolean
+    complete?: boolean
     tx: string
 }
 

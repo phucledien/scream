@@ -25,7 +25,7 @@ export default function App() {
 
     return (
         <>
-            <LoaderModal tx="0xbd7af71cfd7e663f6a306845a72fc05baff982f4cee10c6589a4829524ecb231" />
+            <LoaderModal tx="0xbd7af71cfd7e663f6a306845a72fc05baff982f4cee10c6589a4829524ecb231" complete={false} />
 
             <LendingContext.Provider value={{ showSidebar, setShowSidebar }}>
                 <AssetSidebar open={showSidebar} hide={() => setShowSidebar(false)} />
