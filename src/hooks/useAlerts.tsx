@@ -17,17 +17,39 @@ export function UseAlertsWrapper({ children }) {
     }
 
     const deleteTransactionAlert = (tx) => {
+        completeTransactionAlert(tx)
+
+        setTimeout(() => {
+            const filtered = transactions.filter((transaction) => transaction.tx !== tx)
+            setTransactions(filtered)
+        }, 2000)
+    }
+
+    const completeTransactionAlert = (tx) => {
+        const find = transactions.find((transaction) => transaction.tx === tx)
+        if (!find) return
+
+        find.complete = true
         const filtered = transactions.filter((transaction) => transaction.tx !== tx)
-        setTransactions(filtered)
+
+        setTransactions([...filtered, find])
     }
 
     return (
-        <AlertsContext.Provider value={{ triggerTransactionAlert, deleteTransactionAlert }}>
+        <AlertsContext.Provider
+            value={{
+                transactions,
+                setTransactions,
+                triggerTransactionAlert,
+                deleteTransactionAlert,
+                completeTransactionAlert
+            }}
+        >
             <>
                 <AnimatePresence>
                     <div className="space-y-2 max-w-xs w-full fixed bottom-6 right-6">
                         {transactions.map((transaction) => (
-                            <LoaderModal tx={transaction.tx} complete={false} />
+                            <LoaderModal tx={transaction.tx} complete={transaction.complete} />
                         ))}
                     </div>
                 </AnimatePresence>

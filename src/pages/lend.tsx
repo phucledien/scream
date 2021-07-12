@@ -16,7 +16,7 @@ export default function App() {
     const [showSidebar, setShowSidebar] = useState(false)
     const [refreshMarket, setRefreshMarket] = useState(0)
 
-    const { triggerTransactionAlert, deleteTransactionAlert } = useAlerts()
+    const { triggerTransactionAlert,, deleteTransactionAlert } = useAlerts()
 
     const markets = useMarkets(refreshMarket)
 
@@ -33,8 +33,8 @@ export default function App() {
                 <Stats markets={markets} />
                 <div className="max-w-5xl mx-auto p-6 pb-12 md:p-12 md:pb-24">
                     <div className="space-y-6 md:space-y-12">
-                        <Button onClick={() => triggerTransactionAlert('TXIDGOESHERE')}>TriggerAlert</Button>
-                        <Button onClick={() => deleteTransactionAlert('TXIDGOESHERE')}>DeleteAlert</Button>
+                        <Button onClick={() => triggerTransactionAlert('TXIDGOESHERE')}>triggerTransactionAlert</Button>
+                        <Button onClick={() => deleteTransactionAlert('TXIDGOESHERE')}>deleteTransactionAlert</Button>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12">
                             <BorrowTool markets={markets} update={update} />
