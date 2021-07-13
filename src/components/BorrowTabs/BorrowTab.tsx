@@ -56,7 +56,7 @@ export default function BorrowTab({markets, update}) {
         }
         
         limit = totalBorrowLimit.minus(totalBorrowBalance);
-        setBorrowLimit(limit);
+        setBorrowLimit(limit.div(asset?.underlyingPriceUSD));
     }
 
     const onChangeAsset = async (value) => {
