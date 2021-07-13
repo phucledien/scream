@@ -1,39 +1,39 @@
 import { Button, Select, Input, useToasts } from '@geist-ui/react'
-import BigNumber from 'bignumber.js';
-import { useEffect, useState } from 'react';
-import { CONTRACT_TOKEN_ADDRESS } from '../../constants';
+import BigNumber from 'bignumber.js'
+import { useEffect, useState } from 'react'
+import { CONTRACT_TOKEN_ADDRESS } from '../../constants'
 import { useActiveWeb3React } from '../../hooks'
-import { currencyFormatter, formatter } from '../../utils';
-import { getSctokenContract, getTokenContract } from '../../utils/ContractService';
-import ConnectWalletButton from '../WalletConnect/ConnectWalletButton';
+import { currencyFormatter, formatter } from '../../utils'
+import { getSctokenContract, getTokenContract } from '../../utils/ContractService'
+import ConnectWalletButton from '../WalletConnect/ConnectWalletButton'
 
-export default function RepayTab({markets, update}) {
-    const [asset, setAsset] = useState(null);
+export default function RepayTab({ markets, update }) {
+    const [asset, setAsset] = useState(null)
     const [amount, setAmount] = useState('')
-    const [isEnabled, setIsEnabled] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isEnabled, setIsEnabled] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
-    const { account, library } = useActiveWeb3React();
+    const { account, library } = useActiveWeb3React()
     const [, setToast] = useToasts()
-    
+
     useEffect(() => {
-        if(markets?.length) {
-            if(!asset) {
+        if (markets?.length) {
+            if (!asset) {
                 setAsset(markets[0])
             } else {
-                setAsset((markets || []).find(item => item.id == asset.id))
+                setAsset((markets || []).find((item) => item.id == asset.id))
             }
         }
     }, [markets])
 
     useEffect(() => {
-        setIsEnabled(asset?.allowBalance?.gt(0));
-    }, [asset]);
+        setIsEnabled(asset?.allowBalance?.gt(0))
+    }, [asset])
 
     const onChangeAsset = async (value) => {
-        setAsset((markets || []).find(item => item.id == value))
+        setAsset((markets || []).find((item) => item.id == value))
     }
-    
+
     const onChangeAmount = async (e) => {
         setAmount(e.target.value)
     }
@@ -42,55 +42,49 @@ export default function RepayTab({markets, update}) {
         setIsLoading(true)
         try {
             const tokenContract = getTokenContract(asset?.underlyingSymbol?.toLowerCase(), library?.getSigner())
-            if(tokenContract) {
-                const tx = await tokenContract.approve(asset?.id, new BigNumber(2)
-                    .pow(256)
-                    .minus(1)
-                    .toString(10))
+            if (tokenContract) {
+                const tx = await tokenContract.approve(asset?.id, new BigNumber(2).pow(256).minus(1).toString(10))
                 await tx.wait(2)
                 update()
-                setIsEnabled(true);
+                setIsEnabled(true)
             }
-        } catch(e) {
+        } catch (e) {
             console.log(e)
         }
         setIsLoading(false)
     }
 
-    const repay = async() => {
-        const id = asset?.symbol?.toLowerCase();
-        if(!id) {
+    const repay = async () => {
+        const id = asset?.symbol?.toLowerCase()
+        if (!id) {
             setToast({ text: 'Invalid Asset', type: 'error' })
-            return;
+            return
         }
-        const scTokenContract = getSctokenContract(id, library.getSigner());
-        const token = CONTRACT_TOKEN_ADDRESS?.[asset.underlyingSymbol.toLowerCase()];
+        const scTokenContract = getSctokenContract(id, library.getSigner())
+        const token = CONTRACT_TOKEN_ADDRESS?.[asset.underlyingSymbol.toLowerCase()]
 
-        const repayLimit = BigNumber.minimum(asset.borrowBalance, asset.walletBalance);
-        if(+amount <= 0 || +amount > repayLimit.toNumber()) {
-            setToast({ text: `Invalid Amount. Your Repay Limit is ${repayLimit.dp(8,1).toString(10)} ${token.symbol.toUpperCase()}`, type: 'error' })
-            return;
+        const repayLimit = BigNumber.minimum(asset.borrowBalance, asset.walletBalance)
+        if (+amount <= 0 || +amount > repayLimit.toNumber()) {
+            setToast({ text: `Invalid Amount. Your Repay Limit is ${repayLimit.dp(8, 1).toString(10)} ${token.symbol.toUpperCase()}`, type: 'error' })
+            return
         }
-        const repayAmount = new BigNumber(amount).times(new BigNumber(10).pow(token?.decimals));
+        const repayAmount = new BigNumber(amount).times(new BigNumber(10).pow(token?.decimals))
 
         if (token && account) {
-            setIsLoading(true);
-            
+            setIsLoading(true)
+
             try {
-                let tx = null;
-                if(+amount == asset.borrowBalance.toNumber()) {
-                    tx = await scTokenContract.repayBorrow( new BigNumber(2)
-                    .pow(256)
-                    .minus(1)
-                    .toString(10));
+                let tx = null
+                if (+amount == asset.borrowBalance.toNumber()) {
+                    tx = await scTokenContract.repayBorrow(new BigNumber(2).pow(256).minus(1).toString(10))
                 } else {
-                    tx = await scTokenContract.repayBorrow(repayAmount.toString(10)) 
+                    tx = await scTokenContract.repayBorrow(repayAmount.toString(10))
                 }
-                if(tx) {
+                if (tx) {
                     await tx.wait(1)
-                    update();    
+                    update()
                 }
-            } catch(e) {
+            } catch (e) {
                 console.log(e)
             }
 
@@ -105,9 +99,12 @@ export default function RepayTab({markets, update}) {
                 <p className="text-xl font-bold flex-1">Repay Assets</p>
 
                 <Select placeholder="Assets" value={asset?.id} onChange={onChangeAsset}>
-                    {markets && markets.map(market => (
-                        <Select.Option value={market.id} key={market.id}>{market.underlyingSymbol}</Select.Option>
-                    ))}
+                    {markets &&
+                        markets.map((market) => (
+                            <Select.Option value={market.id} key={market.id}>
+                                {market.underlyingSymbol}
+                            </Select.Option>
+                        ))}
                 </Select>
             </div>
 
@@ -121,20 +118,22 @@ export default function RepayTab({markets, update}) {
                     <span>0</span>
                 </p>
             </div>
-            
+
             <div>
-                <Input label="Amount" type="number" size="large" width="100%" placeholder="Enter an amount" value={amount} onChange={onChangeAmount}/>
+                <Input label="Amount" type="number" size="large" width="100%" placeholder="Enter an amount" value={amount} onChange={onChangeAmount} />
             </div>
 
             <div className="flex">
-                {!account && (
-                    <ConnectWalletButton className="flex-1" type="secondary"/>
-                )}
+                {!account && <ConnectWalletButton className="flex-1" type="secondary" />}
                 {account && asset && isEnabled && (
-                    <Button className="flex-1" type="secondary" onClick={repay}>{ isLoading ? 'Loading...' : 'Repay' }</Button>
+                    <Button className="flex-1" type="secondary" onClick={repay}>
+                        {isLoading ? 'Loading...' : 'Repay'}
+                    </Button>
                 )}
                 {account && asset && !isEnabled && (
-                    <Button className="flex-1" type="secondary" onClick={approve}>{isLoading ? 'Loading...' : 'Apporve'}</Button>
+                    <Button loading={isLoading} className="flex-1" type="secondary" onClick={approve}>
+                        {isLoading ? 'Loading...' : 'Approve'}
+                    </Button>
                 )}
             </div>
 
