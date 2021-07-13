@@ -3,8 +3,9 @@ import BigNumber from 'bignumber.js';
 import { useEffect, useState } from 'react';
 import { CONTRACT_TOKEN_ADDRESS } from '../../constants';
 import { useActiveWeb3React } from '../../hooks'
-import { currencyFormatter, formatter } from '../../utils';
-import { getSctokenContract, getTokenContract, getUnitrollerContract } from '../../utils/ContractService';
+import useAlerts from '../../hooks/useAlerts';
+import { formatter } from '../../utils';
+import { getSctokenContract, getUnitrollerContract } from '../../utils/ContractService';
 import ConnectWalletButton from '../WalletConnect/ConnectWalletButton';
 
 export default function BorrowTab({markets, update}) {
@@ -15,6 +16,7 @@ export default function BorrowTab({markets, update}) {
 
     const { account, library } = useActiveWeb3React();
     const [, setToast] = useToasts()
+    const { triggerTransactionAlert, deleteTransactionAlert } = useAlerts()
     
     useEffect(() => {
         if(markets?.length) {
@@ -78,15 +80,16 @@ export default function BorrowTab({markets, update}) {
 
         if (token && account) {
             setIsLoading(true);
-            
             try {
                 const tx = await scTokenContract.borrow(borrowAmount.toString(10))
+                triggerTransactionAlert(tx?.hash)
                 await tx.wait(1)
+                deleteTransactionAlert(tx?.hash)
                 update()
             } catch(e) {
                 console.log(e)
             }
-
+        
             setAmount('')
             setIsLoading(false)
         }

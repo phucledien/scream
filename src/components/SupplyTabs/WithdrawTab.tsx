@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import { useEffect, useState } from 'react';
 import { CONTRACT_TOKEN_ADDRESS } from '../../constants';
 import { useActiveWeb3React } from '../../hooks'
+import useAlerts from '../../hooks/useAlerts';
 import { formatter } from '../../utils';
 import { getSctokenContract } from '../../utils/ContractService';
 import ConnectWalletButton from '../WalletConnect/ConnectWalletButton';
@@ -14,7 +15,8 @@ export default function WithdrawTab({markets, update}) {
 
     const { account, library } = useActiveWeb3React();
     const [, setToast] = useToasts()
-    
+    const { triggerTransactionAlert, deleteTransactionAlert } = useAlerts()
+
     useEffect(() => {
         if(markets?.length) {
             if(!asset) {
@@ -65,7 +67,9 @@ export default function WithdrawTab({markets, update}) {
                             .toString(10)
                       );
                 }
+                triggerTransactionAlert(tx.hash)
                 await tx.wait(1)
+                deleteTransactionAlert(tx.hash)
                 update()
             } catch(e) {
                 console.log(e)
