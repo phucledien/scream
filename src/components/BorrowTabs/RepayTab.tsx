@@ -124,7 +124,7 @@ export default function RepayTab({markets, update}) {
                 </p>
                 <p className="flex">
                     <span className="opacity-50 flex-1">Your Collateral</span>
-                    <span>0</span>
+                    <span>{formatter((asset?.borrowBalance / asset?.collateralFactor), 6, asset?.underlyingSymbol?.toUpperCase()) || '-'}</span>
                 </p>
             </div>
             

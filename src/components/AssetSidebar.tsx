@@ -3,12 +3,18 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Table } from '@geist-ui/react'
 import { formatter } from '../utils';
 import useTxHistory from '../hooks/useTxHistory';
+import { useActiveWeb3React } from '../hooks';
+import BigNumber from 'bignumber.js';
 
 export default function AssetSidebar({ open, hide, markets }) {
     const [balances, setBalances] = useState([])
     const transactions = useTxHistory()
+    const { account } = useActiveWeb3React()
 
     const sortFunc = (a, b) => {
+        if(!a?.borrowBalance || !b?.supplyBalance) {
+            return 0;
+        }
         return (
             ((b.borrowBalance.plus(b.supplyBalance)).times(b.underlyingPriceUSD)).minus(
                 (a.borrowBalance.plus(a.supplyBalance)).times(a.underlyingPriceUSD)
@@ -17,20 +23,20 @@ export default function AssetSidebar({ open, hide, markets }) {
     }
 
     useEffect(() => {
-        if(markets) {
+        if(markets && account) {
             const temp = markets/*filter(market => (market.borrowBalance.gt(0) || market.supplyBalance.gt(0)))*/
                 .sort(sortFunc)
                 .map(elem => {
                     return {
                         asset: elem.underlyingSymbol,
-                        totalBorrowed: `$${formatter((elem.borrowBalance.times(elem.underlyingPriceUSD)).toString(10), 2)}`,
-                        totalLent: `$${formatter((elem.supplyBalance.times(elem.underlyingPriceUSD)).toString(10), 2)}`
+                        totalBorrowed: `$${formatter(((elem.borrowBalance || new BigNumber(0)).times(elem.underlyingPriceUSD)).toString(10), 2)}`,
+                        totalLent: `$${formatter(((elem.supplyBalance || new BigNumber(0)).times(elem.underlyingPriceUSD)).toString(10), 2)}`
                     }
             }) 
             
             setBalances(temp)
         }
-    }, [markets])
+    }, [markets, account])
 
     return (
         <>

@@ -16,7 +16,7 @@ export default function App() {
     const [refreshMarket, setRefreshMarket] = useState(0)
 
     const markets = useMarkets(refreshMarket)
-
+    
     const update = () => {
         setRefreshMarket((prev) => prev + 1)
     }

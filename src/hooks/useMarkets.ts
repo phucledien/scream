@@ -138,7 +138,9 @@ const calculateAPY = async(market, assetsIn, account, provider) => {
             totalBorrowsUsd: total_borrows_usd,
             totalSupplyUsd: total_supply_usd,
             liquidityUsd: 0,
-            collateral: collateral
+            collateral: collateral,
+            borrowBalance: new BigNumber(0),
+            supplyBalance: new BigNumber(0)
         }
     }
 }

@@ -7,6 +7,7 @@ import TokenPercentageBar from './TokenPercentageBar'
 import LiqudityTable from './LiqudityTable'
 import { currencyFormatter } from '../utils'
 import { LendingContext } from '../pages/lend'
+import { useActiveWeb3React } from '../hooks'
 
 const ConnectWalletButton = dynamic(() => import('../components/WalletConnect/ConnectWalletButton'), { ssr: false })
 
@@ -18,6 +19,7 @@ export default function Stats({ markets }) {
     const [sortedByBorrows, setSortedByBorrows] = useState([])
 
     const { setShowSidebar } = useContext(LendingContext)
+    const { account } = useActiveWeb3React()
 
     useEffect(() => {
         if (markets && markets?.length) {
@@ -36,9 +38,9 @@ export default function Stats({ markets }) {
             <div className="absolute z-0 inset-0 bg-gray-100 transform -translate-y-1/4" />
             <div className="relative max-w-5xl mx-auto px-6 pt-6 md:px-12 md:pt-12 space-y-6">
                 <div className="flex items-center">
-                    <Button onClick={() => setShowSidebar(true)} size="small" auto>
+                    {account && (<Button onClick={() => setShowSidebar(true)} size="small" auto>
                         Your Overview
-                    </Button>
+                    </Button>)}
                     <div className="flex-1" />
                     <div className="flex justify-end items-center space-x-4">
                         <img className="hidden sm:block w-40" src="https://scream.sh/img/scream-logotype.png" alt="" />
