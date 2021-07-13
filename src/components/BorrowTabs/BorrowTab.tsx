@@ -3,18 +3,25 @@ import BigNumber from 'bignumber.js';
 import { useEffect, useState } from 'react';
 import { CONTRACT_TOKEN_ADDRESS } from '../../constants';
 import { useActiveWeb3React } from '../../hooks'
-import { currencyFormatter, formatter } from '../../utils';
-import { getSctokenContract, getTokenContract, getUnitrollerContract } from '../../utils/ContractService';
+import useAlerts from '../../hooks/useAlerts';
+import useTotalBorrowLimit from '../../hooks/useTotalBorrowLimit';
+import { formatter } from '../../utils';
+import { getSctokenContract, getUnitrollerContract } from '../../utils/ContractService';
 import ConnectWalletButton from '../WalletConnect/ConnectWalletButton';
 
 export default function BorrowTab({markets, update}) {
     const [asset, setAsset] = useState(null);
     const [amount, setAmount] = useState('')
     const [borrowLimit, setBorrowLimit] = useState(new BigNumber(0))
+    const [borrowPercent, setBorrowPercent] = useState(new BigNumber(0))
+    const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0))
     const [isLoading, setIsLoading] = useState(false);
 
+    const { totalBorrowLimit, totalBorrowBalance } = useTotalBorrowLimit()
+    
     const { account, library } = useActiveWeb3React();
     const [, setToast] = useToasts()
+    const { triggerTransactionAlert, deleteTransactionAlert } = useAlerts()
     
     useEffect(() => {
         if(markets?.length) {
@@ -29,8 +36,17 @@ export default function BorrowTab({markets, update}) {
     useEffect(() => {
         if(asset && account) {
             calculateBorrowLimit()
+
+            const amountBig = new BigNumber(parseFloat(amount) || 0)
+            if(totalBorrowBalance.isZero() || totalBorrowLimit.isZero()) {
+                setBorrowLimit(new BigNumber(0))
+                setNewBorrowPercent(new BigNumber(0))
+            } else {
+                setBorrowPercent(totalBorrowBalance.div(totalBorrowLimit).times(100))
+                setNewBorrowPercent((totalBorrowBalance.plus(amountBig.times(asset.underlyingPriceUSD))).div(totalBorrowLimit).times(100))
+            }   
         }
-    }, [asset, account])
+    }, [asset, account, amount])
 
     const calculateBorrowLimit = async() => {
         let limit = new BigNumber(0);
@@ -38,18 +54,9 @@ export default function BorrowTab({markets, update}) {
             setBorrowLimit(limit)
             return;
         }
-        const appContract = getUnitrollerContract(library);
-
-        if(appContract) {
-            const accountLiquidity = await appContract.getAccountLiquidity(account);
-            // error = 0
-            if(+accountLiquidity['0'] == 0) {
-                let liquidity = new BigNumber(accountLiquidity['1'].toString()).div(new BigNumber(10).pow(18));
-                limit = +asset.underlyingPriceUSD == 0 ? new BigNumber(0) : liquidity.div(asset.underlyingPriceUSD);
-            }
-        }
         
-        setBorrowLimit(limit);
+        limit = totalBorrowLimit.minus(totalBorrowBalance);
+        setBorrowLimit(limit.div(asset?.underlyingPriceUSD));
     }
 
     const onChangeAsset = async (value) => {
@@ -78,15 +85,16 @@ export default function BorrowTab({markets, update}) {
 
         if (token && account) {
             setIsLoading(true);
-            
             try {
                 const tx = await scTokenContract.borrow(borrowAmount.toString(10))
+                triggerTransactionAlert(tx?.hash)
                 await tx.wait(1)
+                deleteTransactionAlert(tx?.hash)
                 update()
             } catch(e) {
                 console.log(e)
             }
-
+        
             setAmount('')
             setIsLoading(false)
         }
@@ -119,12 +127,12 @@ export default function BorrowTab({markets, update}) {
 
             <div className="rounded-xl bg-black text-white p-4 text-xs">
                 <p className="flex">
-                    <span className="opacity-50 flex-1">Borrow APY</span>
-                    <span className="">{formatter(asset?.borrowAPY, 2, '%') || '-'}</span>
+                    <span className="opacity-50 flex-1">Borrow Limit</span>
+                    <span className="">${formatter(totalBorrowLimit, 2) || '-'}</span>
                 </p>
                 <p className="flex">
-                    <span className="opacity-50 flex-1">Liquidity Available</span>
-                    <span className="">{formatter(asset?.liquidity, 6, asset?.underlyingSymbol?.toUpperCase()) || '-'}</span>
+                    <span className="opacity-50 flex-1">Borrow Limit Used</span>
+                    <span className="">{formatter(borrowPercent, 2, '%')}-&gt;{formatter(newBorrowPercent, 2, '%')}</span>
                 </p>
             </div>
         </div>

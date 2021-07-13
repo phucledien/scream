@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
 import { CONTRACT_TOKEN_ADDRESS } from '../../constants'
 import { useActiveWeb3React } from '../../hooks'
+import useAlerts from '../../hooks/useAlerts'
 import { formatter } from '../../utils'
 import { getSctokenContract, getTokenContract } from '../../utils/ContractService'
 import ConnectWalletButton from '../WalletConnect/ConnectWalletButton'
@@ -15,6 +16,7 @@ export default function SupplyTab({ markets, update }) {
 
     const { account, library } = useActiveWeb3React()
     const [, setToast] = useToasts()
+    const { triggerTransactionAlert, deleteTransactionAlert } = useAlerts()
 
     useEffect(() => {
         if (markets?.length) {
@@ -44,7 +46,9 @@ export default function SupplyTab({ markets, update }) {
             const tokenContract = getTokenContract(asset?.underlyingSymbol?.toLowerCase(), library?.getSigner())
             if (tokenContract) {
                 const tx = await tokenContract.approve(asset?.id, new BigNumber(2).pow(256).minus(1).toString(10))
+                triggerTransactionAlert(tx?.hash)
                 await tx.wait(2)
+                deleteTransactionAlert(tx.hash)
                 setIsEnabled(true)
                 update()
             }
@@ -73,7 +77,9 @@ export default function SupplyTab({ markets, update }) {
 
             try {
                 const tx = await scTokenContract.mint(new BigNumber(amount).times(new BigNumber(10).pow(token?.decimals)).toString(10))
+                triggerTransactionAlert(tx?.hash)
                 await tx.wait(1)
+                deleteTransactionAlert(tx.hash)
                 update()
             } catch (e) {
                 console.log(e)

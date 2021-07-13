@@ -1,6 +1,6 @@
 import { Table } from '@geist-ui/react'
 import { CONTRACT_SCTOKEN_ADDRESS, CONTRACT_TOKEN_ADDRESS } from '../constants'
-import { currencyFormatter } from '../utils';
+import { currencyFormatter, getFtmScanLink } from '../utils';
 
 export default function LiqudityTable({markets}) {
     const getToken = (market) => {
@@ -16,7 +16,7 @@ export default function LiqudityTable({markets}) {
                 <div className="w-5">
                     <img className="h-4" src={`/img/tokens/${getToken(market)?.asset}`} alt="" />
                 </div>
-                <a href={`http://ftmscan.com/address/${market.id}`}>
+                <a href={getFtmScanLink(market.id, 'address')}>
                     {getToken(market)?.id.toUpperCase()} ($
                     {getToken(market)?.symbol})
                 </a>

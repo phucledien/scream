@@ -1,104 +1,42 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Table } from '@geist-ui/react'
+import { formatter } from '../utils';
+import useTxHistory from '../hooks/useTxHistory';
+import { useActiveWeb3React } from '../hooks';
+import BigNumber from 'bignumber.js';
 
-export default function AssetSidebar({ open, hide }) {
-    const data = [
-        {
-            asset: 'USDC',
-            totalBorrowed: '$100',
-            totalLent: '$340'
-        },
-        {
-            asset: 'DAI',
-            totalBorrowed: '$100',
-            totalLent: '$340'
-        },
-        {
-            asset: 'wFTM',
-            totalBorrowed: '$100',
-            totalLent: '$340'
-        }
-    ]
+export default function AssetSidebar({ open, hide, markets }) {
+    const [balances, setBalances] = useState([])
+    const transactions = useTxHistory()
+    const { account } = useActiveWeb3React()
 
-    const transactions = [
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
-        },
-        {
-            details: 'You borrowed 100 USDC.',
-            date: '2018-01-01'
+    const sortFunc = (a, b) => {
+        if(!a?.borrowBalance || !b?.supplyBalance) {
+            return 0;
         }
-    ]
+        return (
+            ((b.borrowBalance.plus(b.supplyBalance)).times(b.underlyingPriceUSD)).minus(
+                (a.borrowBalance.plus(a.supplyBalance)).times(a.underlyingPriceUSD)
+            ).toNumber()
+        )
+    }
+
+    useEffect(() => {
+        if(markets && account) {
+            const temp = markets/*filter(market => (market.borrowBalance.gt(0) || market.supplyBalance.gt(0)))*/
+                .sort(sortFunc)
+                .map(elem => {
+                    return {
+                        asset: elem.underlyingSymbol,
+                        totalBorrowed: `$${formatter(((elem.borrowBalance || new BigNumber(0)).times(elem.underlyingPriceUSD)).toString(10), 2)}`,
+                        totalLent: `$${formatter(((elem.supplyBalance || new BigNumber(0)).times(elem.underlyingPriceUSD)).toString(10), 2)}`
+                    }
+            }) 
+            
+            setBalances(temp)
+        }
+    }, [markets, account])
 
     return (
         <>
@@ -128,7 +66,7 @@ export default function AssetSidebar({ open, hide }) {
                                     <p className="opacity-50">Track your coin flow on Scream.</p>
                                 </div>
 
-                                <Table data={data}>
+                                <Table data={balances}>
                                     <Table.Column prop="asset" label="Asset" />
                                     <Table.Column prop="totalBorrowed" label="Total Borrowed" />
                                     <Table.Column prop="totalLent" label="Total Lent" />
@@ -142,8 +80,9 @@ export default function AssetSidebar({ open, hide }) {
                                 </div>
 
                                 <Table data={transactions}>
-                                    <Table.Column prop="details" label="Details" />
+                                    <Table.Column prop="detail" label="Details" />
                                     <Table.Column prop="date" label="Date" />
+                                    <Table.Column prop="txHash" label="Explorer" />
                                 </Table>
                             </div>
                         </motion.div>
