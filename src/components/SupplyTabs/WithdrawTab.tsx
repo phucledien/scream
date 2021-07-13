@@ -5,6 +5,7 @@ import { CONTRACT_TOKEN_ADDRESS } from '../../constants';
 import { useActiveWeb3React } from '../../hooks'
 import useAlerts from '../../hooks/useAlerts';
 import { formatter } from '../../utils';
+import useTotalBorrowLimit from '../../hooks/useTotalBorrowLimit';
 import { getSctokenContract } from '../../utils/ContractService';
 import ConnectWalletButton from '../WalletConnect/ConnectWalletButton';
 
@@ -12,10 +13,11 @@ export default function WithdrawTab({markets, update}) {
     const [asset, setAsset] = useState(null);
     const [amount, setAmount] = useState('')
     const [isLoading, setIsLoading] = useState(false);
-
+    const [limit, setLimit] = useState(new BigNumber(0))
     const { account, library } = useActiveWeb3React();
     const [, setToast] = useToasts()
     const { triggerTransactionAlert, deleteTransactionAlert } = useAlerts()
+    const { totalBorrowLimit, totalBorrowBalance } = useTotalBorrowLimit()
 
     useEffect(() => {
         if(markets?.length) {
@@ -26,6 +28,16 @@ export default function WithdrawTab({markets, update}) {
             }
         }
     }, [markets])
+
+
+    useEffect(() => {
+        if(asset && account) {
+            const temp = BigNumber.min(asset.supplyBalance, 
+                (totalBorrowLimit.minus(totalBorrowBalance)).div(asset.collateralFactor).div(asset.underlyingPriceUSD));
+            
+            setLimit(temp)    
+        }
+    }, [totalBorrowLimit, asset, account])
 
 
     const onChangeAsset = async (value) => {
@@ -43,8 +55,8 @@ export default function WithdrawTab({markets, update}) {
             return;
         }
 
-        if(+amount <= 0 || +amount > asset.supplyBalance.toNumber()) {
-            setToast({ text: 'Invalid Amount', type: 'error' })
+        if(+amount <= 0 || +amount > limit.toNumber()) {
+            setToast({ text: `Invalid Amount! Your Withdraw Limit is ${limit.dp(8,1).toString(10)} ${asset.underlyingSymbol.toUpperCase()}`, type: 'error' })
             return;
         }
 
@@ -56,7 +68,7 @@ export default function WithdrawTab({markets, update}) {
             
             try {
                 let tx = null;
-                if(withdrawAmount.gte(asset.supplyBalance)) {
+                if(asset.supplyBalance.minus(withdrawAmount).lte(new BigNumber(0.00001))) {
                     const cTokenBalance = await scTokenContract.balanceOf(account)
                     tx = await scTokenContract.redeem(cTokenBalance);
                 }else {
@@ -101,7 +113,7 @@ export default function WithdrawTab({markets, update}) {
                     <ConnectWalletButton className="flex-1" type="secondary"/>
                 )}
                 {account && asset && (
-                    <Button className="flex-1" type="secondary" onClick={withdraw}>{ isLoading ? 'Loading...' : 'Withdraw' }</Button>
+                    <Button loading={isLoading} className="flex-1" type="secondary" onClick={withdraw}>{ isLoading ? 'Loading...' : 'Withdraw' }</Button>
                 )}
             </div>
 

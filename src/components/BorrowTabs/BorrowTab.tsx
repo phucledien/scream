@@ -6,7 +6,7 @@ import { useActiveWeb3React } from '../../hooks'
 import useAlerts from '../../hooks/useAlerts';
 import useTotalBorrowLimit from '../../hooks/useTotalBorrowLimit';
 import { formatter } from '../../utils';
-import { getSctokenContract, getUnitrollerContract } from '../../utils/ContractService';
+import { getSctokenContract } from '../../utils/ContractService';
 import ConnectWalletButton from '../WalletConnect/ConnectWalletButton';
 
 export default function BorrowTab({markets, update}) {
@@ -46,7 +46,7 @@ export default function BorrowTab({markets, update}) {
                 setNewBorrowPercent((totalBorrowBalance.plus(amountBig.times(asset.underlyingPriceUSD))).div(totalBorrowLimit).times(100))
             }   
         }
-    }, [asset, account, amount])
+    }, [asset, account, amount, totalBorrowLimit])
 
     const calculateBorrowLimit = async() => {
         let limit = new BigNumber(0);
@@ -121,7 +121,7 @@ export default function BorrowTab({markets, update}) {
                     <ConnectWalletButton className="flex-1" type="secondary"/>
                 )}
                 {account && asset && (
-                    <Button className="flex-1" type="secondary" onClick={borrow}>{ isLoading ? 'Loading...' : 'Borrow' }</Button>
+                    <Button loading={isLoading} className="flex-1" type="secondary" onClick={borrow}>{ isLoading ? 'Loading...' : 'Borrow' }</Button>
                 )}
             </div>
 
