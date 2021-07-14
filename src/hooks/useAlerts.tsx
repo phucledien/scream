@@ -1,12 +1,20 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import nanoid from 'nanoid'
 import { AnimatePresence } from 'framer-motion'
 import LoaderModal from '../components/LoaderModal'
+import useMarkets from './useMarkets'
 
 const AlertsContext = createContext({})
 
 export function UseAlertsWrapper({ children }) {
     const [transactions, setTransactions] = useState([])
+    const { refreshing } = useMarkets()
+    
+    useEffect(() => {
+        if(refreshing) {
+            console.log('market refreshing ================================')
+        } 
+    }, [refreshing])
 
     const triggerTransactionAlert = (tx) => {
         const newTransaction = {

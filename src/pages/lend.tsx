@@ -15,7 +15,7 @@ export default function App() {
     const [showSidebar, setShowSidebar] = useState(false)
     const [refreshMarket, setRefreshMarket] = useState(0)
 
-    const markets = useMarkets(refreshMarket)
+    const { markets } = useMarkets(refreshMarket)
     
     const update = () => {
         setRefreshMarket((prev) => prev + 1)

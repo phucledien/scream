@@ -4,7 +4,7 @@ import useMarkets from './useMarkets';
 import { useActiveWeb3React } from '.';
 
 export default function useTotalBorrowLimit() {
-    const markets = useMarkets()
+    const { markets } = useMarkets()
     const { account } = useActiveWeb3React()
     const [ totalBorrowLimit, setTotalBorrowLimit ] = useState(new BigNumber(0))
     const [ totalBorrowBalance, setTotalBorrowBalance ] = useState(new BigNumber(0))

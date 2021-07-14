@@ -9,7 +9,7 @@ import { formatter, getFtmScanLink } from '../utils';
 
 export default function useTxHistory() {
     const { slowRefresh } = useRefresh()
-    const markets = useMarkets();
+    const { markets } = useMarkets();
     const { account, library } = useActiveWeb3React();
 
     const [transactions, setTransactions] = useState([])

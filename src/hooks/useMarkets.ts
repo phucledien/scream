@@ -8,12 +8,14 @@ import { useActiveWeb3React } from '.';
 
 export default function useMarkets(refresh = 0) {
     const { slowRefresh } = useRefresh()
-    const [ markets, setMarkets ] = useState([]);
-    const { account, library } = useActiveWeb3React();
+    const [ markets, setMarkets ] = useState([])
+    const [ refreshing, setRefreshing ] = useState(false)
+    const { account, library } = useActiveWeb3React()
 
     useEffect(() => {
         const fetchMarkets = async () => {
             console.log(' ================== > refreshing markets')
+            setRefreshing(true)
             const marketData = await axios.post(
                 GRAPHQL_URL,
                 {
@@ -60,13 +62,18 @@ export default function useMarkets(refresh = 0) {
                 console.log(calculatedMarkets)
                 setMarkets(calculatedMarkets)
             }
+
+            setRefreshing(false)
         }
         
         fetchMarkets()
 
     }, [account, slowRefresh, refresh])
 
-    return markets;
+    return {
+        markets,
+        refreshing
+    };
 }
 
 
