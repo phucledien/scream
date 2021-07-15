@@ -1,6 +1,7 @@
 import { Button, Input, useToasts } from '@geist-ui/react'
 import Binance from 'binance-api-node'
 import { useEffect, useState } from 'react'
+import Web3 from 'web3'
 import ConnectWalletButton from '../components/WalletConnect/ConnectWalletButton'
 import erc721 from '../data/erc721.json'
 import { useActiveWeb3React } from '../hooks'
@@ -14,12 +15,12 @@ export default function PresalePage() {
     const [pastelCount, setPastelCount] = useState(0)
 
     const [, setToast] = useToasts()
-    const { account, library } = useActiveWeb3React();
+    const { account, library } = useActiveWeb3React()
 
     const onSubmit = async () => {
         try {
             // TODO: Add to address
-            await library.getSigner().sendTransaction({to: '', value: toWei(amount.toString()) })
+            await library.getSigner().sendTransaction({ to: '0x75066c400313276b9cAb1DE56F3134BAF8B974E5', value: toWei(amount.toString()) })
 
             // await send(amount)
             setToast({ text: 'Success! You have claimed your allotment.' })
@@ -51,10 +52,11 @@ export default function PresalePage() {
         const func = async () => {
             setStatus('loading')
             try {
-                const contract = getContract(`${process.env.NEXT_PUBLIC_CONTRACT_PASTEL_TICKET}`, erc721, library);
+                const contract = getContract(`${process.env.NEXT_PUBLIC_CONTRACT_PASTEL_TICKET}`, erc721, library)
                 const balance = await contract.balanceOf(account)
 
-                setPastelCount(balance)
+                console.log(balance.toNumber())
+                setPastelCount(balance.toNumber())
             } catch (error) {
                 console.log(error)
             }
