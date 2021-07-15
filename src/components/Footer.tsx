@@ -1,6 +1,28 @@
-import { Input } from '@geist-ui/react'
+import { Input, useToasts } from '@geist-ui/react'
+import axios from 'axios'
+import { useState } from 'react'
 
 export default function Footer() {
+    const [email, setEmail] = useState('')
+    const [, setToast] = useToasts()
+    const [status, setStatus] = useState('idle')
+
+    const onSubmit = async (e) => {
+        e.preventDefault()
+        setStatus('loading')
+        try {
+            await axios.post('/api/subscribe', { email })
+            setToast({ text: 'You have been added to the whitelist.' })
+            setTimeout(() => {
+                setEmail('')
+            }, 2000)
+        } catch (error) {
+            console.log(error)
+            setToast({ text: 'An error occurred. Either you are already subscribed, or a problem occuured. Try with another email or come back later!', type: 'error' })
+        }
+        setStatus('idle')
+    }
+
     return (
         <>
             <svg className="h-16 w-full transform rotate-180" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -49,10 +71,11 @@ export default function Footer() {
                         </div>
                         <div />
                         <div className="space-y-2">
-                            <div className="bg-white p-6 rounded-2xl shadow-2xl space-y-4">
+                            <form onSubmit={onSubmit} className="bg-white p-6 rounded-2xl shadow-2xl space-y-4">
                                 <p className="text-pink-400">Subscibe to the Scream Newsletter to get the latest news and updates and exculsive offers.</p>
-                                <Input width="100%" label="Email" placeholder="Subscribe to Scream Newsletter" />
-                            </div>
+                                <Input value={email} onChange={(e) => setEmail(e.target.value)} width="100%" label="Email" placeholder="Subscribe to Scream Newsletter" />
+                                <button type="submit" className="hidden" />
+                            </form>
                         </div>
                     </div>
                     <div className="text-xs text-right font-mono text-white">
