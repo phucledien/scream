@@ -9,6 +9,17 @@ const TOKEN_ABI = {
   usdc: constants.CONTRACT_USDC_TOKEN_ABI,
   dai: constants.CONTRACT_DAI_TOKEN_ABI,
   scream: constants.CONTRACT_SCREAM_TOKEN_ABI,
+  fbtc:  constants.CONTRACT_FBTC_TOKEN_ABI,
+  btc:  constants.CONTRACT_WBTC_TOKEN_ABI,
+  eth:  constants.CONTRACT_WETH_TOKEN_ABI,
+  feth:  constants.CONTRACT_FETH_TOKEN_ABI,
+  fusdt:  constants.CONTRACT_FUSDT_TOKEN_ABI,
+  sushi:  constants.CONTRACT_SUSHI_TOKEN_ABI,
+  band:  constants.CONTRACT_BAND_TOKEN_ABI,
+  yfi:  constants.CONTRACT_YFI_TOKEN_ABI,
+  crv:  constants.CONTRACT_CRV_TOKEN_ABI,
+  frax:  constants.CONTRACT_FRAX_TOKEN_ABI,
+  snx:  constants.CONTRACT_SNX_TOKEN_ABI,
 };
 
 export const getContract = (address: string, abi: any, signer?: ethers.Signer | ethers.providers.Provider) => {
@@ -70,12 +81,10 @@ export const getMulticallContract = (provider?: ethers.Signer | ethers.providers
   );
 }
 
-export const fetchBalances = async (account: string, tokenId: string, provider?: ethers.Signer | ethers.providers.Provider) => {
-  const token = constants.CONTRACT_TOKEN_ADDRESS?.[tokenId?.toLowerCase()];
-  const scToken = constants.CONTRACT_SCTOKEN_ADDRESS?.[`sc${tokenId?.toLowerCase()}`];
+export const fetchBalances = async (account: string, token: any, scToken: any, provider?: ethers.Signer | ethers.providers.Provider) => {
   if(token && scToken) {
     const tokenContract = getTokenContract(token.id, provider);
-    const scTokenContract = getSctokenContract(`sc${token.id}`, provider); 
+    const scTokenContract = getSctokenContract(scToken.id, provider); 
     const appContract = getUnitrollerContract(provider);
     const tokenDecimal = +token.decimals;
     

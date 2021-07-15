@@ -51,11 +51,13 @@ export default function useMarkets(refresh = 0) {
            
             const appContract = getUnitrollerContract(library);
             if(allMarkets) {
+                const allMarketSymbols = Object.values(CONTRACT_SCTOKEN_ADDRESS).map(item => item.symbol.toLowerCase())
+                const filteredMarkets = allMarkets.filter((market) => (allMarketSymbols.find(token => token === market.symbol.toLowerCase())))
                 const assetsIn = account ? await appContract.getAssetsIn(account) : [];
                 
                 let promises = [];
-                for(let i = 0; i < allMarkets.length; i++) {
-                    promises.push(calculateAPY(allMarkets[i], assetsIn, account, library))
+                for(let i = 0; i < filteredMarkets.length; i++) {
+                    promises.push(calculateAPY(filteredMarkets[i], assetsIn, account, library))
                 }
                 let calculatedMarkets = await Promise.all(promises);
                 console.log("refreshing markets result ===== ")
@@ -81,6 +83,7 @@ const calculateAPY = async(market, assetsIn, account, provider) => {
     if(!market) {
         return false;
     }
+    
     const scToken = CONTRACT_SCTOKEN_ADDRESS?.[market?.symbol?.toLowerCase()];
     const token = CONTRACT_TOKEN_ADDRESS?.[market?.underlyingSymbol?.toLowerCase()];
     const scTokenContract = getSctokenContract(market?.symbol?.toLowerCase(), provider);
@@ -104,7 +107,7 @@ const calculateAPY = async(market, assetsIn, account, provider) => {
         
         let balances = {}
         if(account && provider) {
-            balances = await fetchBalances(account, token.id, provider)
+            balances = await fetchBalances(account, token, scToken, provider)
         }
 
         supplyRatePerBlock = new BigNumber(supplyRatePerBlock.toString());

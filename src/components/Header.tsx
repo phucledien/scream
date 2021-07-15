@@ -55,7 +55,7 @@ export default function Header() {
                     </Button>
                     <Button href="/apps">Apps</Button>
                     <Button href="/lend">Lending</Button>
-                    <Button href="/stake">Stake</Button>
+                    <Button href="/stake">Staking</Button>
 
                     <div className="flex-1" />
 

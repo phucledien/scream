@@ -6,87 +6,78 @@ import { useActiveWeb3React } from '../hooks'
 import { currencyFormatter } from '../utils'
 import { getUnitrollerContract } from '../utils/ContractService'
 
-export default function AssetTable({markets, update}) {
+export default function AssetTable({ markets, update }) {
     const [search, setSearch] = useState('')
     const [showBreakdown, setShowBreakdown] = useState(null)
     const [filteredMarkets, setFilteredMarkets] = useState([])
 
-    const {account, library} = useActiveWeb3React();
+    const { account, library } = useActiveWeb3React()
     const [, setToast] = useToasts()
 
-
-    const getToken = (market) => {
-        return CONTRACT_TOKEN_ADDRESS[market?.underlyingSymbol?.toLowerCase()];
-    }
+    const getToken = (market) => CONTRACT_TOKEN_ADDRESS[market?.underlyingSymbol?.toLowerCase()]
 
     useEffect(() => {
-        if(markets && markets.length) {
-            const temp = markets.filter((market) => {
-                return (market.id.toLowerCase().includes(search.toLowerCase()) 
-                    || market.symbol.toLowerCase().includes(search.toLowerCase())
-                    || market.underlyingSymbol.toLowerCase().includes(search.toLowerCase()))
-                    && (Object.keys(CONTRACT_SCTOKEN_ADDRESS).find(token => token === market.symbol.toLowerCase()))
-                }).map((market) => ({
-                ...market,
-                name: (
-                    <div className="flex items-center space-x-2">
-                        <div className="w-5">
-                            <img className="h-4" src={`/img/tokens/${getToken(market)?.asset}`} alt="" />
-                        </div>
-                        <a href={`http://ftmscan.com/address/${market.id}`}>
-                            {getToken(market)?.id.toUpperCase()} ($
-                            {getToken(market)?.symbol})
-                        </a>
-                    </div>
-                ),
-                supply: `${market.supplyAPY?.toFixed(2)}%`,
-                borrow: `${market.borrowAPY?.toFixed(2)}%`,
-                liquidity: `${currencyFormatter(market.liquidity)}`,
-                wallet: `${currencyFormatter(market?.walletBalance || '0')} ${market.underlyingSymbol}`,
-                collateral: (
-                    <Toggle initialChecked={market?.collateral} size="large" onChange={e => handleCollateral(e, market)}/>
-                ),
-                action: (
-                    <Button onClick={() => setShowBreakdown(market)} auto size="mini">
-                        Asset Breakdown
-                    </Button>
+        if (markets && markets.length) {
+            const temp = markets
+                .filter(
+                    (market) =>
+                        (market.id.toLowerCase().includes(search.toLowerCase()) || market.symbol.toLowerCase().includes(search.toLowerCase()) || market.underlyingSymbol.toLowerCase().includes(search.toLowerCase())) &&
+                        Object.keys(CONTRACT_SCTOKEN_ADDRESS).find((token) => token === market.symbol.toLowerCase())
                 )
-            }))
-            
+                .map((market) => ({
+                    ...market,
+                    name: (
+                        <div className="flex items-center space-x-2">
+                            <div className="w-5">
+                                <img className="h-4" src={`/img/tokens/${getToken(market)?.asset}`} alt="" />
+                            </div>
+                            <a href={`http://ftmscan.com/address/${market.id}`}>
+                                {getToken(market)?.id.toUpperCase()} ($
+                                {getToken(market)?.symbol})
+                            </a>
+                        </div>
+                    ),
+                    supply: `${market.supplyAPY?.toFixed(2)}%`,
+                    borrow: `${market.borrowAPY?.toFixed(2)}%`,
+                    liquidity: `${currencyFormatter(market.liquidity)}`,
+                    wallet: `${currencyFormatter(market?.walletBalance || '0')} ${market.underlyingSymbol}`,
+                    collateral: <Toggle initialChecked={market?.collateral} size="large" onChange={(e) => handleCollateral(e, market)} />,
+                    action: (
+                        <Button onClick={() => setShowBreakdown(market)} auto size="mini">
+                            Asset Breakdown
+                        </Button>
+                    )
+                }))
+
             setFilteredMarkets(temp)
         }
-    }, [markets])
+    }, [markets, search])
 
-
-    const handleCollateral = async(e, market) => {
-        if(market && account && market?.borrowBalance.isZero()) {
-            const appContract = getUnitrollerContract(library?.getSigner());
-            let collateral = market.collateral;
-            let tx = null;
+    const handleCollateral = async (e, market) => {
+        if (market && account && market?.borrowBalance.isZero()) {
+            const appContract = getUnitrollerContract(library?.getSigner())
+            const { collateral } = market
+            let tx = null
             try {
-                if(!collateral) {
+                if (!collateral) {
                     tx = await appContract.enterMarkets([market.id])
-                } else if(
-                    market.hypotheticalLiquidity['1'] > 0 ||
-                    +market.hypotheticalLiquidity['2'] === 0
-                ) {
-                    tx = await appContract.exitMarket(market.id);
+                } else if (market.hypotheticalLiquidity['1'] > 0 || +market.hypotheticalLiquidity['2'] === 0) {
+                    tx = await appContract.exitMarket(market.id)
                 } else {
                     setToast({ text: 'You need to set collateral at least one asset for your borrowed assets. Please repay all borrowed asset or set other asset as collateral.', type: 'error' })
                 }
-                if(tx) {
+                if (tx) {
                     await tx.wait(1)
                 }
-            }catch(e) {
+            } catch (e) {
                 console.log(e)
             }
-            
+
             update()
-        }else {
+        } else {
             setToast({ text: 'You need to set collateral at least one asset for your borrowed assets. Please repay all borrowed asset or set other asset as collateral.', type: 'error' })
         }
     }
-
 
     return (
         <>

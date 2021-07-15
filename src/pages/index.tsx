@@ -4,10 +4,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import Typed from 'react-typed'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import ParticlesBackground from '../components/ParticlesBackground'
 import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
 import SubscribePopup from '../components/SubscribePopup'
-import dynamic from 'next/dynamic'
 
 const Tilt = dynamic(import('react-parallax-tilt'), { ssr: false })
 
@@ -54,7 +54,7 @@ export default function App() {
                                             </div>
                                             <div className="text-left sm:text-right space-y-4">
                                                 <div>
-                                                    <Link href="/launch">
+                                                    <Link href="/apps">
                                                         <a className="block bg-animated-rainbow text-center font-bold rounded-3xl px-8 py-4 text-2xl w-full animate-ping text-white hover:shadow-xl transition ease-in-out duration-150 ">
                                                             <i className="fas fa-ghost mr-2 " />
                                                             <span>Open App</span>

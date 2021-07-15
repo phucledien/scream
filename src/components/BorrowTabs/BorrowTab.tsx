@@ -38,7 +38,7 @@ export default function BorrowTab({markets, update}) {
             calculateBorrowLimit()
 
             const amountBig = new BigNumber(parseFloat(amount) || 0)
-            if(totalBorrowBalance.isZero() || totalBorrowLimit.isZero()) {
+            if(totalBorrowLimit.isZero()) {
                 setBorrowLimit(new BigNumber(0))
                 setNewBorrowPercent(new BigNumber(0))
             } else {
