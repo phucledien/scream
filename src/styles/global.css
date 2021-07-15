@@ -129,3 +129,23 @@ body,
 /* orange #FFC78B */
 /* purple #CDC5FF */
 /* gray #4D4D4D */
+
+.custom-shape-divider-top-1626365602 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1626365602 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 83px;
+}
+
+.custom-shape-divider-top-1626365602 .shape-fill {
+    fill: #FFFFFF;
+}
