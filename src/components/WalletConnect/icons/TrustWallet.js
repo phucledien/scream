@@ -1,5 +1,3 @@
-import React from 'react'
-
 function TrustWallet(props) {
     return (
         <svg viewBox="0 0 96 96" {...props}>

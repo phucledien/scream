@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Metamask = (props) => (
     <svg viewBox="0 0 96 96" {...props}>
         <circle cx="48" cy="48" r="48" fill="white" />
