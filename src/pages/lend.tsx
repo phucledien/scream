@@ -8,23 +8,39 @@ import Header from '../components/Header'
 import LendTool from '../components/LendTool'
 import Stats from '../components/Stats'
 import useMarkets from '../hooks/useMarkets'
+import StakingSidebar from '../components/StakingSidebar'
 
 export const LendingContext = createContext({})
 
 export default function App() {
-    const [showSidebar, setShowSidebar] = useState(false)
+    const [showAssetsSidebar, setShowAssetsSidebar] = useState(false)
+    const [showStakingSidebar, setShowStakingSidebar] = useState(false)
+
+    const [stakingSidebarSlug, setStakingSidebarSlug] = useState(false)
+
     const [refreshMarket, setRefreshMarket] = useState(0)
 
     const { markets } = useMarkets(refreshMarket)
-    
+
     const update = () => {
         setRefreshMarket((prev) => prev + 1)
     }
 
     return (
         <>
-            <LendingContext.Provider value={{ showSidebar, setShowSidebar }}>
-                <AssetSidebar open={showSidebar} hide={() => setShowSidebar(false)} markets={markets}/>
+            <LendingContext.Provider
+                value={{
+                    showSidebar: showAssetsSidebar,
+                    setShowSidebar: setShowAssetsSidebar,
+                    showStakingSidebar,
+                    setShowStakingSidebar,
+                    stakingSidebarSlug,
+                    setStakingSidebarSlug
+                }}
+            >
+                <StakingSidebar open={showStakingSidebar} hide={() => setShowStakingSidebar(false)} />
+
+                <AssetSidebar open={showAssetsSidebar} hide={() => setShowAssetsSidebar(false)} markets={markets} />
                 <Header />
 
                 <Stats markets={markets} />
