@@ -60,12 +60,7 @@ export const fetchBalances = async (account: string, token: any, scToken: any, p
       scTokenContract.balanceOf(account),
     ]);
 
-        const [wallet, allow, snapshot, balance] = await Promise.all([
-            tokenContract.balanceOf(account),
-            tokenContract.allowance(account, scToken.address),
-            scTokenContract.getAccountSnapshot(account),
-            scTokenContract.balanceOf(account)
-        ])
+    
 
         const hypotheticalLiquidity = await appContract.getHypotheticalAccountLiquidity(account, scToken.address, balance, 0)
 
