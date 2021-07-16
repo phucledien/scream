@@ -4,7 +4,7 @@ import AssetBreakdown from '../components/AssetBreakdown'
 import { CONTRACT_SCTOKEN_ADDRESS, CONTRACT_TOKEN_ADDRESS } from '../constants'
 import { useActiveWeb3React } from '../hooks'
 import { currencyFormatter } from '../utils'
-import { getUnitrollerContract } from '../utils/ContractService'
+import { getSctokenContract, getUnitrollerContract } from '../utils/ContractService'
 
 export default function AssetTable({ markets, update }) {
     const [search, setSearch] = useState('')
@@ -56,16 +56,23 @@ export default function AssetTable({ markets, update }) {
     const handleCollateral = async (e, market) => {
         if (market && account && market?.borrowBalance.isZero()) {
             const appContract = getUnitrollerContract(library?.getSigner())
+            const scTokenContract = getSctokenContract(market.id, library?.getSigner())
             const { collateral } = market
             let tx = null
             try {
                 if (!collateral) {
                     tx = await appContract.enterMarkets([market.id])
-                } else if (market.hypotheticalLiquidity['1'] > 0 || +market.hypotheticalLiquidity['2'] === 0) {
-                    tx = await appContract.exitMarket(market.id)
                 } else {
-                    setToast({ text: 'You need to set collateral at least one asset for your borrowed assets. Please repay all borrowed asset or set other asset as collateral.', type: 'error' })
-                }
+                    const balance = await scTokenContract.balanceOf(account);
+                    const hypotheticalLiquidity = await appContract.getHypotheticalAccountLiquidity(account, market.id, balance, 0);
+
+                    if (hypotheticalLiquidity['1'] > 0 || +hypotheticalLiquidity['2'] === 0) {
+                        tx = await appContract.exitMarket(market.id)
+                    } else {
+                        setToast({ text: 'You need to set collateral at least one asset for your borrowed assets. Please repay all borrowed asset or set other asset as collateral.', type: 'error' })
+                    }
+                } 
+               
                 if (tx) {
                     await tx.wait(1)
                 }
