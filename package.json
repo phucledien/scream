@@ -6,7 +6,13 @@
     "scripts": {
         "dev": "next",
         "start": "next start",
-        "build": "next build"
+        "build": "next build",
+        "lint": "eslint --fix ./src"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "yarn lint"
+        }
     },
     "dependencies": {
         "@geist-ui/react": "^2.1.5",
@@ -63,8 +69,11 @@
         "eslint-config-airbnb": "^18.2.1",
         "eslint-plugin-import": "^2.22.1",
         "eslint-plugin-jsx-a11y": "^6.4.1",
+        "eslint-plugin-prettier": "^3.4.0",
         "eslint-plugin-react": "^7.22.0",
         "eslint-plugin-react-hooks": "^4.2.0",
+        "husky": "^7.0.1",
+        "prettier": "^2.3.2",
         "typescript": "^4.1.5"
     }
 }

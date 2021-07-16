@@ -12,8 +12,9 @@ module.exports = {
         ecmaVersion: 12,
         sourceType: 'module'
     },
-    plugins: ['react', '@typescript-eslint'],
+    plugins: ['react', '@typescript-eslint', 'prettier'],
     rules: {
+        'prettier/prettier': 'error',
         'max-len': 'off',
         indent: ['error', 4],
         'react/jsx-indent': ['error', 4],
