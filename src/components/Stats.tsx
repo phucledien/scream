@@ -3,11 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Button, Divider } from '@geist-ui/react'
 import dynamic from 'next/dynamic'
 import BigNumber from 'bignumber.js'
+import classNames from 'classnames'
 import TokenPercentageBar from './TokenPercentageBar'
 import LiqudityTable from './LiqudityTable'
 import { currencyFormatter } from '../utils'
 import { LendingContext } from '../pages/lend'
 import { useActiveWeb3React } from '../hooks'
+import useMarkets from '../hooks/useMarkets'
 
 const ConnectWalletButton = dynamic(() => import('../components/WalletConnect/ConnectWalletButton'), { ssr: false })
 
@@ -17,6 +19,8 @@ export default function Stats({ markets }) {
     const [totalBorrows, setTotalBorrows] = useState(0)
     const [sortedBySupply, setSortedBySupply] = useState([])
     const [sortedByBorrows, setSortedByBorrows] = useState([])
+
+    const { refreshing } = useMarkets()
 
     const { setShowSidebar } = useContext(LendingContext)
     const { account } = useActiveWeb3React()
@@ -38,13 +42,15 @@ export default function Stats({ markets }) {
             <div className="absolute z-0 inset-0 bg-gray-100 transform -translate-y-1/4" />
             <div className="relative max-w-5xl mx-auto px-6 pt-6 md:px-12 md:pt-12 space-y-6">
                 <div className="flex items-center">
-                    {account && (<Button onClick={() => setShowSidebar(true)} size="small" auto>
-                        Your Overview
-                    </Button>)}
+                    {account && (
+                        <Button onClick={() => setShowSidebar(true)} size="small" auto>
+                            Your Overview
+                        </Button>
+                    )}
                     <div className="flex-1" />
                     <div className="flex justify-end items-center space-x-4">
                         <img className="hidden sm:block w-40" src="https://scream.sh/img/scream-logotype.png" alt="" />
-                        <img className="w-8 animate-spin" src="https://scream.sh/img/scream-multi.png" alt="" />
+                        <img className={classNames('w-8', refreshing && 'animate-spin')} src="https://scream.sh/img/scream-multi.png" alt="" />
                     </div>
                 </div>
                 <motion.div className="relative bg-white rounded-xl p-6 shadow-xl space-y-6">
@@ -62,15 +68,18 @@ export default function Stats({ markets }) {
                             <div className="space-y-1">
                                 {sortedBySupply &&
                                     sortedBySupply.length > 0 &&
-                                    sortedBySupply
-                                        .slice(0, 3)
-                                        .map((market) => (
-                                            <TokenPercentageBar 
-                                                key={market?.id} 
-                                                src={`/img/tokens/${market?.icon}`} 
-                                                name={market?.underlyingSymbol} 
-                                                value={+totalSupply == 0 ? 0 : ((market?.totalSupplyUsd / totalSupply) * 100).toFixed(2)} />
-                                        ))}
+                                    sortedBySupply.slice(0, 3).map((market) => (
+                                        <>
+                                            {/* {JSON.stringify(market)} */}
+                                            <TokenPercentageBar
+                                                icon={`/img/tokens/${market?.icon}`}
+                                                key={market?.id}
+                                                src=""
+                                                name={market?.underlyingSymbol}
+                                                value={+totalSupply == 0 ? 0 : ((market?.totalSupplyUsd / totalSupply) * 100).toFixed(2)}
+                                            />
+                                        </>
+                                    ))}
                             </div>
                         </div>
                         <div className="space-y-4">
@@ -85,11 +94,12 @@ export default function Stats({ markets }) {
                                     sortedByBorrows
                                         .slice(0, 3)
                                         .map((market) => (
-                                            <TokenPercentageBar 
-                                                key={market?.id} 
-                                                src={`/img/tokens/${market?.icon}`} 
-                                                name={market?.underlyingSymbol} 
-                                                value={+totalBorrows == 0 ? 0 : ((market?.totalBorrowsUsd / totalBorrows) * 100).toFixed(2)} />
+                                            <TokenPercentageBar
+                                                key={market?.id}
+                                                src={`/img/tokens/${market?.icon}`}
+                                                name={market?.underlyingSymbol}
+                                                value={+totalBorrows == 0 ? 0 : ((market?.totalBorrowsUsd / totalBorrows) * 100).toFixed(2)}
+                                            />
                                         ))}
                             </div>
                         </div>
