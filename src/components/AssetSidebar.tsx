@@ -43,7 +43,7 @@ export default function AssetSidebar({ open, hide, markets }) {
                     totalBorrowed: `$${formatter((elem.borrowBalance || new BigNumber(0)).times(elem.underlyingPriceUSD).toString(10), 2)}`,
                     totalLent: `$${formatter((elem.supplyBalance || new BigNumber(0)).times(elem.underlyingPriceUSD).toString(10), 2)}`,
                     stakeButton: (
-                        <div className="flex w-full justify-end">
+                        <div className="flex w-full">
                             <Button onClick={() => openStaking(elem.underlyingSymbol)} auto size="mini">
                                 Stake {elem.underlyingSymbol}
                             </Button>
