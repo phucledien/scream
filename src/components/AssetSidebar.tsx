@@ -52,9 +52,9 @@ export default function AssetSidebar({ open, hide, markets }) {
         <>
             <AnimatePresence>
                 <Sidebar {...{ open, hide }} className="z-30">
-                    <div className="p-6 md:p-12 space-y-8 border-b overflow-y-auto h-1/2">
-                        <div className="space-y-2">
-                            <p className="text-3xl font-extrabold">Your Assets</p>
+                    <div className="p-6 md:p-12 space-y-4 md:space-y-8 border-b overflow-y-auto h-1/2 whitespace-nowrap">
+                        <div className="space-y-1">
+                            <p className="text-xl md:text-3xl font-extrabold">Your Assets</p>
                             <p className="opacity-50">Track your coin flow on Scream.</p>
                         </div>
 
@@ -68,17 +68,19 @@ export default function AssetSidebar({ open, hide, markets }) {
                         </div>
                     </div>
 
-                    <div className="p-6 md:p-12 space-y-8 overflow-auto flex-1">
-                        <div className="space-y-2">
-                            <p className="text-3xl font-extrabold">Your Transactions</p>
+                    <div className="p-6 md:p-12 space-y-4 md:space-y-8 border-b overflow-y-auto h-1/2 whitespace-nowrap">
+                        <div className="space-y-1">
+                            <p className="text-xl md:text-3xl font-extrabold">Your Transactions</p>
                             <p className="opacity-50">Track your activity on Scream.</p>
                         </div>
 
-                        <Table data={transactions}>
-                            <Table.Column prop="detail" label="Details" />
-                            <Table.Column prop="date" label="Date" />
-                            <Table.Column prop="txHash" label="Explorer" />
-                        </Table>
+                        <div className="overflow-x-auto">
+                            <Table data={transactions}>
+                                <Table.Column prop="detail" label="Details" />
+                                <Table.Column prop="date" label="Date" />
+                                <Table.Column prop="txHash" label="Explorer" />
+                            </Table>
+                        </div>
                     </div>
                 </Sidebar>
             </AnimatePresence>
