@@ -1,4 +1,4 @@
-import { Button, Select, Input, useToasts } from '@geist-ui/react'
+import { Button, Select, Input, useToasts, Slider } from '@geist-ui/react'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
 import { CONTRACT_TOKEN_ADDRESS } from '../../constants'
@@ -12,6 +12,8 @@ import ConnectWalletButton from '../WalletConnect/ConnectWalletButton'
 export default function WithdrawTab({ markets, update }) {
     const [asset, setAsset] = useState(null)
     const [amount, setAmount] = useState('')
+    const [showSlider, setShowSlider] = useState(false)
+
     const [isLoading, setIsLoading] = useState(false)
     const [limit, setLimit] = useState(new BigNumber(0))
     const { account, library } = useActiveWeb3React()
@@ -102,8 +104,16 @@ export default function WithdrawTab({ markets, update }) {
                 <div className="flex-1">
                     <Input label="Amount" type="number" size="large" width="100%" placeholder="Enter an amount" value={amount} onChange={onChangeAmount} />
                 </div>
+                <Button onClick={() => setShowSlider((_) => !_)} auto>
+                    <i className={`fas fa-chevron-circle-${showSlider ? 'up' : 'down'}`} />
+                </Button>
             </div>
 
+            {showSlider && (
+                <div>
+                    <Slider step={0.2} max={1} min={0.2} initialValue={0.4} />
+                </div>
+            )}
             <div className="flex">
                 {!account && <ConnectWalletButton className="flex-1" type="secondary" />}
                 {account && asset && (

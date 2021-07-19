@@ -1,4 +1,6 @@
-import { Button, Select, Input, useToasts } from '@geist-ui/react'
+import {
+ Button, Select, Input, useToasts, Slider 
+} from '@geist-ui/react'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
 import { CONTRACT_TOKEN_ADDRESS } from '../../constants'
@@ -13,6 +15,7 @@ export default function SupplyTab({ markets, update }) {
     const [amount, setAmount] = useState('')
     const [isEnabled, setIsEnabled] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [showSlider, setShowSlider] = useState(false)
 
     const { account, library } = useActiveWeb3React()
     const [, setToast] = useToasts()
@@ -96,8 +99,8 @@ export default function SupplyTab({ markets, update }) {
                 <p className="text-xl font-bold flex-1">Lend Assets</p>
 
                 <Select placeholder="Assets" value={asset?.id} onChange={onChangeAsset}>
-                    {markets &&
-                        markets.map((market) => (
+                    {markets
+                        && markets.map((market) => (
                             <Select.Option value={market.id} key={market.id}>
                                 {market.underlyingSymbol}
                             </Select.Option>
@@ -110,7 +113,16 @@ export default function SupplyTab({ markets, update }) {
                 <div className="flex-1">
                     <Input label="Amount" type="number" size="large" width="100%" placeholder="Enter an amount" value={amount} onChange={onChangeAmount} />
                 </div>
+                <Button onClick={() => setShowSlider((_) => !_)} auto>
+                    <i className={`fas fa-chevron-circle-${showSlider ? 'up' : 'down'}`} />
+                </Button>
             </div>
+
+            {showSlider && (
+                <div>
+                    <Slider step={0.2} max={1} min={0.2} initialValue={0.4} />
+                </div>
+            )}
 
             <div className="flex">
                 {!account && <ConnectWalletButton className="flex-1" type="secondary" />}
