@@ -105,8 +105,11 @@ export default function SupplyTab({ markets, update }) {
                 </Select>
             </div>
 
-            <div>
-                <Input label="Amount" type="number" size="large" width="100%" placeholder="Enter an amount" value={amount} onChange={onChangeAmount} />
+            <div className="flex space-x-2">
+                <Button auto>Max</Button>
+                <div className="flex-1">
+                    <Input label="Amount" type="number" size="large" width="100%" placeholder="Enter an amount" value={amount} onChange={onChangeAmount} />
+                </div>
             </div>
 
             <div className="flex">
