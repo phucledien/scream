@@ -117,7 +117,7 @@ const calculateAPY = async(market, supplyRate, borrowRate, getCash, assetsIn, ac
      
     const borrows = new BigNumber(market?.totalBorrows);
     const reserves = new BigNumber(market.reserves || 0);
-    const reserveFactor = new BigNumber(market.reserveFactor)
+    const reserveFactor = new BigNumber(market.reserveFactor).div(new BigNumber(10).pow(18))
     const underlyingPriceUSD = new BigNumber(market.underlyingPriceUSD);
     const total_borrows_usd = borrows.times(underlyingPriceUSD).dp(2,1).toNumber();
     const total_supply_usd = new BigNumber(market.totalSupply).times(market.exchangeRate).times(underlyingPriceUSD).dp(2,1).toNumber();
@@ -147,6 +147,7 @@ const calculateAPY = async(market, supplyRate, borrowRate, getCash, assetsIn, ac
 
         return {
             ...market,
+            reserveFactor: reserveFactor.toNumber(),
             liquidity: cash.toNumber(),
             borrowAPY: borrowAPY.times(100).dp(2,1).toNumber(),
             supplyAPY: supplyAPY.times(100).dp(2,1).toNumber(),
@@ -161,6 +162,7 @@ const calculateAPY = async(market, supplyRate, borrowRate, getCash, assetsIn, ac
         console.log(e)
         return {
             ...market,
+            reserveFactor: reserveFactor.toNumber(),
             liquidity: 0,
             borrowAPY: 0,
             supplyAPY: 0,

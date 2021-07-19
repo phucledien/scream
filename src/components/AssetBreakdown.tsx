@@ -1,5 +1,5 @@
 import { Modal } from '@geist-ui/react'
-import { currencyFormatter } from '../utils'
+import { currencyFormatter, formatter } from '../utils'
 
 export default function AssetBreakdown({ open, asset, hide, token }) {
     return (
@@ -65,7 +65,7 @@ export default function AssetBreakdown({ open, asset, hide, token }) {
 
                         <div className="flex items-center">
                             <p className="flex-1">Exchange Rate</p>
-                            <p>{asset?.exchangeRate}</p>
+                            <p>{formatter(asset?.exchangeRate, 4)}</p>
                         </div>
                     </div>
                 </div>
