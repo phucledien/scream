@@ -156,7 +156,8 @@ const calculateAPY = async(market, supplyRate, borrowRate, getCash, assetsIn, ac
             totalSupplyUsd: total_supply_usd,
             liquidityUsd: cash.times(underlyingPriceUSD).dp(2,1).toNumber(),
             ...balances,
-            collateral: collateral
+            collateral: collateral,
+            icon: token.asset
         }
     }catch(e) {
         console.log(e)
@@ -172,7 +173,8 @@ const calculateAPY = async(market, supplyRate, borrowRate, getCash, assetsIn, ac
             liquidityUsd: 0,
             collateral: collateral,
             borrowBalance: new BigNumber(0),
-            supplyBalance: new BigNumber(0)
+            supplyBalance: new BigNumber(0),
+            icon: token.asset
         }
     }
 }

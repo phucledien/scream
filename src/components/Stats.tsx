@@ -65,7 +65,11 @@ export default function Stats({ markets }) {
                                     sortedBySupply
                                         .slice(0, 3)
                                         .map((market) => (
-                                            <TokenPercentageBar key={market?.id} src="" name={market?.underlyingSymbol} value={+totalSupply == 0 ? 0 : ((market?.totalSupplyUsd / totalSupply) * 100).toFixed(2)} />
+                                            <TokenPercentageBar 
+                                                key={market?.id} 
+                                                src={`/img/tokens/${market?.icon}`} 
+                                                name={market?.underlyingSymbol} 
+                                                value={+totalSupply == 0 ? 0 : ((market?.totalSupplyUsd / totalSupply) * 100).toFixed(2)} />
                                         ))}
                             </div>
                         </div>
@@ -81,7 +85,11 @@ export default function Stats({ markets }) {
                                     sortedByBorrows
                                         .slice(0, 3)
                                         .map((market) => (
-                                            <TokenPercentageBar key={market?.id} src="" name={market?.underlyingSymbol} value={+totalBorrows == 0 ? 0 : ((market?.totalBorrowsUsd / totalBorrows) * 100).toFixed(2)} />
+                                            <TokenPercentageBar 
+                                                key={market?.id} 
+                                                src={`/img/tokens/${market?.icon}`} 
+                                                name={market?.underlyingSymbol} 
+                                                value={+totalBorrows == 0 ? 0 : ((market?.totalBorrowsUsd / totalBorrows) * 100).toFixed(2)} />
                                         ))}
                             </div>
                         </div>
