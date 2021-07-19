@@ -72,9 +72,8 @@ export default function Stats({ markets }) {
                                         <>
                                             {/* {JSON.stringify(market)} */}
                                             <TokenPercentageBar
-                                                icon={`/img/tokens/${market?.icon}`}
                                                 key={market?.id}
-                                                src=""
+                                                src={`/img/tokens/${market?.icon}`}
                                                 name={market?.underlyingSymbol}
                                                 value={+totalSupply == 0 ? 0 : ((market?.totalSupplyUsd / totalSupply) * 100).toFixed(2)}
                                             />
