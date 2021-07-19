@@ -20,7 +20,7 @@ export default function Sidebar({ open, hide, children, className }) {
                             exit={{ x: '100%' }}
                             className="absolute right-0 bg-white max-w-2xl h-full shadow-2xl w-full max-h-full flex flex-col"
                         >
-                            <button onClick={hide} type="button" className="p-6 absolute top-0 right-0">
+                            <button onClick={hide} type="button" className="p-6 absolute top-0 right-0 z-20">
                                 <i className="fa fa-times" />
                             </button>
                             {children}

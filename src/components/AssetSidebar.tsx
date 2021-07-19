@@ -52,7 +52,7 @@ export default function AssetSidebar({ open, hide, markets }) {
         <>
             <AnimatePresence>
                 <Sidebar {...{ open, hide }} className="z-30">
-                    <div className="p-6 md:p-12 space-y-8 border-b overflow-y-auto">
+                    <div className="p-6 md:p-12 space-y-8 border-b overflow-y-auto h-1/2">
                         <div className="space-y-2">
                             <p className="text-3xl font-extrabold">Your Assets</p>
                             <p className="opacity-50">Track your coin flow on Scream.</p>

@@ -63,16 +63,16 @@ export default function AssetTable({ markets, update }) {
                 if (!collateral) {
                     tx = await appContract.enterMarkets([market.id])
                 } else {
-                    const balance = await scTokenContract.balanceOf(account);
-                    const hypotheticalLiquidity = await appContract.getHypotheticalAccountLiquidity(account, market.id, balance, 0);
+                    const balance = await scTokenContract.balanceOf(account)
+                    const hypotheticalLiquidity = await appContract.getHypotheticalAccountLiquidity(account, market.id, balance, 0)
 
                     if (hypotheticalLiquidity['1'] > 0 || +hypotheticalLiquidity['2'] === 0) {
                         tx = await appContract.exitMarket(market.id)
                     } else {
                         setToast({ text: 'You need to set collateral at least one asset for your borrowed assets. Please repay all borrowed asset or set other asset as collateral.', type: 'error' })
                     }
-                } 
-               
+                }
+
                 if (tx) {
                     await tx.wait(1)
                 }
