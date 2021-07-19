@@ -108,7 +108,10 @@ export default function RepayTab({ markets, update }) {
                     {markets &&
                         markets.map((market) => (
                             <Select.Option value={market.id} key={market.id}>
-                                {market.underlyingSymbol}
+                                <div className="flex items-center space-x-2">
+                                    <img className="block w-4 h-4" src={`/img/tokens/${market.icon}`} alt="" />
+                                    <p>{market.underlyingSymbol}</p>
+                                </div>
                             </Select.Option>
                         ))}
                 </Select>

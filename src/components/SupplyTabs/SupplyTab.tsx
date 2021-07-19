@@ -1,6 +1,4 @@
-import {
- Button, Select, Input, useToasts, Slider 
-} from '@geist-ui/react'
+import { Button, Select, Input, useToasts, Slider } from '@geist-ui/react'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
 import { CONTRACT_TOKEN_ADDRESS } from '../../constants'
@@ -99,10 +97,13 @@ export default function SupplyTab({ markets, update }) {
                 <p className="text-xl font-bold flex-1">Lend Assets</p>
 
                 <Select placeholder="Assets" value={asset?.id} onChange={onChangeAsset}>
-                    {markets
-                        && markets.map((market) => (
+                    {markets &&
+                        markets.map((market) => (
                             <Select.Option value={market.id} key={market.id}>
-                                {market.underlyingSymbol}
+                                <div className="flex items-center space-x-2">
+                                    <img className="block w-4 h-4" src={`/img/tokens/${market.icon}`} alt="" />
+                                    <p>{market.underlyingSymbol}</p>
+                                </div>
                             </Select.Option>
                         ))}
                 </Select>
