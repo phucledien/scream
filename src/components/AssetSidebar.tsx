@@ -32,7 +32,14 @@ export default function AssetSidebar({ open, hide, markets }) {
             const temp = markets /* filter(market => (market.borrowBalance.gt(0) || market.supplyBalance.gt(0))) */
                 .sort(sortFunc)
                 .map((elem) => ({
-                    asset: elem.underlyingSymbol,
+                    asset: (
+                        <>
+                            <div className="flex items-center space-x-2">
+                                <img className="block w-4 h-4" src={`/img/tokens/${elem.icon}`} alt="" />
+                                <p>{elem.underlyingSymbol}</p>
+                            </div>
+                        </>
+                    ),
                     totalBorrowed: `$${formatter((elem.borrowBalance || new BigNumber(0)).times(elem.underlyingPriceUSD).toString(10), 2)}`,
                     totalLent: `$${formatter((elem.supplyBalance || new BigNumber(0)).times(elem.underlyingPriceUSD).toString(10), 2)}`,
                     stakeButton: (

@@ -22,7 +22,7 @@ export default function ConnectWalletButton(props) {
 
     return (
         <>
-            <Button onClick={() => onClickConnect()} auto size="small" {...props}>
+            <Button onClick={() => onClickConnect()} auto {...props}>
                 {account ? shortAddress : 'Connect Wallet'}
             </Button>
             <ConnectModal open={connectModalOpen} login={login} onDismiss={() => setConnectModalOpen(false)} />

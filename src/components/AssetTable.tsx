@@ -31,10 +31,7 @@ export default function AssetTable({ markets, update }) {
                             <div className="w-5">
                                 <img className="h-4" src={`/img/tokens/${getToken(market)?.asset}`} alt="" />
                             </div>
-                            <a href={`http://ftmscan.com/address/${market.id}`}>
-                                {getToken(market)?.id.toUpperCase()} ($
-                                {getToken(market)?.symbol})
-                            </a>
+                            <a href={`http://ftmscan.com/address/${market.id}`}>{getToken(market)?.id.toUpperCase()}</a>
                         </div>
                     ),
                     supply: `${market.supplyAPY?.toFixed(2)}%`,

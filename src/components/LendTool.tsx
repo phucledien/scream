@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import useMarkets from '../hooks/useMarkets';
+import { useEffect, useState } from 'react'
+import useMarkets from '../hooks/useMarkets'
 import ToolWrapper from './ToolWrapper'
-import SupplyTab from './SupplyTabs/SupplyTab';
-import WithdrawTab from './SupplyTabs/WithdrawTab';
+import SupplyTab from './SupplyTabs/SupplyTab'
+import WithdrawTab from './SupplyTabs/WithdrawTab'
 
-export default function LendTool({markets, update}) {
+export default function LendTool({ markets, update }) {
     const tabs = [{ slug: 'lend' }, { slug: 'withdraw' }]
     const [tab, setTab] = useState(0)
     const activeTab = tabs[tab]
@@ -20,18 +20,8 @@ export default function LendTool({markets, update}) {
                 </button>
             </div>
             <div className="p-6">
-                {activeTab.slug === 'lend' && (
-                    <SupplyTab 
-                        markets={markets}
-                        update={update}
-                    />
-                )}
-                {activeTab.slug === 'withdraw' && (
-                    <WithdrawTab
-                        markets={markets}
-                        update={update}
-                    />    
-                )}
+                {activeTab.slug === 'lend' && <SupplyTab markets={markets} update={update} />}
+                {activeTab.slug === 'withdraw' && <WithdrawTab markets={markets} update={update} />}
             </div>
         </ToolWrapper>
     )

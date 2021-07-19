@@ -78,12 +78,9 @@ export default function RepayTab({ markets, update }) {
             setIsLoading(true)
 
             try {
-                let tx = null;
-                if(asset.borrowBalance.toNumber() - +amount <= 0.00001) {
-                    tx = await scTokenContract.repayBorrow( new BigNumber(2)
-                    .pow(256)
-                    .minus(1)
-                    .toString(10));
+                let tx = null
+                if (asset.borrowBalance.toNumber() - +amount <= 0.00001) {
+                    tx = await scTokenContract.repayBorrow(new BigNumber(2).pow(256).minus(1).toString(10))
                 } else {
                     tx = await scTokenContract.repayBorrow(repayAmount.toString(10))
                 }
@@ -128,11 +125,15 @@ export default function RepayTab({ markets, update }) {
                 </p>
             </div>
 
-            <div>
-                <Input label="Amount" type="number" size="large" width="100%" placeholder="Enter an amount" value={amount} onChange={onChangeAmount} />
+            <div className="flex space-x-2">
+                <Button auto>Max</Button>
+
+                <div className="flex-1">
+                    <Input label="Amount" type="number" size="large" width="100%" placeholder="Enter an amount" value={amount} onChange={onChangeAmount} />
+                </div>
             </div>
 
-            <div className="flex">
+            <div className="flex flex-1">
                 {!account && <ConnectWalletButton className="flex-1" type="secondary" />}
                 {account && asset && isEnabled && (
                     <Button className="flex-1" type="secondary" onClick={repay}>

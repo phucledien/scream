@@ -1,89 +1,79 @@
 import { Button, Select, Input, useToasts } from '@geist-ui/react'
-import BigNumber from 'bignumber.js';
-import { useEffect, useState } from 'react';
-import { CONTRACT_TOKEN_ADDRESS } from '../../constants';
+import BigNumber from 'bignumber.js'
+import { useEffect, useState } from 'react'
+import { CONTRACT_TOKEN_ADDRESS } from '../../constants'
 import { useActiveWeb3React } from '../../hooks'
-import useAlerts from '../../hooks/useAlerts';
-import { formatter } from '../../utils';
-import useTotalBorrowLimit from '../../hooks/useTotalBorrowLimit';
-import { getSctokenContract } from '../../utils/ContractService';
-import ConnectWalletButton from '../WalletConnect/ConnectWalletButton';
+import useAlerts from '../../hooks/useAlerts'
+import { formatter } from '../../utils'
+import useTotalBorrowLimit from '../../hooks/useTotalBorrowLimit'
+import { getSctokenContract } from '../../utils/ContractService'
+import ConnectWalletButton from '../WalletConnect/ConnectWalletButton'
 
-export default function WithdrawTab({markets, update}) {
-    const [asset, setAsset] = useState(null);
+export default function WithdrawTab({ markets, update }) {
+    const [asset, setAsset] = useState(null)
     const [amount, setAmount] = useState('')
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
     const [limit, setLimit] = useState(new BigNumber(0))
-    const { account, library } = useActiveWeb3React();
+    const { account, library } = useActiveWeb3React()
     const [, setToast] = useToasts()
     const { triggerTransactionAlert, deleteTransactionAlert } = useAlerts()
     const { totalBorrowLimit, totalBorrowBalance } = useTotalBorrowLimit()
 
     useEffect(() => {
-        if(markets?.length) {
-            if(!asset) {
+        if (markets?.length) {
+            if (!asset) {
                 setAsset(markets[0])
             } else {
-                setAsset((markets || []).find(item => item.id == asset.id))
+                setAsset((markets || []).find((item) => item.id == asset.id))
             }
         }
     }, [markets])
-
-
     useEffect(() => {
-        if(asset && account) {
-            const temp = BigNumber.min(asset.supplyBalance, 
-                (totalBorrowLimit.minus(totalBorrowBalance)).div(asset.collateralFactor).div(asset.underlyingPriceUSD));
-            
-            setLimit(temp)    
+        if (asset && account) {
+            const temp = BigNumber.min(asset.supplyBalance, totalBorrowLimit.minus(totalBorrowBalance).div(asset.collateralFactor).div(asset.underlyingPriceUSD))
+
+            setLimit(temp)
         }
     }, [totalBorrowLimit, asset, account])
-
-
     const onChangeAsset = async (value) => {
-        setAsset((markets || []).find(item => item.id == value))
+        setAsset((markets || []).find((item) => item.id == value))
     }
-    
+
     const onChangeAmount = async (e) => {
         setAmount(e.target.value)
     }
 
-    const withdraw = async() => {
-        const id = asset?.symbol?.toLowerCase();
-        if(!id) {
+    const withdraw = async () => {
+        const id = asset?.symbol?.toLowerCase()
+        if (!id) {
             setToast({ text: 'Invalid Asset', type: 'error' })
-            return;
+            return
         }
 
-        if(+amount <= 0 || +amount > limit.toNumber()) {
-            setToast({ text: `Invalid Amount! Your Withdraw Limit is ${limit.dp(8,1).toString(10)} ${asset.underlyingSymbol.toUpperCase()}`, type: 'error' })
-            return;
+        if (+amount <= 0 || +amount > limit.toNumber()) {
+            setToast({ text: `Invalid Amount! Your Withdraw Limit is ${limit.dp(8, 1).toString(10)} ${asset.underlyingSymbol.toUpperCase()}`, type: 'error' })
+            return
         }
 
-        const scTokenContract = getSctokenContract(id, library.getSigner());
-        const token = CONTRACT_TOKEN_ADDRESS?.[asset.underlyingSymbol.toLowerCase()];
-        const withdrawAmount = new BigNumber(amount);
+        const scTokenContract = getSctokenContract(id, library.getSigner())
+        const token = CONTRACT_TOKEN_ADDRESS?.[asset.underlyingSymbol.toLowerCase()]
+        const withdrawAmount = new BigNumber(amount)
         if (token && account) {
-            setIsLoading(true);
-            
+            setIsLoading(true)
+
             try {
-                let tx = null;
-                if(asset.supplyBalance.minus(withdrawAmount).lte(new BigNumber(0.00001))) {
+                let tx = null
+                if (asset.supplyBalance.minus(withdrawAmount).lte(new BigNumber(0.00001))) {
                     const cTokenBalance = await scTokenContract.balanceOf(account)
-                    tx = await scTokenContract.redeem(cTokenBalance);
-                }else {
-                    tx = await scTokenContract.redeemUnderlying(
-                        withdrawAmount
-                            .times(new BigNumber(10).pow(token.decimals))
-                            .integerValue()
-                            .toString(10)
-                      );
+                    tx = await scTokenContract.redeem(cTokenBalance)
+                } else {
+                    tx = await scTokenContract.redeemUnderlying(withdrawAmount.times(new BigNumber(10).pow(token.decimals)).integerValue().toString(10))
                 }
                 triggerTransactionAlert(tx.hash)
                 await tx.wait(1)
                 deleteTransactionAlert(tx.hash)
                 update()
-            } catch(e) {
+            } catch (e) {
                 console.log(e)
             }
 
@@ -98,22 +88,28 @@ export default function WithdrawTab({markets, update}) {
                 <p className="text-xl font-bold flex-1">Withdraw Assets</p>
 
                 <Select placeholder="Assets" value={asset?.id} onChange={onChangeAsset}>
-                    {markets && markets.map(market => (
-                        <Select.Option value={market.id} key={market.id}>{market.underlyingSymbol}</Select.Option>
-                    ))}
+                    {markets &&
+                        markets.map((market) => (
+                            <Select.Option value={market.id} key={market.id}>
+                                {market.underlyingSymbol}
+                            </Select.Option>
+                        ))}
                 </Select>
             </div>
 
-            <div>
-                <Input label="Amount" type="number" size="large" width="100%" placeholder="Enter an amount" value={amount} onChange={onChangeAmount}/>
+            <div className="flex space-x-2">
+                <Button auto>Max</Button>
+                <div className="flex-1">
+                    <Input label="Amount" type="number" size="large" width="100%" placeholder="Enter an amount" value={amount} onChange={onChangeAmount} />
+                </div>
             </div>
 
             <div className="flex">
-                {!account && (
-                    <ConnectWalletButton className="flex-1" type="secondary"/>
-                )}
+                {!account && <ConnectWalletButton className="flex-1" type="secondary" />}
                 {account && asset && (
-                    <Button loading={isLoading} className="flex-1" type="secondary" onClick={withdraw}>{ isLoading ? 'Loading...' : 'Withdraw' }</Button>
+                    <Button loading={isLoading} className="flex-1" type="secondary" onClick={withdraw}>
+                        {isLoading ? 'Loading...' : 'Withdraw'}
+                    </Button>
                 )}
             </div>
 

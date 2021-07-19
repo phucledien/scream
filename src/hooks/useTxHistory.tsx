@@ -2,33 +2,31 @@ import { useEffect, useState } from 'react'
 import { Link } from '@geist-ui/react'
 import axios from 'axios'
 import useRefresh from './useRefresh'
-import { GRAPHQL_URL } from '../constants';
-import { useActiveWeb3React } from '.';
-import useMarkets from './useMarkets';
-import { formatter, getFtmScanLink } from '../utils';
+import { GRAPHQL_URL } from '../constants'
+import { useActiveWeb3React } from '.'
+import useMarkets from './useMarkets'
+import { formatter, getFtmScanLink } from '../utils'
 
 export default function useTxHistory() {
     const { slowRefresh } = useRefresh()
-    const { markets } = useMarkets();
-    const { account, library } = useActiveWeb3React();
+    const { markets } = useMarkets()
+    const { account, library } = useActiveWeb3React()
 
     const [transactions, setTransactions] = useState([])
 
-    const blockTimeToDate = (blockTime) => {
-        return new Date(blockTime * 1000).toLocaleString()
-    }
+    const blockTimeToDate = (blockTime) => new Date(blockTime * 1000).toLocaleString()
 
-    const explorer = (txHash) => {
-        return <Link href={getFtmScanLink(txHash, 'transaction')} icon color target='_blank'>Explorer</Link>
-    }
+    const explorer = (txHash) => (
+        <Link href={getFtmScanLink(txHash, 'transaction')} icon color target="_blank">
+            Explorer
+        </Link>
+    )
 
     useEffect(() => {
         const fetchTransactions = async () => {
             console.log(' ================== > refreshing transaction history')
-            const transactionData = await axios.post(
-                GRAPHQL_URL,
-                {
-                  query: `{
+            const transactionData = await axios.post(GRAPHQL_URL, {
+                query: `{
                     mintEvents(first: 100, where: {to: "${account}"}, orderBy: blockTime, orderDirection: desc) {
                         id
                         to
@@ -57,60 +55,53 @@ export default function useTxHistory() {
                         underlyingSymbol
                         amount
                     }
-                  }`,
-                },
-            )
-            let borrowEvents = transactionData?.data?.data?.borrowEvents;
-            let repayEvents = transactionData?.data?.data?.repayEvents;
-            let supplyEvents = transactionData?.data?.data?.mintEvents;
-            let withdrawEvents = transactionData?.data?.data?.redeemEvents;
-           
-            borrowEvents = (borrowEvents || []).map(event => ({
+                  }`
+            })
+            let borrowEvents = transactionData?.data?.data?.borrowEvents
+            let repayEvents = transactionData?.data?.data?.repayEvents
+            let supplyEvents = transactionData?.data?.data?.mintEvents
+            let withdrawEvents = transactionData?.data?.data?.redeemEvents
+
+            borrowEvents = (borrowEvents || []).map((event) => ({
                 type: 'borrow',
                 blockTime: event.blockTime,
                 txHash: explorer(event.id.split('-')[0]),
                 date: blockTimeToDate(event?.blockTime),
-                detail: `You borrowed ${formatter(event.amount, 2, event.underlyingSymbol)}.`,
+                detail: `You borrowed ${formatter(event.amount, 2, event.underlyingSymbol)}.`
             }))
-            repayEvents = (repayEvents || []).map(event => {
-                return {
-                    type: 'repay',
-                    blockTime: event.blockTime,
-                    txHash: explorer(event.id.split('-')[0]),
-                    date: blockTimeToDate(event?.blockTime),
-                    detail: `You repaid ${formatter(event.amount, 2, event.underlyingSymbol)}.`
-                }
-            })
-            supplyEvents = (supplyEvents || []).map(event => {
-                return {
-                    type: 'supply',
-                    blockTime: event.blockTime,
-                    txHash: explorer(event.id.split('-')[0]),
-                    date: blockTimeToDate(event?.blockTime),
-                    detail: `You lent ${formatter(event.underlyingAmount, 2, event.cTokenSymbol.slice(2))}.`
-                }
-            })
-            withdrawEvents = (withdrawEvents || []).map(event => {
-                return {
-                    type: 'withdraw',
-                    blockTime: event.blockTime,
-                    txHash: explorer(event.id.split('-')[0]),
-                    date: blockTimeToDate(event?.blockTime),
-                    detail: `You withdraw ${formatter(event.underlyingAmount, 2, event.cTokenSymbol.slice(2))}.`
-                }
-            })
-            
-            const allEvents = (borrowEvents
+            repayEvents = (repayEvents || []).map((event) => ({
+                type: 'repay',
+                blockTime: event.blockTime,
+                txHash: explorer(event.id.split('-')[0]),
+                date: blockTimeToDate(event?.blockTime),
+                detail: `You repaid ${formatter(event.amount, 2, event.underlyingSymbol)}.`
+            }))
+            supplyEvents = (supplyEvents || []).map((event) => ({
+                type: 'supply',
+                blockTime: event.blockTime,
+                txHash: explorer(event.id.split('-')[0]),
+                date: blockTimeToDate(event?.blockTime),
+                detail: `You lent ${formatter(event.underlyingAmount, 2, event.cTokenSymbol.slice(2))}.`
+            }))
+            withdrawEvents = (withdrawEvents || []).map((event) => ({
+                type: 'withdraw',
+                blockTime: event.blockTime,
+                txHash: explorer(event.id.split('-')[0]),
+                date: blockTimeToDate(event?.blockTime),
+                detail: `You withdraw ${formatter(event.underlyingAmount, 2, event.cTokenSymbol.slice(2))}.`
+            }))
+
+            const allEvents = borrowEvents
                 .concat(repayEvents)
                 .concat(supplyEvents)
-                .concat(withdrawEvents)).sort((a, b) => (b.blockTime - a.blockTime));
-            
-            setTransactions(allEvents)    
-        }
-        
-        fetchTransactions()
+                .concat(withdrawEvents)
+                .sort((a, b) => b.blockTime - a.blockTime)
 
+            setTransactions(allEvents)
+        }
+
+        fetchTransactions()
     }, [account, slowRefresh, markets])
 
-    return transactions;
+    return transactions
 }
