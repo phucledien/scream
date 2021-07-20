@@ -14,7 +14,7 @@ module.exports = {
     },
     plugins: ['react', '@typescript-eslint', 'prettier'],
     rules: {
-        'prettier/prettier': 'error',
+        // 'prettier/prettier': 'error',
         'max-len': 'off',
         indent: ['error', 4],
         'react/jsx-indent': ['error', 4],
