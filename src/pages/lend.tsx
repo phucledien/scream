@@ -16,7 +16,7 @@ export default function App() {
     const [showAssetsSidebar, setShowAssetsSidebar] = useState(false)
     const [showStakingSidebar, setShowStakingSidebar] = useState(false)
 
-    const [stakingSidebarSlug, setStakingSidebarSlug] = useState(false)
+    const [stakingSidebarData, setStakingSidebarData] = useState(false)
 
     const [refreshMarket, setRefreshMarket] = useState(0)
 
@@ -34,8 +34,8 @@ export default function App() {
                     setShowSidebar: setShowAssetsSidebar,
                     showStakingSidebar,
                     setShowStakingSidebar,
-                    stakingSidebarSlug,
-                    setStakingSidebarSlug
+                    stakingSidebarData,
+                    setStakingSidebarData
                 }}
             >
                 <StakingSidebar open={showStakingSidebar} hide={() => setShowStakingSidebar(false)} />

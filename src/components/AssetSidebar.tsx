@@ -13,12 +13,10 @@ export default function AssetSidebar({ open, hide, markets }) {
     const transactions = useTxHistory()
     const { account } = useActiveWeb3React()
 
-    const {
- showStakingSidebar, setShowStakingSidebar, stakingSidebarSlug, setStakingSidebarSlug 
-} = useContext(LendingContext)
+    const { showStakingSidebar, setShowStakingSidebar, stakingSidebarData, setStakingSidebarData } = useContext(LendingContext)
 
     const openStaking = (slug) => {
-        setStakingSidebarSlug(slug)
+        setStakingSidebarData(slug)
         setShowStakingSidebar(true)
     }
 
@@ -47,9 +45,7 @@ export default function AssetSidebar({ open, hide, markets }) {
                     stakeButton: (
                         <div className="flex w-full">
                             <Button onClick={() => openStaking(elem)} auto size="mini">
-                                Claim
-                                {' '}
-                                {elem.underlyingSymbol}
+                                Claim {elem.underlyingSymbol}
                             </Button>
                         </div>
                     )
