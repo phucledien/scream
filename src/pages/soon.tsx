@@ -11,7 +11,7 @@ import SubscribePopup from '../components/SubscribePopup'
 
 const Tilt = dynamic(import('react-parallax-tilt'), { ssr: false })
 
-const date1 = dayjs('2021-07-23T19:00:00-01:00')
+const date1 = dayjs('2021-09-23T19:00:00-01:00')
 const date2 = dayjs(Date.now())
 
 const initialTime = date1.diff(date2)
@@ -32,8 +32,8 @@ export default function App() {
 
             <div className="h-full flex flex-col fixed inset-0 bg-center bg-cover bg-black" onClick={() => setSubscribe((_) => !_)}>
                 <div className="absolute inset-0">
-                    <video autoPlay loop muted playsInline className="object-cover h-screen w-screen fixed top-0 left-0">
-                        <source src="/img/ScreamFinaltease.mp4" type="video/mp4" />
+                    <video autoPlay loop muted playsInline className="object-cover h-screen w-screen fixed top-0 left-0" poster="/img/vid.jpg">
+                        <source src="/img/vid.mp4" type="video/mp4" />
                     </video>
                 </div>
                 {/* <Tilt className="tilt relative z-30 flex flex-col flex-1"> */}
@@ -65,3 +65,5 @@ export default function App() {
         </>
     )
 }
+
+// :)
