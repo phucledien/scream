@@ -60,13 +60,11 @@ export default function App() {
                                                     </Link>
                                                 </div>
                                                 <div className="grid grid-cols-2 gap-4">
-                                                    <button
-                                                        onClick={() => setSubscribe((_) => !_)}
-                                                        type="button"
-                                                        className="bg-animated-rainbow font-medium rounded-3xl px-4 py-2 w-full animate-ping text-white hover:shadow-xl transition ease-in-out duration-150"
-                                                    >
-                                                        <span>Docs</span>
-                                                    </button>
+                                                    <Link href="/launchpad">
+                                                        <a className="text-center block bg-animated-rainbow font-medium rounded-3xl px-4 py-2 w-full animate-ping text-white hover:shadow-xl transition ease-in-out duration-150">
+                                                            <span>Docs</span>
+                                                        </a>
+                                                    </Link>
                                                     <button
                                                         onClick={() => setSubscribe((_) => !_)}
                                                         type="button"
