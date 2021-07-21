@@ -25,6 +25,16 @@ html {
     font-family: 'Eurostile Extended', sans-serif;
 }
 
+.hide-scroll-bars::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .hide-scroll-bars {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
 
 @responsive {
     .text-shadow {
