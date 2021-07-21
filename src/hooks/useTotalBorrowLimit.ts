@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js';
-import useMarkets from './useMarkets';
 import { useActiveWeb3React } from '.';
 
-export default function useTotalBorrowLimit() {
-    const { markets } = useMarkets()
+export default function useTotalBorrowLimit(markets) {
     const { account } = useActiveWeb3React()
     const [ totalBorrowLimit, setTotalBorrowLimit ] = useState(new BigNumber(0))
     const [ totalBorrowBalance, setTotalBorrowBalance ] = useState(new BigNumber(0))
+
     useEffect(() => {
        if(markets && account) {
            let tempBorrowLimit = new BigNumber(0);

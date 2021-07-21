@@ -68,16 +68,13 @@ export default function Stats({ markets }) {
                             <div className="space-y-1">
                                 {sortedBySupply &&
                                     sortedBySupply.length > 0 &&
-                                    sortedBySupply.slice(0, 3).map((market) => (
-                                        <>
-                                            {/* {JSON.stringify(market)} */}
-                                            <TokenPercentageBar
-                                                key={market?.id}
-                                                src={`/img/tokens/${market?.icon}`}
-                                                name={market?.underlyingSymbol}
-                                                value={+totalSupply == 0 ? 0 : ((market?.totalSupplyUsd / totalSupply) * 100).toFixed(2)}
-                                            />
-                                        </>
+                                    sortedBySupply.slice(0, 3).map((market, index) => (
+                                        <TokenPercentageBar
+                                            key={index}
+                                            src={`/img/tokens/${market?.icon}`}
+                                            name={market?.underlyingSymbol}
+                                            value={+totalSupply == 0 ? 0 : ((market?.totalSupplyUsd / totalSupply) * 100).toFixed(2)}
+                                        />
                                     ))}
                             </div>
                         </div>
@@ -92,9 +89,9 @@ export default function Stats({ markets }) {
                                     sortedByBorrows.length > 0 &&
                                     sortedByBorrows
                                         .slice(0, 3)
-                                        .map((market) => (
+                                        .map((market, index) => (
                                             <TokenPercentageBar
-                                                key={market?.id}
+                                                key={index}
                                                 src={`/img/tokens/${market?.icon}`}
                                                 name={market?.underlyingSymbol}
                                                 value={+totalBorrows == 0 ? 0 : ((market?.totalBorrowsUsd / totalBorrows) * 100).toFixed(2)}

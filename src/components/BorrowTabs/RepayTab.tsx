@@ -11,9 +11,11 @@ import ConnectWalletButton from '../WalletConnect/ConnectWalletButton'
 export default function RepayTab({ markets, update }) {
     const [asset, setAsset] = useState(null)
     const [amount, setAmount] = useState('')
+    const [limit, setLimit] = useState(new BigNumber(0))
     const [isEnabled, setIsEnabled] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [showSlider, setShowSlider] = useState(false)
+    const [repayPercent, setRepayPercent] = useState(0)
 
     const { account, library } = useActiveWeb3React()
     const [, setToast] = useToasts()
@@ -30,7 +32,13 @@ export default function RepayTab({ markets, update }) {
     }, [markets])
 
     useEffect(() => {
-        setIsEnabled(asset?.allowBalance?.gt(0))
+        if(asset) {
+            setIsEnabled(asset?.allowBalance?.gt(0))
+            setLimit(BigNumber.minimum(asset.borrowBalance, asset.walletBalance))
+        } else {
+            setIsEnabled(false)
+            setLimit(new BigNumber(0))
+        }
     }, [asset])
 
     const onChangeAsset = async (value) => {
@@ -38,7 +46,33 @@ export default function RepayTab({ markets, update }) {
     }
 
     const onChangeAmount = async (e) => {
-        setAmount(e.target.value)
+        const tempAmount = e.target.value
+        const tempPercent = (isNaN(parseFloat(tempAmount)) || limit.isZero()) ? 0 : BigNumber.min(new BigNumber(100), new BigNumber(tempAmount).div(limit).times(100)).dp(0).toNumber()
+        if(asset && !limit?.isZero()) {
+            setRepayPercent(tempPercent)
+            setAmount(tempAmount)
+        } else {
+            setRepayPercent(0)
+            setAmount('0')
+        }
+    }
+
+    const onChangePercent = (value) => {
+        if(asset && !limit?.isZero()) {
+            setRepayPercent(value)
+            setAmount(limit.times(value).div(100).toString())
+        } else {
+            setRepayPercent(0)
+            setAmount('0')
+        }
+    }
+
+    const handleMax = () => {
+        if(!asset || limit.isZero()) {
+            setAmount('')
+        } else {
+            setAmount(limit.toString())
+        }
     }
 
     const approve = async () => {
@@ -58,6 +92,7 @@ export default function RepayTab({ markets, update }) {
         }
         setIsLoading(false)
     }
+
     const repay = async () => {
         const id = asset?.symbol?.toLowerCase()
         if (!id) {
@@ -67,23 +102,17 @@ export default function RepayTab({ markets, update }) {
         const scTokenContract = getSctokenContract(id, library.getSigner())
         const token = CONTRACT_TOKEN_ADDRESS?.[asset.underlyingSymbol.toLowerCase()]
 
-        const repayLimit = BigNumber.minimum(asset.borrowBalance, asset.walletBalance)
-        if (+amount <= 0 || +amount > repayLimit.toNumber()) {
-            setToast({ text: `Invalid Amount. Your Repay Limit is ${repayLimit.dp(8, 1).toString(10)} ${token.symbol.toUpperCase()}`, type: 'error' })
+        if (+amount <= 0 || new BigNumber(amount).gt(limit)) {
+            setToast({ text: `Invalid Amount. Your Repay Limit is ${limit.dp(8, 1).toString(10)} ${token.symbol.toUpperCase()}`, type: 'error' })
             return
         }
         const repayAmount = new BigNumber(amount).times(new BigNumber(10).pow(token?.decimals))
-
         if (token && account) {
             setIsLoading(true)
 
             try {
                 let tx = null
-                if (asset.borrowBalance.toNumber() - +amount <= 0.00001) {
-                    tx = await scTokenContract.repayBorrow(new BigNumber(2).pow(256).minus(1).toString(10))
-                } else {
-                    tx = await scTokenContract.repayBorrow(repayAmount.toString(10))
-                }
+                tx = await scTokenContract.repayBorrow(repayAmount.toString(10))
                 if (tx) {
                     triggerTransactionAlert(tx.hash)
                     await tx.wait(1)
@@ -92,6 +121,7 @@ export default function RepayTab({ markets, update }) {
                 }
             } catch (e) {
                 console.log(e)
+                setToast({text: e?.data?.message || e?.message, type: 'error'})
             }
 
             setAmount('')
@@ -129,7 +159,7 @@ export default function RepayTab({ markets, update }) {
             </div>
 
             <div className="flex space-x-2">
-                <Button auto>Max</Button>
+                <Button auto onClick={handleMax}>Max</Button>
 
                 <div className="flex-1">
                     <Input label="Amount" type="number" size="large" width="100%" placeholder="Enter an amount" value={amount} onChange={onChangeAmount} />
@@ -142,7 +172,13 @@ export default function RepayTab({ markets, update }) {
 
             {showSlider && (
                 <div>
-                    <Slider step={0.2} max={1} min={0.2} initialValue={0.4} />
+                    <Slider 
+                        step={1} 
+                        max={100} 
+                        min={0} 
+                        initialValue={0} 
+                        value={repayPercent} 
+                        onChange={onChangePercent}/>
                 </div>
             )}
 

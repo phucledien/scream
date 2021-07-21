@@ -17,8 +17,9 @@ export default function BorrowTab({ markets, update }) {
     const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0))
     const [isLoading, setIsLoading] = useState(false)
     const [showSlider, setShowSlider] = useState(false)
+    const [borrowAmountPercent, setBorrowAmountPercent] = useState(0)
 
-    const { totalBorrowLimit, totalBorrowBalance } = useTotalBorrowLimit()
+    const { totalBorrowLimit, totalBorrowBalance } = useTotalBorrowLimit(markets)
 
     const { account, library } = useActiveWeb3React()
     const [, setToast] = useToasts()
@@ -65,7 +66,34 @@ export default function BorrowTab({ markets, update }) {
     }
 
     const onChangeAmount = async (e) => {
-        setAmount(e.target.value)
+        const tempAmount = e.target.value
+        const tempPercent = (isNaN(parseFloat(tempAmount)) || borrowLimit.isZero()) 
+            ? 0 : BigNumber.min(new BigNumber(100), new BigNumber(tempAmount).div(borrowLimit).times(100)).dp(0).toNumber()
+        if(asset && !borrowLimit?.isZero()) {
+            setBorrowAmountPercent(tempPercent)
+            setAmount(tempAmount)
+        } else {
+            setBorrowAmountPercent(0)
+            setAmount('0')
+        }
+    }
+
+    const handleMax = () => {
+        if(!asset || borrowLimit.isZero()) {
+            setAmount('')
+        } else {
+            setAmount(borrowLimit.toString())
+        }
+    }
+
+    const onChangePercent = (value) => {
+        if(asset && !borrowLimit?.isZero()) {
+            setBorrowAmountPercent(value)
+            setAmount(borrowLimit.times(value).div(100).toString())
+        } else {
+            setBorrowAmountPercent(0)
+            setAmount('0')
+        }
     }
 
     const borrow = async () => {
@@ -94,6 +122,7 @@ export default function BorrowTab({ markets, update }) {
                 update()
             } catch (e) {
                 console.log(e)
+                setToast({text: e?.data?.message || e?.message, type: 'error'})
             }
 
             setAmount('')
@@ -120,7 +149,7 @@ export default function BorrowTab({ markets, update }) {
             </div>
 
             <div className="flex space-x-2">
-                <Button auto>Max</Button>
+                <Button auto onClick={handleMax}>Max</Button>
                 <div className="flex-1">
                     <Input label="Amount" type="number" size="large" width="100%" placeholder="Enter an amount" value={amount} onChange={onChangeAmount} />
                 </div>
@@ -132,7 +161,14 @@ export default function BorrowTab({ markets, update }) {
 
             {showSlider && (
                 <div>
-                    <Slider step={0.2} max={1} min={0.2} initialValue={0.4} />
+                    <Slider 
+                        step={1} 
+                        max={100} 
+                        min={0} 
+                        initialValue={0} 
+                        value={borrowAmountPercent} 
+                        onChange={onChangePercent}
+                    />
                 </div>
             )}
 

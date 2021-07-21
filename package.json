@@ -50,6 +50,7 @@
         "react-parallax-tilt": "^1.5.40",
         "react-particles-js": "^3.4.1",
         "react-router-dom": "^5.2.0",
+        "react-switch": "^6.0.0",
         "react-ticker": "^1.2.2",
         "react-tilt": "^0.1.4",
         "react-typed": "^1.2.0",

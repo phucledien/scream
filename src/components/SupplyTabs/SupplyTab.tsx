@@ -14,6 +14,7 @@ export default function SupplyTab({ markets, update }) {
     const [isEnabled, setIsEnabled] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [showSlider, setShowSlider] = useState(false)
+    const [supplyPercent, setSupplyPercent] = useState(0)
 
     const { account, library } = useActiveWeb3React()
     const [, setToast] = useToasts()
@@ -38,7 +39,25 @@ export default function SupplyTab({ markets, update }) {
     }
 
     const onChangeAmount = async (e) => {
-        setAmount(e.target.value)
+        const tempAmount = e.target.value
+        const tempPercent = isNaN(parseFloat(tempAmount)) ? 0 : BigNumber.min(new BigNumber(100), new BigNumber(tempAmount).div(asset.walletBalance).times(100)).dp(0).toNumber()
+        if(asset && !asset?.walletBalance?.isZero()) {
+            setSupplyPercent(tempPercent)
+            setAmount(tempAmount)
+        } else {
+            setSupplyPercent(0)
+            setAmount('0')
+        }
+    }
+
+    const onChangePercent = (value) => {
+        if(asset && !asset?.walletBalance?.isZero()) {
+            setSupplyPercent(value)
+            setAmount(asset.walletBalance.times(value).div(100).toString())
+        } else {
+            setSupplyPercent(0)
+            setAmount('0')
+        }
     }
 
     const approve = async () => {
@@ -57,6 +76,10 @@ export default function SupplyTab({ markets, update }) {
             console.log(e)
         }
         setIsLoading(false)
+    }
+
+    const handleMax = () => {
+        setAmount(asset ? asset.walletBalance.toNumber() : 0)
     }
 
     const supply = async () => {
@@ -84,6 +107,7 @@ export default function SupplyTab({ markets, update }) {
                 update()
             } catch (e) {
                 console.log(e)
+                setToast({text: e?.data?.message || e?.message, type: 'error'})
             }
 
             setAmount('')
@@ -110,7 +134,7 @@ export default function SupplyTab({ markets, update }) {
             </div>
 
             <div className="flex space-x-2">
-                <Button auto>Max</Button>
+                <Button auto onClick={handleMax}>Max</Button>
                 <div className="flex-1">
                     <Input label="Amount" type="number" size="large" width="100%" placeholder="Enter an amount" value={amount} onChange={onChangeAmount} />
                 </div>
@@ -121,7 +145,13 @@ export default function SupplyTab({ markets, update }) {
 
             {showSlider && (
                 <div>
-                    <Slider step={0.2} max={1} min={0.2} initialValue={0.4} />
+                    <Slider 
+                    step={1} 
+                    max={100} 
+                    min={0} 
+                    initialValue={0} 
+                    value={supplyPercent} 
+                    onChange={onChangePercent}/>
                 </div>
             )}
 
