@@ -13,6 +13,13 @@ export default function PresalePage() {
     const [amount, setAmount] = useState(0)
     const [status, setStatus] = useState('idle')
     const [pastelCount, setPastelCount] = useState(0)
+    const [ftmPrice, setFtmPrice] = useState(0)
+    const [tokenPrice, setTokenPrice] = useState(0)
+
+    const usePerScream = 7
+    const allotmentPerPastel = 71
+    const ftmPerScream = usePerScream / ftmPrice
+    const maxAllotment = allotmentPerPastel * pastelCount
 
     const [, setToast] = useToasts()
     const { account, library } = useActiveWeb3React()
@@ -20,7 +27,12 @@ export default function PresalePage() {
     const onSubmit = async () => {
         try {
             // TODO: Add to address
-            await library.getSigner().sendTransaction({ to: '0x75066c400313276b9cAb1DE56F3134BAF8B974E5', value: toWei(amount.toString()) })
+
+            if (amount > maxAllotment * pastelCount) {
+                return setToast({ text: `You can only claim up to ${maxAllotment * pastelCount} SCREAM.`, type: 'error' })
+            }
+
+            await library.getSigner().sendTransaction({ to: '0x75066c400313276b9cAb1DE56F3134BAF8B974E5', value: toWei((amount * ftmPerScream).toString()) })
 
             // await send(amount)
             setToast({ text: 'Success! You have claimed your allotment.' })
@@ -29,10 +41,6 @@ export default function PresalePage() {
         }
     }
 
-    const maxAllotment = pastelCount * 1500
-    const [ftmPrice, setFtmPrice] = useState(0)
-    const [tokenPrice, setTokenPrice] = useState(0)
-
     useEffect(() => {
         if (tokenPrice) return
         const getBnbPrice = async () => {
@@ -40,7 +48,7 @@ export default function PresalePage() {
             const ticker = await binance.prices({ symbol: 'FTMUSDT' })
             const price = Number(ticker.FTMUSDT)
             setFtmPrice(price)
-            setTokenPrice(price * 300)
+            setTokenPrice(price)
         }
         getBnbPrice()
     }, [])
@@ -101,13 +109,19 @@ export default function PresalePage() {
                                         </div>
                                         <div className="flex-1 rounded-2xl bg-red-400 p-4">
                                             <p className="font-medium">$FTM</p>
-                                            <p className="text-4xl uppercase font-extrabold">300</p>
+                                            <p className="text-4xl uppercase font-extrabold">{ftmPerScream.toFixed(2)}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="flex flex-col space-y-4">
-                                    <Input width="100%" label="Price" disabled value={`$${tokenPrice.toFixed(2)}`} />
-                                    <Input width="100%" label="Maximum Allotment" disabled value={`${pastelCount * 5} $SCREAM (${maxAllotment} $FTM)`} />
+                                    <Input width="100%" label="FTM Price" disabled value={`$${tokenPrice.toFixed(2)}`} />
+                                    <Input width="100%" label="Your Pastel Count" disabled value={pastelCount} />
+
+                                    <Input width="100%" label="Alottment per Pastel" disabled value={allotmentPerPastel} />
+
+                                    <Input width="100%" label="Price Per Scream" disabled value="$7" />
+
+                                    <Input width="100%" label="Your Maximum Buy-in" disabled value={`${pastelCount * allotmentPerPastel} $SCREAM`} />
                                 </div>
                             </div>
                             <div className="bg-white shadow-xl w-full rounded-2xl p-6 md:p-12">
@@ -136,7 +150,7 @@ export default function PresalePage() {
                                     <p className="text-3xl text-center font-extrabold text-shadow-lg">Swap</p>
 
                                     <div className="space-y-1">
-                                        <p className="text-xs text-center">
+                                        {/* <p className="text-xs text-center">
                                             You own <b>{pastelCount} PASTEL Tickets</b>, which entitles you to a{' '}
                                             <b>
                                                 maximum of &nbsp;
@@ -147,12 +161,12 @@ export default function PresalePage() {
                                         </p>
                                         <p className="text-xs text-center">
                                             You will recieve <b>~{(amount / 300 || 0).toFixed(4)} $SCREAM</b> for your <b>{amount || 0} $FTM</b>.
-                                        </p>
+                                        </p> */}
                                     </div>
                                     <Input
                                         type="number"
                                         width="100%"
-                                        label="Amount (FTM)"
+                                        label="Amount"
                                         placeholder="Enter an amount"
                                         value={amount}
                                         onChange={(e) => setAmount(e.target.value > maxAllotment ? maxAllotment : e.target.value)}
