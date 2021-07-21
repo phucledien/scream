@@ -29,13 +29,12 @@ export default function App() {
         <>
             <SubscribePopup visible={subscribe} hide={() => setSubscribe(false)} />
 
-            <div className="absolute inset-0">
-                <video autoPlay loop muted playsInline className="object-cover h-screen w-screen fixed top-0 left-0">
-                    <source src="/img/test.mp4" type="video/mp4" />
-                </video>
-            </div>
-
-            <div className="h-full flex flex-col fixed inset-0" onClick={() => setSubscribe((_) => !_)}>
+            <div className="h-full flex flex-col fixed inset-0 bg-center bg-cover bg-black" onClick={() => setSubscribe((_) => !_)}>
+                <div className="absolute inset-0">
+                    <video autoPlay loop muted playsInline className="object-cover h-screen w-screen fixed top-0 left-0">
+                        <source src="/img/test.mp4" type="video/mp4" />
+                    </video>
+                </div>
                 <Tilt className="tilt relative z-30 flex flex-col flex-1">
                     <div className="p-12 flex-1 flex items-center justify-center tilt-inner ">
                         <div className="space-y-8 text-center">
