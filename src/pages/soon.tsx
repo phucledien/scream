@@ -37,9 +37,11 @@ export default function App() {
                     </video>
                 </div>
                 {/* <Tilt className="tilt relative z-30 flex flex-col flex-1"> */}
-                <div className="p-12 flex-1 flex flex-col items-center justify-end tilt-inner text-white space-y-8">
+                <div className="p-6 flex-1 flex flex-col items-center justify-end tilt-inner text-white space-y-4">
                     <div className="space-y-1 text-center">
-                        <Typed className=" font-mono" strings={['Pastel Club Members. Get Ready.']} typeSpeed={40} />
+                        <p className="text-xs font-mono">
+                            <Typed strings={['Pastel Club Members. Get Ready.']} typeSpeed={40} />
+                        </p>
                         <p className="text-2xl font-extended md:text-4xl font-extrabold uppercase">{prettyMilliseconds(timeLeft)}</p>
                     </div>
                     <div className="flex-1" />
