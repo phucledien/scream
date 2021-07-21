@@ -1,13 +1,10 @@
+import dayjs from 'dayjs'
+import dynamic from 'next/dynamic'
+import prettyMilliseconds from 'pretty-ms'
 import React, { useState } from 'react'
 import useCountDown from 'react-countdown-hook'
-import prettyMilliseconds from 'pretty-ms'
-import dayjs from 'dayjs'
 import Typed from 'react-typed'
-import { Button } from '@geist-ui/react'
-import dynamic from 'next/dynamic'
-import VideoBG from 'react-background-video-player'
-import ParticlesBackground from '../components/ParticlesBackground'
-import SubscribePopup from '../components/SubscribePopup'
+import SubscribePopup from '../component/SubscribePopup'
 
 const Tilt = dynamic(import('react-parallax-tilt'), { ssr: false })
 
@@ -47,9 +44,16 @@ export default function App() {
                     <div className="flex-1" />
 
                     <div className="cursor-not-allowed">
-                        <Button className="pointer-events-none" size="small" auto>
+                        <button
+                            onClick={() => setSubscribe((_) => !_)}
+                            type="button"
+                            className="font-extended text-black uppercase bg-animated-rainbow font-medium rounded-3xl px-6 py-3 pb-2 w-full animate-ping hover:shadow-xl shadow-2xl transition ease-in-out duration-150"
+                        >
+                            <span>Open Seed Round</span>
+                        </button>
+                        {/* <Button className="pointer-events-none" size="small" auto>
                             Open Seed Round
-                        </Button>
+                        </Button> */}
                     </div>
 
                     <div className="text-2xl space-x-4">
