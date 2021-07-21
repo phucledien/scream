@@ -116,9 +116,9 @@ export default function LaunchPad() {
                     </div>
                     <div className="flex whitespace-no-wrap overflow-auto ">
                         <div className="space-x-4">
-                            <button type="button" onClick={() => setComingSoon(true)}>
+                            <a href="https://docs.scream.sh/" target="_blank" type="button" rel="noreferrer">
                                 Documentation
-                            </button>
+                            </a>
                             {/* <a href="https://docs.scream.sh/" target="_blank" rel="noreferrer"> */}
                             {/* </a> */}
                             {/* <a className="font-medium" href="# ">
