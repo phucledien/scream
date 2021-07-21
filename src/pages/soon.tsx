@@ -8,7 +8,7 @@ import SubscribePopup from '../component/SubscribePopup'
 
 const Tilt = dynamic(import('react-parallax-tilt'), { ssr: false })
 
-const date1 = dayjs('2021-07-23T16:00:00-04:00')
+const date1 = dayjs('2021-07-23T17:00:00-04:00')
 const date2 = dayjs(Date.now())
 
 const initialTime = date1.diff(date2)
