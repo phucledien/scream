@@ -74,7 +74,7 @@ export default function AssetTable({ markets, update }) {
         const { collateral } = market
         if (account && market?.borrowBalance.isZero()) {
             const appContract = getUnitrollerContract(library?.getSigner())
-            const scTokenContract = getSctokenContract(market.id, library?.getSigner())
+            const scTokenContract = getSctokenContract(market.symbol.toLowerCase(), library?.getSigner())
             let tx = null
             let result = collateral;
             try {
@@ -84,7 +84,7 @@ export default function AssetTable({ markets, update }) {
                 } else {
                     const balance = await scTokenContract.balanceOf(account)
                     const hypotheticalLiquidity = await appContract.getHypotheticalAccountLiquidity(account, market.id, balance, 0)
-                    if (hypotheticalLiquidity['1'] > 0 || +hypotheticalLiquidity['2'] === 0) {
+                    if (hypotheticalLiquidity['1'].toNumber() > 0 || hypotheticalLiquidity['2'].isZero()) {
                         tx = await appContract.exitMarket(market.id)
                         result = false;
                     } else {
