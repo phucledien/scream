@@ -82,7 +82,7 @@ export default function RepayTab({ markets, update }) {
             if (tokenContract) {
                 const tx = await tokenContract.approve(asset?.id, new BigNumber(2).pow(256).minus(1).toString(10))
                 triggerTransactionAlert(tx?.hash)
-                await tx.wait(2)
+                await tx.wait(1)
                 deleteTransactionAlert(tx?.hash)
                 update()
                 setIsEnabled(true)

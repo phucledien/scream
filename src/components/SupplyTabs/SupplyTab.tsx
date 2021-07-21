@@ -67,7 +67,7 @@ export default function SupplyTab({ markets, update }) {
             if (tokenContract) {
                 const tx = await tokenContract.approve(asset?.id, new BigNumber(2).pow(256).minus(1).toString(10))
                 triggerTransactionAlert(tx?.hash)
-                await tx.wait(2)
+                await tx.wait(1)
                 deleteTransactionAlert(tx.hash)
                 setIsEnabled(true)
                 update()
@@ -79,7 +79,7 @@ export default function SupplyTab({ markets, update }) {
     }
 
     const handleMax = () => {
-        setAmount(asset ? asset.walletBalance.toNumber() : 0)
+        setAmount(asset ? asset.walletBalance.toString() : 0)
     }
 
     const supply = async () => {
@@ -91,7 +91,8 @@ export default function SupplyTab({ markets, update }) {
         const scTokenContract = getSctokenContract(id, library.getSigner())
         const token = CONTRACT_TOKEN_ADDRESS?.[asset.underlyingSymbol.toLowerCase()]
 
-        if (+amount <= 0 || +amount > asset.walletBalance.toNumber()) {
+        const amountBig = new BigNumber(amount)
+        if (+amount <= 0 || amountBig.gt(asset.walletBalance)) {
             setToast({ text: `Invalid Amount. Your Supply Limit is ${asset.walletBalance.dp(8, 1).toString()} ${token.symbol.toUpperCase()}`, type: 'error' })
             return
         }
@@ -100,7 +101,7 @@ export default function SupplyTab({ markets, update }) {
             setIsLoading(true)
 
             try {
-                const tx = await scTokenContract.mint(new BigNumber(amount).times(new BigNumber(10).pow(token?.decimals)).toString(10))
+                const tx = await scTokenContract.mint(amountBig.times(new BigNumber(10).pow(token?.decimals)).toString(10))
                 triggerTransactionAlert(tx?.hash)
                 await tx.wait(1)
                 deleteTransactionAlert(tx.hash)

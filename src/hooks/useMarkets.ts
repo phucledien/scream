@@ -3,7 +3,7 @@ import axios from 'axios'
 import BigNumber from 'bignumber.js'
 import useRefresh from './useRefresh'
 import {
- CONTRACT_SCTOKEN_ADDRESS, CONTRACT_TOKEN_ADDRESS, CONTRACT_SCTOKEN_ABI, GRAPHQL_URL 
+ CONTRACT_SCTOKEN_ADDRESS, CONTRACT_TOKEN_ADDRESS, CONTRACT_SCTOKEN_ABI, GRAPHQL_URL, CONTRACT_PRICE_ORACLE_ADDRESS, CONTRACT_PRICE_ORACLE_ABI 
 } from '../constants'
 import { fetchBalances, getSctokenContract, getUnitrollerContract } from '../utils/ContractService'
 import { useActiveWeb3React } from '.'
@@ -65,19 +65,33 @@ export default function useMarkets(refresh = 0) {
                     address: market.id,
                     name: 'borrowRatePerBlock'
                 }))
-                const getCashCalls = filteredMarkets.map((market) => ({
-                    address: market.id,
-                    name: 'getCash'
+                const getUnderlyingPriceUsdCalls = filteredMarkets.map((market) => ({
+                    address: CONTRACT_PRICE_ORACLE_ADDRESS,
+                    name: 'getUnderlyingPrice',
+                    params: [market.id]
                 }))
-                const [supplyRatePerBlocks, borrowRatePerBlocks, getCashs] = await Promise.all([
+
+                const [supplyRatePerBlocks, borrowRatePerBlocks, underlyingPriceUSDs] = await Promise.all([
                     multicall(scTokenABI, supplyRatePerBlockCalls),
                     multicall(scTokenABI, borrowRatePerBlockCalls),
-                    multicall(scTokenABI, getCashCalls)
+                    multicall(JSON.parse(CONTRACT_PRICE_ORACLE_ABI), getUnderlyingPriceUsdCalls)
                 ])
+                
+                let balances = null
+                if(account) {
+                    balances = await fetchBalances(account, filteredMarkets, library)
+                }
 
                 const promises = []
                 for (let i = 0; i < filteredMarkets.length; i++) {
-                    promises.push(calculateAPY(filteredMarkets[i], supplyRatePerBlocks[i], borrowRatePerBlocks[i], getCashs[i], assetsIn, account, library))
+                    promises.push(
+                        calculateAPY(
+                            filteredMarkets[i], 
+                            supplyRatePerBlocks[i][0], 
+                            borrowRatePerBlocks[i][0], 
+                            underlyingPriceUSDs[i][0], 
+                            (balances ? balances[i] : {}),
+                            assetsIn, account, library))
                 }
                 const calculatedMarkets = await Promise.all(promises)
 
@@ -96,19 +110,18 @@ export default function useMarkets(refresh = 0) {
         refreshing
     }
 }
-const calculateAPY = async (market, supplyRate, borrowRate, getCash, assetsIn, account, provider) => {
+const calculateAPY = async (market, supplyRate, borrowRate, underlyingPrice, balances, assetsIn, account, provider) => {
     if (!market) {
         return false
     }
 
     const scToken = CONTRACT_SCTOKEN_ADDRESS?.[market?.symbol?.toLowerCase()]
     const token = CONTRACT_TOKEN_ADDRESS?.[market?.underlyingSymbol?.toLowerCase()]
-    const scTokenContract = getSctokenContract(market?.symbol?.toLowerCase(), provider)
-
+   
     const borrows = new BigNumber(market?.totalBorrows)
     const reserves = new BigNumber(market.reserves || 0)
     const reserveFactor = new BigNumber(market.reserveFactor).div(new BigNumber(10).pow(18))
-    const underlyingPriceUSD = new BigNumber(market.underlyingPriceUSD)
+    const underlyingPriceUSD = new BigNumber(underlyingPrice.toString()).div(new BigNumber(10).pow(18 + 18 - token.decimals))
     const total_borrows_usd = borrows.times(underlyingPriceUSD).dp(2, 1).toNumber()
     const total_supply_usd = new BigNumber(market.totalSupply).times(market.exchangeRate).times(underlyingPriceUSD).dp(2, 1)
 .toNumber()
@@ -116,14 +129,9 @@ const calculateAPY = async (market, supplyRate, borrowRate, getCash, assetsIn, a
     const collateral = assetsIn.map((item) => item.toLowerCase()).includes(scToken.address.toLowerCase())
 
     try {
-        let balances = {}
-        if (account && provider) {
-            balances = await fetchBalances(account, token, scToken, provider)
-        }
-
         const supplyRatePerBlock = new BigNumber(supplyRate.toString())
         const borrowRatePerBlock = new BigNumber(borrowRate.toString())
-        const cash = new BigNumber(getCash.toString()).div(new BigNumber(10).pow(token?.decimals))
+        const cash = new BigNumber(market?.cash || 0)
         const currentUtilizationRate = borrows.eq(0) ? new BigNumber(0) : borrows.div(cash.plus(borrows).minus(reserves))
 
         // APY = ((((Rate / ETH Mantissa * Blocks Per Day + 1) ^ Days Per Year)) - 1) * 100
@@ -138,6 +146,7 @@ const calculateAPY = async (market, supplyRate, borrowRate, getCash, assetsIn, a
 
         return {
             ...market,
+            underlyingPriceUSD: underlyingPriceUSD.toNumber(),
             reserveFactor: reserveFactor.toNumber(),
             liquidity: cash.toNumber(),
             borrowAPY: borrowAPY.times(100).dp(2, 1).toNumber(),
@@ -154,6 +163,7 @@ const calculateAPY = async (market, supplyRate, borrowRate, getCash, assetsIn, a
         console.log(e)
         return {
             ...market,
+            underlyingPriceUSD: underlyingPriceUSD.toNumber(),
             reserveFactor: reserveFactor.toNumber(),
             liquidity: 0,
             borrowAPY: 0,
