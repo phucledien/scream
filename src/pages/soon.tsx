@@ -32,7 +32,7 @@ export default function App() {
             <div className="h-full flex flex-col fixed inset-0 bg-center bg-cover bg-black" onClick={() => setSubscribe((_) => !_)}>
                 <div className="absolute inset-0">
                     <video autoPlay loop muted playsInline className="object-cover h-screen w-screen fixed top-0 left-0">
-                        <source src="/img/test.mp4" type="video/mp4" />
+                        <source src="/img/ScreamFinaltease.mp4" type="video/mp4" />
                     </video>
                 </div>
                 <Tilt className="tilt relative z-30 flex flex-col flex-1">
