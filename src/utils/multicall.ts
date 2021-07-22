@@ -31,7 +31,7 @@ const multicall = async (abi: any[], calls: Call[], provider?: ethers.Signer | e
  * Multicall V2 uses the new "tryAggregate" function. It is different in 2 ways
  *
  * 1. If "requireSuccess" is false multicall will not bail out if one of the calls fails
- * 2. The return inclues a boolean whether the call was successful e.g. [wasSuccessfull, callResult]
+ * 2. The return includes a boolean whether the call was successful e.g. [wasSuccessfull, callResult]
  */
 export const multicallv2 = async (
   abi: any[],
