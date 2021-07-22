@@ -1,11 +1,12 @@
 import { Button, Input, Table, useToasts } from '@geist-ui/react'
 import { useEffect, useState } from 'react'
-import Switch from "react-switch";
+import Switch from 'react-switch'
 import AssetBreakdown from '../components/AssetBreakdown'
 import { CONTRACT_SCTOKEN_ADDRESS, CONTRACT_TOKEN_ADDRESS } from '../constants'
 import { useActiveWeb3React } from '../hooks'
 import { currencyFormatter, formatter } from '../utils'
 import { getSctokenContract, getUnitrollerContract } from '../utils/ContractService'
+import APYStat from './APYStat'
 
 export default function AssetTable({ markets, update }) {
     const [search, setSearch] = useState('')
@@ -19,11 +20,11 @@ export default function AssetTable({ markets, update }) {
     const getToken = (market) => CONTRACT_TOKEN_ADDRESS[market?.underlyingSymbol?.toLowerCase()]
 
     useEffect(() => {
-        if(markets && markets.length) {
+        if (markets && markets.length) {
             const tempCollateralEnabled = new Map()
-            markets.forEach(market => {
+            markets.forEach((market) => {
                 tempCollateralEnabled.set(market.id, market.collateral)
-            });
+            })
             setCollateralEnabled(tempCollateralEnabled)
         }
     }, [markets])
@@ -39,31 +40,26 @@ export default function AssetTable({ markets, update }) {
                 .map((market) => ({
                     ...market,
                     name: (
-                        <div className="flex items-center space-x-2">
+                        <div onClick={() => setShowBreakdown(market)} className="flex items-center space-x-2">
                             <div className="w-5">
                                 <img className="h-4" src={`/img/tokens/${getToken(market)?.asset}`} alt="" />
                             </div>
-                            <a href={`http://ftmscan.com/address/${market.id}`}>{getToken(market)?.id.toUpperCase()}</a>
+                            <p>{getToken(market)?.id.toUpperCase()}</p>
                         </div>
                     ),
-                    supply: `${market.supplyAPY?.toFixed(2)}%`,
-                    borrow: `${market.borrowAPY?.toFixed(2)}%`,
+                    supply: <APYStat market={market} type="lend" />,
+                    borrow: <APYStat market={market} />,
                     liquidity: `${currencyFormatter(market.liquidity)}`,
                     price: `$${formatter(+market.underlyingPriceUSD, 2)}`,
                     wallet: `${currencyFormatter(market?.walletBalance || '0')} ${market.underlyingSymbol}`,
-                    collateral: <Switch  
-                        checked={collateralEnabled.get(market.id) || false}
-                        onChange={(e) => handleCollateral(market)} 
-                        disabled={+market?.collateralFactor == 0}
-                        height={20}
-                        width={40}
-                        className="react-switch"
-                        />,
-                    action: (
-                        <Button onClick={() => setShowBreakdown(market)} auto size="mini">
-                            Asset Breakdown
-                        </Button>
+                    collateral: (
+                        <Switch checked={collateralEnabled.get(market.id) || false} onChange={(e) => handleCollateral(market)} disabled={+market?.collateralFactor == 0} height={20} width={40} className="react-switch" />
                     )
+                    // action: (
+                    //     <Button onClick={() => setShowBreakdown(market)} auto size="mini">
+                    //         Breakdown
+                    //     </Button>
+                    // )
                 }))
 
             setFilteredMarkets(temp)
@@ -76,17 +72,17 @@ export default function AssetTable({ markets, update }) {
             const appContract = getUnitrollerContract(library?.getSigner())
             const scTokenContract = getSctokenContract(market.symbol.toLowerCase(), library?.getSigner())
             let tx = null
-            let result = collateral;
+            let result = collateral
             try {
                 if (!collateral) {
                     tx = await appContract.enterMarkets([market.id])
-                    result = true;
+                    result = true
                 } else {
                     const balance = await scTokenContract.balanceOf(account)
                     const hypotheticalLiquidity = await appContract.getHypotheticalAccountLiquidity(account, market.id, balance, 0)
                     if (hypotheticalLiquidity['1'].toNumber() > 0 || hypotheticalLiquidity['2'].isZero()) {
                         tx = await appContract.exitMarket(market.id)
-                        result = false;
+                        result = false
                     } else {
                         setToast({ text: 'You need to set collateral at least one asset for your borrowed assets. Please repay all borrowed asset or set other asset as collateral.', type: 'error' })
                     }
@@ -100,7 +96,7 @@ export default function AssetTable({ markets, update }) {
                 }
             } catch (e) {
                 console.log(e)
-                result = collateral;
+                result = collateral
             }
             update()
         } else {
@@ -124,7 +120,7 @@ export default function AssetTable({ markets, update }) {
                         <Table.Column prop="price" label="Price" />
                         <Table.Column prop="wallet" label="Your Wallet" />
                         <Table.Column prop="collateral" label="Collateral" />
-                        <Table.Column prop="action" label="Action" />
+                        {/* <Table.Column prop="action" label="Action" /> */}
                     </Table>
                 </div>
             </div>

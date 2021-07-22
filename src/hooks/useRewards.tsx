@@ -3,13 +3,14 @@ import ethers from 'ethers'
 import { getSctokenContract, getUnitrollerContract } from '../utils/ContractService'
 import { useActiveWeb3React } from '.'
 
-export default function useRewards(tokenData) {
+export default function useRewards(tokenData?) {
     const [rewardValue, setRewardValue] = useState(0)
     const [lendingApy, setLendingApy] = useState(0)
     const [borrowApy, setBorrowApy] = useState(0)
     const { account, library } = useActiveWeb3React()
 
     const calculateAPY = async (compSpeeds, scToken) => {
+        if (!tokenData) return
         try {
             const totalSupply = await scToken.totalSupply()
             const totalBorrow = await scToken.totalBorrows()
@@ -49,6 +50,7 @@ export default function useRewards(tokenData) {
     }, [account, tokenData])
 
     const claimReward = async () => {
+        if (!tokenData) return
         if (account) {
             const appContract = getUnitrollerContract(library?.getSigner())
             let tx = null
@@ -60,6 +62,8 @@ export default function useRewards(tokenData) {
             }
         }
     }
+
+    const claimAll = () => {}
 
     return {
         claimReward,

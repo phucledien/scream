@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react'
 import { CONTRACT_TOKEN_ADDRESS } from '../../constants'
 import { useActiveWeb3React } from '../../hooks'
 import useAlerts from '../../hooks/useAlerts'
+import useRewards from '../../hooks/useRewards'
 import useTotalBorrowLimit from '../../hooks/useTotalBorrowLimit'
 import { formatter } from '../../utils'
 import { getSctokenContract } from '../../utils/ContractService'
 import ConnectWalletButton from '../WalletConnect/ConnectWalletButton'
+import Tippy from '@tippyjs/react'
 
 export default function BorrowTab({ markets, update }) {
     const [asset, setAsset] = useState(null)
@@ -18,6 +20,8 @@ export default function BorrowTab({ markets, update }) {
     const [isLoading, setIsLoading] = useState(false)
     const [showSlider, setShowSlider] = useState(false)
     const [borrowAmountPercent, setBorrowAmountPercent] = useState(0)
+
+    const { borrowApy } = useRewards(asset)
 
     const { totalBorrowLimit, totalBorrowBalance } = useTotalBorrowLimit(markets)
 
@@ -67,9 +71,8 @@ export default function BorrowTab({ markets, update }) {
 
     const onChangeAmount = async (e) => {
         const tempAmount = e.target.value
-        const tempPercent = (isNaN(parseFloat(tempAmount)) || borrowLimit.isZero()) 
-            ? 0 : BigNumber.min(new BigNumber(100), new BigNumber(tempAmount).div(borrowLimit).times(100)).dp(0).toNumber()
-        if(asset && !borrowLimit?.isZero()) {
+        const tempPercent = isNaN(parseFloat(tempAmount)) || borrowLimit.isZero() ? 0 : BigNumber.min(new BigNumber(100), new BigNumber(tempAmount).div(borrowLimit).times(100)).dp(0).toNumber()
+        if (asset && !borrowLimit?.isZero()) {
             setBorrowAmountPercent(tempPercent)
             setAmount(tempAmount)
         } else {
@@ -79,7 +82,7 @@ export default function BorrowTab({ markets, update }) {
     }
 
     const handleMax = () => {
-        if(!asset || borrowLimit.isZero()) {
+        if (!asset || borrowLimit.isZero()) {
             setAmount('')
         } else {
             setAmount(borrowLimit.toString())
@@ -87,7 +90,7 @@ export default function BorrowTab({ markets, update }) {
     }
 
     const onChangePercent = (value) => {
-        if(asset && !borrowLimit?.isZero()) {
+        if (asset && !borrowLimit?.isZero()) {
             setBorrowAmountPercent(value)
             setAmount(borrowLimit.times(value).div(100).toString())
         } else {
@@ -122,7 +125,7 @@ export default function BorrowTab({ markets, update }) {
                 update()
             } catch (e) {
                 console.log(e)
-                setToast({text: e?.data?.message || e?.message, type: 'error'})
+                setToast({ text: e?.data?.message || e?.message, type: 'error' })
             }
 
             setAmount('')
@@ -149,7 +152,9 @@ export default function BorrowTab({ markets, update }) {
             </div>
 
             <div className="flex space-x-2">
-                <Button auto onClick={handleMax}>Max</Button>
+                <Button auto onClick={handleMax}>
+                    Max
+                </Button>
                 <div className="flex-1">
                     <Input label="Amount" type="number" size="large" width="100%" placeholder="Enter an amount" value={amount} onChange={onChangeAmount} />
                 </div>
@@ -161,14 +166,7 @@ export default function BorrowTab({ markets, update }) {
 
             {showSlider && (
                 <div>
-                    <Slider 
-                        step={1} 
-                        max={100} 
-                        min={0} 
-                        initialValue={0} 
-                        value={borrowAmountPercent} 
-                        onChange={onChangePercent}
-                    />
+                    <Slider step={1} max={100} min={0} initialValue={0} value={borrowAmountPercent} onChange={onChangePercent} />
                 </div>
             )}
 
@@ -187,12 +185,29 @@ export default function BorrowTab({ markets, update }) {
                     <span className="">${formatter(totalBorrowLimit, 2) || '-'}</span>
                 </p>
                 <p className="flex">
-                    <span className="opacity-50 flex-1">Borrow Limit Used</span>
+                    <span className="opacity-50 flex-1">
+                        <span>Used Borrow Limit</span>
+                        &nbsp;
+                        <Tippy
+                            content={
+                                <p className="bg-white p-2 rounded-xl shadow-xl border border-gray-100 text-xs">This factor tells you the total percentage of your borrow limit used before and after this transaction.</p>
+                            }
+                        >
+                            <i className="fas fa-info-circle" />
+                        </Tippy>
+                    </span>
                     <span className="">
                         {formatter(borrowPercent, 2, '%')}
-                        -&gt;
+                        &nbsp;
+                        <i className="fas fa-caret-right opacity-25" />
+                        &nbsp;
                         {formatter(newBorrowPercent, 2, '%')}
                     </span>
+                </p>
+
+                <p className="flex">
+                    <span className="opacity-50 flex-1">Reward APY</span>
+                    <span className="">{borrowApy || '??'}</span>
                 </p>
             </div>
         </div>

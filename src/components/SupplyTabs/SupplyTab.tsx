@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { CONTRACT_TOKEN_ADDRESS } from '../../constants'
 import { useActiveWeb3React } from '../../hooks'
 import useAlerts from '../../hooks/useAlerts'
+import useMarkets from '../../hooks/useMarkets'
 import { formatter } from '../../utils'
 import { getSctokenContract, getTokenContract } from '../../utils/ContractService'
 import ConnectWalletButton from '../WalletConnect/ConnectWalletButton'
@@ -15,6 +16,8 @@ export default function SupplyTab({ markets, update }) {
     const [isLoading, setIsLoading] = useState(false)
     const [showSlider, setShowSlider] = useState(false)
     const [supplyPercent, setSupplyPercent] = useState(0)
+
+    const { lendingApy, borrowApy } = useMarkets(asset)
 
     const { account, library } = useActiveWeb3React()
     const [, setToast] = useToasts()
@@ -41,7 +44,7 @@ export default function SupplyTab({ markets, update }) {
     const onChangeAmount = async (e) => {
         const tempAmount = e.target.value
         const tempPercent = isNaN(parseFloat(tempAmount)) ? 0 : BigNumber.min(new BigNumber(100), new BigNumber(tempAmount).div(asset.walletBalance).times(100)).dp(0).toNumber()
-        if(asset && !asset?.walletBalance?.isZero()) {
+        if (asset && !asset?.walletBalance?.isZero()) {
             setSupplyPercent(tempPercent)
             setAmount(tempAmount)
         } else {
@@ -51,7 +54,7 @@ export default function SupplyTab({ markets, update }) {
     }
 
     const onChangePercent = (value) => {
-        if(asset && !asset?.walletBalance?.isZero()) {
+        if (asset && !asset?.walletBalance?.isZero()) {
             setSupplyPercent(value)
             setAmount(asset.walletBalance.times(value).div(100).toString())
         } else {
@@ -108,7 +111,7 @@ export default function SupplyTab({ markets, update }) {
                 update()
             } catch (e) {
                 console.log(e)
-                setToast({text: e?.data?.message || e?.message, type: 'error'})
+                setToast({ text: e?.data?.message || e?.message, type: 'error' })
             }
 
             setAmount('')
@@ -133,9 +136,10 @@ export default function SupplyTab({ markets, update }) {
                         ))}
                 </Select>
             </div>
-
             <div className="flex space-x-2">
-                <Button auto onClick={handleMax}>Max</Button>
+                <Button auto onClick={handleMax}>
+                    Max
+                </Button>
                 <div className="flex-1">
                     <Input label="Amount" type="number" size="large" width="100%" placeholder="Enter an amount" value={amount} onChange={onChangeAmount} />
                 </div>
@@ -143,19 +147,11 @@ export default function SupplyTab({ markets, update }) {
                     <i className={`fas fa-chevron-circle-${showSlider ? 'up' : 'down'}`} />
                 </Button>
             </div>
-
             {showSlider && (
                 <div>
-                    <Slider 
-                    step={1} 
-                    max={100} 
-                    min={0} 
-                    initialValue={0} 
-                    value={supplyPercent} 
-                    onChange={onChangePercent}/>
+                    <Slider step={1} max={100} min={0} initialValue={0} value={supplyPercent} onChange={onChangePercent} />
                 </div>
             )}
-
             <div className="flex">
                 {!account && <ConnectWalletButton className="flex-1" type="secondary" />}
                 {account && asset && isEnabled && (
@@ -169,7 +165,6 @@ export default function SupplyTab({ markets, update }) {
                     </Button>
                 )}
             </div>
-
             <div className="rounded-xl bg-black text-white p-4 text-xs">
                 <p className="flex">
                     <span className="opacity-50 flex-1">Balance</span>
@@ -178,6 +173,10 @@ export default function SupplyTab({ markets, update }) {
                 <p className="flex">
                     <span className="opacity-50 flex-1">Deposit APY</span>
                     <span className="">{formatter(asset?.supplyAPY, 2, '%') || '-'}</span>
+                </p>
+                <p className="flex">
+                    <span className="opacity-50 flex-1">Reward APY</span>
+                    <span className="">{lendingApy || '??'}</span>
                 </p>
             </div>
         </div>

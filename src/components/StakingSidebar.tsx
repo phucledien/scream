@@ -22,6 +22,8 @@ export default function StakingSidebar({ open, hide }) {
                             {stakingSidebarData.underlyingSymbol}. Earn SCREAM.
                         </p>
                     </div>
+
+                    {/* comment this out */}
                     <div className="flex flex-col items-center justify-center space-y-2 text-white bg-pink-500 rounded-2xl h-60">
                         <p className="text-xl font-medium opacity-50">You've earned...</p>
                         <p className="text-4xl font-extrabold">{rewardValue}</p>
@@ -30,6 +32,7 @@ export default function StakingSidebar({ open, hide }) {
                             {stakingSidebarData.underlyingSymbol}
                         </p>
                     </div>
+                    {/* comment this out */}
 
                     <div className="space-y-1 font-mono opacity-75">
                         <div className="flex items-center space-x-2">
@@ -50,7 +53,6 @@ export default function StakingSidebar({ open, hide }) {
                             </Button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </Sidebar>
