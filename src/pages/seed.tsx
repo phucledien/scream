@@ -15,8 +15,8 @@ export default function PresalePage() {
     const [tx, setTx] = useState(null)
     // const [ftmPrice, setFtmPrice] = useState(0.18)
 
-    const fixedDayString = 'Jul 23st, 4:45PM (EST)'
-    const ftmPrice = 0.184
+    const fixedDayString = 'Jul 23st, 4:44PM (EST)'
+    const ftmPrice = 0.182
     const usdPerScream = 7
     const allotmentPerPastel = 71
     const ftmPerScream = usdPerScream / ftmPrice
