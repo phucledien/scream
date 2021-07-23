@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import Header from '../components/Header'
-// const TVChartContainer = dynamic(() => import('../component/TVChartContainer'), { ssr: false })
+// const TVChartContainer = dynamic(() => import('../components/TVChartContainer'), { ssr: false })
 // test
 const TVChartContainer = dynamic(() => import('../components/TVChartContainer'), { ssr: false })
 

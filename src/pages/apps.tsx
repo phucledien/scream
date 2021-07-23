@@ -3,8 +3,8 @@ import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import Link from 'next/link'
-import ParticlesBackground from '../component/ParticlesBackground'
-import SubscribeModal from '../component/SubscriberModal'
+import ParticlesBackground from '../components/ParticlesBackground'
+import SubscribeModal from '../components/SubscriberModal'
 
 export default function LaunchPad() {
     const [comingSoon, setComingSoon] = useState(false)
@@ -60,23 +60,9 @@ export default function LaunchPad() {
                             onClick={() => setComingSoon(true)}
                             className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
                         >
-                            <p className="text-3xl font-extrabold">Launchpool</p>
+                            <p className="text-3xl font-extrabold">Staking</p>
                             <p className="text-lg">Stake your scream tokens. Earn sweet rewards in a token of your choice.</p>
                         </motion.a>
-
-                        <motion.a
-                            initial={{ opacity: 0, x: '40%', y: '40%' }}
-                            animate={{ opacity: [0, 1], x: ['40%', '0%'], y: ['40%', '0%'] }}
-                            href="# "
-                            onClick={() => setComingSoon(true)}
-                            className="block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-300 p-6 space-y-2"
-                        >
-                            <p className="text-3xl font-extrabold">Farming</p>
-                            <p className="text-lg">Stake your tokens to earn Scream, with the best returns available.</p>
-                        </motion.a>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                         <motion.a
                             initial={{ opacity: 0, x: '-40%', y: '-40%' }}
                             animate={{ opacity: [0, 1], x: ['-40%', '0%'], y: ['-40%', '0%'] }}
@@ -86,17 +72,6 @@ export default function LaunchPad() {
                         >
                             <p className="text-3xl font-extrabold">Events</p>
                             <p className="text-lg">The Monster hunt has expired, but something may be brewing...</p>
-                        </motion.a>
-
-                        <motion.a
-                            initial={{ opacity: 0, x: '40%', y: '40%' }}
-                            animate={{ opacity: [0, 1], x: ['40%', '0%'], y: ['40%', '0%'] }}
-                            href="# "
-                            onClick={() => setComingSoon(true)}
-                            className="sm:col-span-2 block bg-white rounded-xl shadow-xl hover:shadow border-4 border-white hover:border-pink-200 transition ease-in-out duration-150 p-6 space-y-2"
-                        >
-                            <p className="text-3xl font-extrabold">Scream, the Game</p>
-                            <p className="text-lg">Join in on the fun in the Scream RPF and earn real crypto competing against other members of the Scream community.</p>
                         </motion.a>
                     </div>
 
