@@ -107,7 +107,12 @@ export default function PresalePage() {
             </Modal>
 
             <div className="min-h-full flex flex-col bg-animated-rainbow">
-                <div className="flex-1 flex items-center justify-center p-6 md:p-12">
+                <div className="absolute inset-0 opacity-10">
+                    <video autoPlay loop muted playsInline className="object-cover h-screen w-screen fixed top-0 left-0" poster="/img/vid.jpg">
+                        <source src="/img/vid.mp4" type="video/mp4" />
+                    </video>
+                </div>
+                <div className="relative flex-1 flex items-center justify-center p-6 md:p-12">
                     <div className="max-w-5xl w-full  space-y-8">
                         {/* <div>
                             <Button auto size="mini">
