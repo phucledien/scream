@@ -1,17 +1,11 @@
-import {
-    Button, Input, Modal, useToasts
-} from '@geist-ui/react'
-import Binance from 'binance-api-node'
+import { Button, Input, Modal, useToasts } from '@geist-ui/react'
 import { useEffect, useState } from 'react'
-import Web3 from 'web3'
 import Typed from 'react-typed'
 import ConnectWalletButton from '../components/WalletConnect/ConnectWalletButton'
 import erc721 from '../data/erc721.json'
 import { useActiveWeb3React } from '../hooks'
-import CryptoTicker from '../lib/CryptoTicker/CryptoTicker'
 import { toWei } from '../utils'
 import { getContract } from '../utils/ContractService'
-import { walletconnect } from '../connectors'
 
 export default function PresalePage() {
     const [amount, setAmount] = useState(0)
@@ -21,7 +15,8 @@ export default function PresalePage() {
     const [tx, setTx] = useState(null)
     // const [ftmPrice, setFtmPrice] = useState(0.18)
 
-    const ftmPrice = 0.18
+    const fixedDayString = 'Jul 23st, 4:45PM (EST)'
+    const ftmPrice = 0.184
     const usdPerScream = 7
     const allotmentPerPastel = 71
     const ftmPerScream = usdPerScream / ftmPrice
@@ -35,7 +30,7 @@ export default function PresalePage() {
             if (amount > maxAllotment * pastelCount) {
                 return setToast({ text: `You can only claim up to ${maxAllotment * pastelCount} SCREAM.`, type: 'error' })
             }
-            await library.getSigner().sendTransaction({ to: '0x75066c400313276b9cAb1DE56F3134BAF8B974E5', value: toWei((amount * ftmPerScream).toString()) })
+            await library.getSigner().sendTransaction({ to: `${process.env.NEXT_PUBLIC_SEED_ROUND_ADDRESS}`, value: toWei((amount * ftmPerScream).toString()) })
             setShowModal(false)
             setStatus('complete')
             setToast({ text: 'Success! You have claimed your allotment.' })
@@ -83,9 +78,7 @@ export default function PresalePage() {
                             <p className="text-xs">Please confirm your payment want sent by viewing it on the scan: </p>
                             <p className="rounded bg-gray-100 whitespace-nowrap overflow-scroll hide-scroll-bars px-2">
                                 <a href={`http://ftmscan.com/address/${account}`} target="_blank" className="text-xs opacity-50 font-mono" rel="noreferrer">
-                                    Your address:
-                                    {' '}
-                                    {account}
+                                    Your address: {account}
                                 </a>
                             </p>
                         </div>
@@ -98,12 +91,10 @@ export default function PresalePage() {
                     <div className="space-y-2">
                         <p className="text-2xl font-bold">Are you sure you want to proceed?</p>
                         <p>
-                            You can only particpate 1 time this round. If you have already particpated, proceeding will lead to a loss of funds. Be sure to
-                            {' '}
+                            You can only particpate 1 time this round. If you have already particpated, proceeding will lead to a loss of funds. Be sure to{' '}
                             <a href="https://docs.scream.sh/" target="_blank" className="underline hover:no-underline" rel="noreferrer">
                                 read the docs &rarr;
-                            </a>
-                            {' '}
+                            </a>{' '}
                             before proceeding.
                         </p>
                         <p className="text-xs font-mono text-red-500">You should only proceed if you have under the risks.</p>
@@ -148,15 +139,13 @@ export default function PresalePage() {
                                     <div className="flex flex-col space-y-4">
                                         <p className="text-xs font-mono opacity-50 text-center">
                                             Price fixed to FTM at date of launch:
-                                            <br />
-                                            {' '}
-                                            Jul 21st, 5:00PM (EST)
+                                            <br /> {fixedDayString}
                                         </p>
                                         <Input width="100%" label="Fixed FTM Price" disabled value={`$${ftmPrice.toFixed(2)}`} />
                                         <Input width="100%" label="Your Pastel Count" disabled value={pastelCount} />
                                         <Input width="100%" label="Alottment per Pastel" disabled value={`${allotmentPerPastel} SCREAM`} />
                                         <Input width="100%" label="Price Per Scream" disabled value="$7" />
-                                        <Input width="100%" label="Your Alottment" disabled value={`${pastelCount * allotmentPerPastel} SCREAM / ${amount * ftmPerScream.toFixed(2)} FTM`} />
+                                        <Input width="100%" label="Your Alottment" disabled value={`${pastelCount * allotmentPerPastel} SCREAM / ${(pastelCount * allotmentPerPastel * ftmPerScream).toFixed(2)} FTM`} />
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +161,7 @@ export default function PresalePage() {
                                         <Typed
                                             strings={[
                                                 'You can only participate once.',
-                                                'Sending more funds that your allotment allows will lead to loss of funds.',
+                                                'Sending more funds than your allotment allows will lead to loss of funds.',
                                                 'DeFi has inherent risks of loss.',
                                                 'You should only invest money you are comfortable loosing.',
                                                 'Tokens will be distrubted following the public IDO next week.'

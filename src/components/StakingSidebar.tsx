@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react'
 import { Button } from '@geist-ui/react'
-import { LendingContext } from '../pages/lend'
+import { LendingContext } from '../pages/iqijez-lend'
 import AssetSidebar from './AssetSidebar'
 import Sidebar from './Sidebar'
 import useRewards from '../hooks/useRewards'

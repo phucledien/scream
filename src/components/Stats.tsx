@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import TokenPercentageBar from './TokenPercentageBar'
 import LiqudityTable from './LiqudityTable'
 import { currencyFormatter } from '../utils'
-import { LendingContext } from '../pages/lend'
+import { LendingContext } from '../pages/iqijez-lend'
 import { useActiveWeb3React } from '../hooks'
 import useMarkets from '../hooks/useMarkets'
 

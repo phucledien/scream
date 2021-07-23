@@ -1,17 +1,15 @@
+import dayjs from 'dayjs'
+import dynamic from 'next/dynamic'
+import prettyMilliseconds from 'pretty-ms'
 import React, { useState } from 'react'
 import useCountDown from 'react-countdown-hook'
-import prettyMilliseconds from 'pretty-ms'
-import dayjs from 'dayjs'
 import Typed from 'react-typed'
-import { Button } from '@geist-ui/react'
-import dynamic from 'next/dynamic'
-import VideoBG from 'react-background-video-player'
-import ParticlesBackground from '../components/ParticlesBackground'
+import Link from 'next/link'
 import SubscribePopup from '../components/SubscribePopup'
 
 const Tilt = dynamic(import('react-parallax-tilt'), { ssr: false })
 
-const date1 = dayjs('2021-09-23T19:00:00-01:00')
+const date1 = dayjs('2021-07-23T17:00:00-04:00')
 const date2 = dayjs(Date.now())
 
 const initialTime = date1.diff(date2)
@@ -47,9 +45,20 @@ export default function App() {
                     <div className="flex-1" />
 
                     <div className="cursor-not-allowed">
-                        <Button className="pointer-events-none" size="small" auto>
+                        <Link href="/seed">
+                            <a>
+                                <button
+                                    onClick={() => setSubscribe((_) => !_)}
+                                    type="button"
+                                    className="font-extended text-black uppercase bg-animated-rainbow font-medium rounded-3xl px-6 py-3 pb-2 w-full animate-ping hover:shadow-xl shadow-2xl transition ease-in-out duration-150"
+                                >
+                                    <span>Open Seed</span>
+                                </button>
+                            </a>
+                        </Link>
+                        {/* <Button className="pointer-events-none" size="small" auto>
                             Open Seed Round
-                        </Button>
+                        </Button> */}
                     </div>
 
                     <div className="text-2xl space-x-4">
@@ -65,5 +74,3 @@ export default function App() {
         </>
     )
 }
-
-// :) :) :)

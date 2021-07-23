@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js'
 import { formatter } from '../utils'
 import useTxHistory from '../hooks/useTxHistory'
 import { useActiveWeb3React } from '../hooks'
-import { LendingContext } from '../pages/lend'
+import { LendingContext } from '../pages/iqijez-lend'
 import Sidebar from './Sidebar'
 
 export default function AssetSidebar({ open, hide, markets }) {
