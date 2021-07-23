@@ -176,7 +176,7 @@ export default function PresalePage() {
                                         />
                                     </p>
                                     <p>
-                                        <a href="# " className="underline hover:no-underline">
+                                        <a target="_blank" href="https://docs.scream.sh/" className="underline hover:no-underline" rel="noreferrer">
                                             Read the Docs &rarr;
                                         </a>
                                     </p>
