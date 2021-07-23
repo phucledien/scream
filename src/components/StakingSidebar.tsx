@@ -9,7 +9,6 @@ export default function StakingSidebar({ open, hide }) {
     const { stakingSidebarData } = useContext(LendingContext)
 
     const { claimReward, rewardValue, lendingApy, borrowApy } = useRewards(stakingSidebarData)
-    console.log(stakingSidebarData)
 
     return (
         <Sidebar {...{ open, hide }} className="z-50">
