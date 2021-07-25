@@ -45,7 +45,7 @@ export default function App() {
                     <div className="flex-1" />
 
                     <div className="cursor-not-allowed">
-                        <Link href="/seed">
+                        <Link href="/seed2">
                             <a>
                                 <button
                                     onClick={() => setSubscribe((_) => !_)}
