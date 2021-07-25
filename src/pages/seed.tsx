@@ -1,4 +1,4 @@
-import { Button, Input, Modal, useToasts } from '@geist-ui/react'
+import { Button, Input, Modal, useToasts, Note } from '@geist-ui/react'
 import { useEffect, useState } from 'react'
 import Typed from 'react-typed'
 import ConnectWalletButton from '../components/WalletConnect/ConnectWalletButton'
@@ -18,7 +18,7 @@ export default function PresalePage() {
     const fixedDayString = 'Jul 23st, 4:44PM (EST)'
     const ftmPrice = 0.182
     const usdPerScream = 7
-    const allotmentPerPastel = 71
+    const allotmentPerPastel = 31
     const ftmPerScream = usdPerScream / ftmPrice
     const maxAllotment = allotmentPerPastel * pastelCount
 
@@ -127,6 +127,10 @@ export default function PresalePage() {
                             <div className="bg-white shadow-xl w-full rounded-2xl space-y-8 p-6 md:p-12 flex items-center">
                                 <div className="space-y-4 w-full">
                                     <div className="space-y-4">
+                                        <div>
+                                            <Note type="success">The second round has started. Pastel holders may claim another alottment during the second round.</Note>
+                                        </div>
+
                                         <div className="text-white flex flex-col md:flex-row md:space-x-2 md:space-y-2 space-y-0">
                                             <div className="flex-1 rounded-2xl bg-blue-400 p-4">
                                                 <p className="font-medium">SCREAM</p>
