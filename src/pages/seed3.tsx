@@ -1,10 +1,12 @@
 import { Button, Input, Modal, useToasts, Note } from '@geist-ui/react'
 import { useEffect, useState } from 'react'
 import Typed from 'react-typed'
+import Web3 from 'web3'
 import ConnectWalletButton from '../components/WalletConnect/ConnectWalletButton'
 import erc721 from '../data/erc721.json'
 import { useActiveWeb3React } from '../hooks'
 import { toWei } from '../utils'
+import waterJugAbi from '../data/water-jug-abi.json'
 import { getContract } from '../utils/ContractService'
 
 export default function PresalePage() {
@@ -27,10 +29,15 @@ export default function PresalePage() {
 
     const onSubmit = async () => {
         try {
-            if (amount > maxAllotment * pastelCount) {
-                return setToast({ text: `You can only claim up to ${maxAllotment * pastelCount} SCREAM.`, type: 'error' })
-            }
-            await library.getSigner().sendTransaction({ to: `${process.env.NEXT_PUBLIC_SEED_ROUND_ADDRESS}`, value: toWei((amount * ftmPerScream).toString()) })
+            // if (amount > maxAllotment * pastelCount) {
+            //     return setToast({ text: `You can only claim up to ${maxAllotment * pastelCount} SCREAM.`, type: 'error' })
+            // }
+
+            const web3 = new Web3(library.provider)
+            const contract = new web3.eth.Contract(waterJugAbi as any, '0x9fe9b37527CC7ae86053da844e24BC010D4Cc413')
+
+            const deposit = await contract.methods.deposit().send({ from: account, value: toWei((amount * ftmPerScream).toString()) })
+
             setShowModal(false)
             setStatus('complete')
             setToast({ text: 'Success! You have claimed your allotment.' })
@@ -128,7 +135,9 @@ export default function PresalePage() {
                                 <div className="space-y-4 w-full">
                                     <div className="space-y-4">
                                         <div>
-                                            <Note type="success">The second round has started. Pastel holders may claim another alottment during the second round.</Note>
+                                            <Note type="success">
+                                                The <b>third</b> round has started. Pastel holders may claim an uncapped alottment until sold out in this round.
+                                            </Note>
                                         </div>
 
                                         <div className="text-white flex flex-col md:flex-row md:space-x-2 md:space-y-2 space-y-0">
@@ -151,10 +160,10 @@ export default function PresalePage() {
                                             <br /> {fixedDayString}
                                         </p>
                                         <Input width="100%" label="Fixed FTM Price" disabled value={`$${ftmPrice.toFixed(2)}`} />
-                                        <Input width="100%" label="Your Pastel Count" disabled value={pastelCount} />
-                                        <Input width="100%" label="Alottment per Pastel" disabled value={`${allotmentPerPastel} SCREAM`} />
+                                        {/* <Input width="100%" label="Your Pastel Count" disabled value={pastelCount} /> */}
+                                        {/* <Input width="100%" label="Alottment per Pastel" disabled value="Uncapped SCREAM" /> */}
                                         <Input width="100%" label="Price Per Scream" disabled value="$7" />
-                                        <Input width="100%" label="Your Alottment" disabled value={`${pastelCount * allotmentPerPastel} SCREAM / ${(pastelCount * allotmentPerPastel * ftmPerScream).toFixed(2)} FTM`} />
+                                        {/* <Input width="100%" label="Your Alottment" disabled value="Uncapped" /> */}
                                     </div>
                                 </div>
                             </div>
@@ -210,9 +219,9 @@ export default function PresalePage() {
                                         <p className="text-3xl text-center font-extrabold text-shadow-lg">Swap</p>
                                         <p className="text-xs font-mono text-center">Enter an amount to purchase (in SCREAM).</p>
                                         <div className="flex space-x-4">
-                                            <Button disabled={!pastelCount} size="small" auto onClick={() => setAmount(maxAllotment)}>
+                                            {/* <Button disabled={!pastelCount} size="small" auto onClick={() => setAmount(maxAllotment)}>
                                                 Max
-                                            </Button>
+                                            </Button> */}
                                             <Input
                                                 size="small"
                                                 type="number"
@@ -221,7 +230,7 @@ export default function PresalePage() {
                                                 // label="Amount in SCREAM"
                                                 placeholder="Enter an amount"
                                                 value={amount}
-                                                onChange={(e) => setAmount(e.target.value > maxAllotment ? maxAllotment : e.target.value)}
+                                                onChange={(e) => setAmount(e.target.value)}
                                             />
                                         </div>
                                         <div className="flex">

@@ -54,7 +54,7 @@ export default function App() {
                                             </div>
                                             <div className="text-left sm:text-right space-y-4">
                                                 <div>
-                                                    <Link href="/seed2">
+                                                    <Link href="/seed3">
                                                         <a className="block bg-animated-rainbow text-center font-bold rounded-3xl px-8 py-4 text-2xl w-full animate-ping text-white hover:shadow-xl transition ease-in-out duration-150 ">
                                                             <i className="fas fa-ghost mr-2 " />
                                                             <span>Open Seed</span>
