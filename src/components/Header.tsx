@@ -59,7 +59,7 @@ export default function Header() {
 
                     <div className="flex-1" />
 
-                    <p className="hidden md:block text-xs font-mono">$12.23 💚</p>
+                    {/* <p className="hidden md:block text-xs font-mono">$12.23 💚</p> */}
                     <div className="hidden md:block">
                         <ConnectWalletButton />
                     </div>
