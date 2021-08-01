@@ -23,6 +23,7 @@ export default function Stats({ markets }) {
     const { refreshing } = useMarkets()
 
     const { setShowSidebar } = useContext(LendingContext)
+
     const { account } = useActiveWeb3React()
 
     useEffect(() => {

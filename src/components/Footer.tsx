@@ -54,7 +54,7 @@ export default function Footer() {
                         <div />
                         <div className="space-y-2">
                             <form onSubmit={onSubmit} className="bg-white p-6 rounded-2xl shadow-2xl space-y-4">
-                                <p className="text-pink-400 text-lg">Subscribe to the Scream Newsletter to get the latest news and updates and exclusive offers.</p>
+                                <p className="text-pink-400">Subscribe to the Scream Newsletter to get the latest news and updates and exclusive offers.</p>
                                 <Input value={email} onChange={(e) => setEmail(e.target.value)} width="100%" label="Email" placeholder="Subscribe to Scream Newsletter" />
                                 <button type="submit" className="hidden" />
                             </form>

@@ -32,7 +32,7 @@ export default function ConnectWalletButton(props) {
                 </button>
             )}
             {props.type !== 'rainbow' && (
-                <Button onClick={() => onClickConnect()} auto {...props}>
+                <Button className="text-shadow-lg" onClick={() => onClickConnect()} auto {...props}>
                     {account ? shortAddress : 'Connect Wallet'}
                 </Button>
             )}

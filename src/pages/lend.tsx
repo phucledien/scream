@@ -45,6 +45,7 @@ export default function App() {
                 <Header />
 
                 <Stats markets={markets} />
+
                 <div className="max-w-5xl mx-auto p-6 pb-12 md:p-12 md:pb-24">
                     <div className="space-y-6 md:space-y-12">
                         <RewardsBubble />
