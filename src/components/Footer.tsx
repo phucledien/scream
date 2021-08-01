@@ -50,37 +50,42 @@ export default function Footer() {
                         <div className="space-y-4 text-white">
                             <img className="w-60" src="/img/scream-logotype.png" alt="" />
                             <p className="opacity-50 text-lg">Scream was established in 2021 by team of passionate engineers spread across the globe to empower finanical freedom.</p>
-
-                            <div className="text-lg space-x-2">
-                                <a className="opacity-50 hover:opacity-75" href={process.env.NEXT_PUBLIC_TWITTER_URL} target="_blank" rel="noreferrer">
-                                    <i className="fab fa-twitter" />
-                                </a>
-                                <a className="opacity-50 hover:opacity-75" href={process.env.NEXT_PUBLIC_TELEGRAM_URL} target="_blank" rel="noreferrer">
-                                    <i className="fab fa-telegram" />
-                                </a>
-                                <a className="opacity-50 hover:opacity-75" href={process.env.NEXT_PUBLIC_DISCORD_URL} target="_blank" rel="noreferrer">
-                                    <i className="fab fa-discord" />
-                                </a>
-                                <a className="opacity-50 hover:opacity-75" href={process.env.NEXT_PUBLIC_GITHUB_URL} target="_blank" rel="noreferrer">
-                                    <i className="fab fa-github" />
-                                </a>
-                                <a className="opacity-50 hover:opacity-75" href={process.env.NEXT_PUBLIC_MEDIUM_URL} target="_blank" rel="noreferrer">
-                                    <i className="fab fa-medium" />
-                                </a>
-                            </div>
                         </div>
                         <div />
                         <div className="space-y-2">
                             <form onSubmit={onSubmit} className="bg-white p-6 rounded-2xl shadow-2xl space-y-4">
-                                <p className="text-pink-400">Subscibe to the Scream Newsletter to get the latest news and updates and exculsive offers.</p>
+                                <p className="text-pink-400 text-lg">Subscribe to the Scream Newsletter to get the latest news and updates and exclusive offers.</p>
                                 <Input value={email} onChange={(e) => setEmail(e.target.value)} width="100%" label="Email" placeholder="Subscribe to Scream Newsletter" />
                                 <button type="submit" className="hidden" />
                             </form>
                         </div>
                     </div>
-                    <div className="text-xs text-right font-mono text-white">
-                        <p>Scream &copy; {new Date().getFullYear()} &raquo; All Rights Reserved</p>
+                </div>
+            </div>
+            <div className="bg-pink-600 text-pink-300">
+                <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center">
+                    <div className="text-lg space-x-2">
+                        <a className="opacity-50 hover:opacity-75" href={process.env.NEXT_PUBLIC_TWITTER_URL} target="_blank" rel="noreferrer">
+                            <i className="fab fa-twitter" />
+                        </a>
+                        <a className="opacity-50 hover:opacity-75" href={process.env.NEXT_PUBLIC_TELEGRAM_URL} target="_blank" rel="noreferrer">
+                            <i className="fab fa-telegram" />
+                        </a>
+                        <a className="opacity-50 hover:opacity-75" href={process.env.NEXT_PUBLIC_DISCORD_URL} target="_blank" rel="noreferrer">
+                            <i className="fab fa-discord" />
+                        </a>
+                        <a className="opacity-50 hover:opacity-75" href={process.env.NEXT_PUBLIC_GITHUB_URL} target="_blank" rel="noreferrer">
+                            <i className="fab fa-github" />
+                        </a>
+                        <a className="opacity-50 hover:opacity-75" href={process.env.NEXT_PUBLIC_MEDIUM_URL} target="_blank" rel="noreferrer">
+                            <i className="fab fa-medium" />
+                        </a>
                     </div>
+                    <div className="flex-1" />
+                    <p className="text-xs font-mono text-center">
+                        Scream &copy;&nbsp;
+                        {new Date().getFullYear()}
+                    </p>
                 </div>
             </div>
         </>

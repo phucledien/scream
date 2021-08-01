@@ -53,7 +53,16 @@ export default function AssetTable({ markets, update }) {
                     price: `$${formatter(+market.underlyingPriceUSD, 2)}`,
                     wallet: `${currencyFormatter(market?.walletBalance || '0')} ${market.underlyingSymbol}`,
                     collateral: (
-                        <Switch checked={collateralEnabled.get(market.id) || false} onChange={(e) => handleCollateral(market)} disabled={+market?.collateralFactor == 0} height={20} width={40} className="react-switch" />
+                        <Switch
+                            // offColor=""
+                            onColor="#F472B6"
+                            checked={collateralEnabled.get(market.id) || false}
+                            onChange={(e) => handleCollateral(market)}
+                            disabled={+market?.collateralFactor == 0}
+                            height={20}
+                            width={40}
+                            className="react-switch"
+                        />
                     )
                     // action: (
                     //     <Button onClick={() => setShowBreakdown(market)} auto size="mini">

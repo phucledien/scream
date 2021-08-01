@@ -39,10 +39,10 @@ export default function Header() {
                         exit={{ height: 0 }}
                         className="md:hidden bg-white border-b border-color-100 p-6 flex flex-col space-y-2"
                     >
-                        <Link href="/apps">
+                        <Link href="/apps" passHref>
                             <a className="text-3xl font-extrabold">All Apps</a>
                         </Link>
-                        <Link href="/">
+                        <Link href="/" passHref>
                             <a className="text-3xl font-extrabold text-rainbow">Buy SCREAM</a>
                         </Link>
                     </motion.div>
@@ -61,7 +61,7 @@ export default function Header() {
 
                     {/* <p className="hidden md:block text-xs font-mono">$12.23 💚</p> */}
                     <div className="hidden md:block">
-                        <ConnectWalletButton />
+                        <ConnectWalletButton type="rainbow" />
                     </div>
 
                     <button className="md:hidden" type="button" onClick={() => setIsExpanded((_) => !_)}>

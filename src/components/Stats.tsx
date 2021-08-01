@@ -44,7 +44,7 @@ export default function Stats({ markets }) {
                 <div className="flex items-center space-x-2">
                     {account && (
                         <>
-                            <Button onClick={() => setShowSidebar(true)} size="small" auto>
+                            <Button type="secondary" onClick={() => setShowSidebar(true)} size="small" auto>
                                 Your Overview
                             </Button>
                         </>

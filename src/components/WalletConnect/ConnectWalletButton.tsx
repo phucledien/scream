@@ -22,11 +22,22 @@ export default function ConnectWalletButton(props) {
 
     return (
         <>
-            <Button onClick={() => onClickConnect()} auto {...props}>
-                {account ? shortAddress : 'Connect Wallet'}
-            </Button>
+            {props.type === 'rainbow' && (
+                <button
+                    onClick={() => onClickConnect()}
+                    type="button"
+                    className="block bg-animated-rainbow-dark text-center font-bold rounded-3xl px-4 py-2 text-xs w-full animate-ping text-white transition ease-in-out duration-150"
+                >
+                    {account ? shortAddress : 'Connect Wallet'}
+                </button>
+            )}
+            {props.type !== 'rainbow' && (
+                <Button onClick={() => onClickConnect()} auto {...props}>
+                    {account ? shortAddress : 'Connect Wallet'}
+                </Button>
+            )}
             <ConnectModal open={connectModalOpen} login={login} onDismiss={() => setConnectModalOpen(false)} />
-            <AccountModal open={accountModalOpen} logout={logout} account={account} onDismiss={() => setAccountModalOpen(false)} />
+            <AccountModal open={accountModalOpen} logout={logout} account={account} onClose={() => setAccountModalOpen(false)} />
         </>
     )
 }
