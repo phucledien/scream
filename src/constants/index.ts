@@ -33,20 +33,20 @@ export const CONTRACT_TOKEN_ADDRESS = {
         asset: 'dai.svg',
         decimals: 18
     },
-    scream: {
-        id: 'scream',
-        symbol: 'SCREAM',
-        address: contracts.TOKEN.scream,
-        asset: 'scream.png',
-        decimals: 18
-    },
-    fbtc: {
-        id: 'fbtc',
-        symbol: 'FBTC',
-        address: contracts.TOKEN.fbtc,
-        asset: 'btc.svg',
-        decimals: 18
-    },
+    // scream: {
+    //     id: 'scream',
+    //     symbol: 'SCREAM',
+    //     address: contracts.TOKEN.scream,
+    //     asset: 'scream.png',
+    //     decimals: 18
+    // },
+    // fbtc: {
+    //     id: 'fbtc',
+    //     symbol: 'FBTC',
+    //     address: contracts.TOKEN.fbtc,
+    //     asset: 'btc.svg',
+    //     decimals: 18
+    // },
     btc: {
         id: 'btc',
         symbol: 'BTC',
@@ -61,62 +61,62 @@ export const CONTRACT_TOKEN_ADDRESS = {
         asset: 'eth.svg',
         decimals: 18
     },
-    feth: {
-        id: 'feth',
-        symbol: 'FETH',
-        address: contracts.TOKEN.feth,
-        asset: 'eth.svg',
-        decimals: 18
-    },
+    // feth: {
+    //     id: 'feth',
+    //     symbol: 'FETH',
+    //     address: contracts.TOKEN.feth,
+    //     asset: 'eth.svg',
+    //     decimals: 18
+    // },
     fusdt: {
         id: 'fusdt',
         symbol: 'FUSDT',
         address: contracts.TOKEN.fusdt,
         asset: 'usdt.svg',
         decimals: 6
-    },
-    sushi: {
-        id: 'sushi',
-        symbol: 'SUSHI',
-        address: contracts.TOKEN.sushi,
-        asset: 'sushi.svg',
-        decimals: 18
-    },
-    band: {
-        id: 'band',
-        symbol: 'BAND',
-        address: contracts.TOKEN.band,
-        asset: 'band.svg',
-        decimals: 18
-    },
-    yfi: {
-        id: 'yfi',
-        symbol: 'YFI',
-        address: contracts.TOKEN.yfi,
-        asset: 'yfi.svg',
-        decimals: 18
-    },
-    crv: {
-        id: 'crv',
-        symbol: 'CRV',
-        address: contracts.TOKEN.crv,
-        asset: 'crv.svg',
-        decimals: 18
-    },
-    frax: {
-        id: 'frax',
-        symbol: 'FRAX',
-        address: contracts.TOKEN.frax,
-        asset: 'frax.svg',
-        decimals: 18
-    },
-    snx: {
-        id: 'snx',
-        symbol: 'SNX',
-        address: contracts.TOKEN.snx,
-        asset: 'snx.svg',
-        decimals: 18
     }
+    // sushi: {
+    //     id: 'sushi',
+    //     symbol: 'SUSHI',
+    //     address: contracts.TOKEN.sushi,
+    //     asset: 'sushi.svg',
+    //     decimals: 18
+    // },
+    // band: {
+    //     id: 'band',
+    //     symbol: 'BAND',
+    //     address: contracts.TOKEN.band,
+    //     asset: 'band.svg',
+    //     decimals: 18
+    // },
+    // yfi: {
+    //     id: 'yfi',
+    //     symbol: 'YFI',
+    //     address: contracts.TOKEN.yfi,
+    //     asset: 'yfi.svg',
+    //     decimals: 18
+    // },
+    // crv: {
+    //     id: 'crv',
+    //     symbol: 'CRV',
+    //     address: contracts.TOKEN.crv,
+    //     asset: 'crv.svg',
+    //     decimals: 18
+    // },
+    // frax: {
+    //     id: 'frax',
+    //     symbol: 'FRAX',
+    //     address: contracts.TOKEN.frax,
+    //     asset: 'frax.svg',
+    //     decimals: 18
+    // },
+    // snx: {
+    //     id: 'snx',
+    //     symbol: 'SNX',
+    //     address: contracts.TOKEN.snx,
+    //     asset: 'snx.svg',
+    //     decimals: 18
+    // }
 }
 
 export const CONTRACT_SCTOKEN_ADDRESS = {
@@ -141,20 +141,20 @@ export const CONTRACT_SCTOKEN_ADDRESS = {
         asset: 'dai.svg',
         decimals: 8
     },
-    scscream: {
-        id: 'scscream',
-        symbol: 'scSCREAM',
-        address: contracts.SCTOKEN.scream,
-        asset: 'scream.png',
-        decimals: 8
-    },
-    scfbtc: {
-        id: 'scfbtc',
-        symbol: 'scFBTC',
-        address: contracts.SCTOKEN.fbtc,
-        asset: 'btc.svg',
-        decimals: 8
-    },
+    // scscream: {
+    //     id: 'scscream',
+    //     symbol: 'scSCREAM',
+    //     address: contracts.SCTOKEN.scream,
+    //     asset: 'scream.png',
+    //     decimals: 8
+    // },
+    // scfbtc: {
+    //     id: 'scfbtc',
+    //     symbol: 'scFBTC',
+    //     address: contracts.SCTOKEN.fbtc,
+    //     asset: 'btc.svg',
+    //     decimals: 8
+    // },
     scwbtc: {
         id: 'scwbtc',
         symbol: 'scWBTC',
@@ -169,62 +169,62 @@ export const CONTRACT_SCTOKEN_ADDRESS = {
         asset: 'eth.svg',
         decimals: 18
     },
-    scfeth: {
-        id: 'scfeth',
-        symbol: 'scFETH',
-        address: contracts.SCTOKEN.feth,
-        asset: 'eth.svg',
-        decimals: 8
-    },
+    // scfeth: {
+    //     id: 'scfeth',
+    //     symbol: 'scFETH',
+    //     address: contracts.SCTOKEN.feth,
+    //     asset: 'eth.svg',
+    //     decimals: 8
+    // },
     scfusdt: {
         id: 'scfusdt',
         symbol: 'scFUSDT',
         address: contracts.SCTOKEN.fusdt,
         asset: 'usdt.svg',
         decimals: 8
-    },
-    scsushi: {
-        id: 'scsushi',
-        symbol: 'scSUSHI',
-        address: contracts.SCTOKEN.sushi,
-        asset: 'sushi.png',
-        decimals: 8
-    },
-    scband: {
-        id: 'scband',
-        symbol: 'scBAND',
-        address: contracts.SCTOKEN.band,
-        asset: 'band.png',
-        decimals: 8
-    },
-    scyfi: {
-        id: 'scyfi',
-        symbol: 'scYFI',
-        address: contracts.SCTOKEN.yfi,
-        asset: 'yfi.png',
-        decimals: 8
-    },
-    sccrv: {
-        id: 'sccrv',
-        symbol: 'scCRV',
-        address: contracts.SCTOKEN.crv,
-        asset: 'crv.png',
-        decimals: 8
-    },
-    scfrax: {
-        id: 'scfrax',
-        symbol: 'scFRAX',
-        address: contracts.SCTOKEN.frax,
-        asset: 'frax.svg',
-        decimals: 8
-    },
-    scsnx: {
-        id: 'scsnx',
-        symbol: 'scSNX',
-        address: contracts.SCTOKEN.snx,
-        asset: 'snx.png',
-        decimals: 8
     }
+    // scsushi: {
+    //     id: 'scsushi',
+    //     symbol: 'scSUSHI',
+    //     address: contracts.SCTOKEN.sushi,
+    //     asset: 'sushi.png',
+    //     decimals: 8
+    // },
+    // scband: {
+    //     id: 'scband',
+    //     symbol: 'scBAND',
+    //     address: contracts.SCTOKEN.band,
+    //     asset: 'band.png',
+    //     decimals: 8
+    // },
+    // scyfi: {
+    //     id: 'scyfi',
+    //     symbol: 'scYFI',
+    //     address: contracts.SCTOKEN.yfi,
+    //     asset: 'yfi.png',
+    //     decimals: 8
+    // },
+    // sccrv: {
+    //     id: 'sccrv',
+    //     symbol: 'scCRV',
+    //     address: contracts.SCTOKEN.crv,
+    //     asset: 'crv.png',
+    //     decimals: 8
+    // },
+    // scfrax: {
+    //     id: 'scfrax',
+    //     symbol: 'scFRAX',
+    //     address: contracts.SCTOKEN.frax,
+    //     asset: 'frax.svg',
+    //     decimals: 8
+    // },
+    // scsnx: {
+    //     id: 'scsnx',
+    //     symbol: 'scSNX',
+    //     address: contracts.SCTOKEN.snx,
+    //     asset: 'snx.png',
+    //     decimals: 8
+    // }
 }
 
 // Contract ABI
