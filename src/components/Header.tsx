@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { HomeIcon, MenuAlt3Icon } from '@heroicons/react/solid'
 import ConnectWalletButton from './WalletConnect/ConnectWalletButton'
+import usePrice from '../hooks/usePrice'
 
 interface ButtonProps {
     href: string
@@ -27,6 +28,8 @@ export function Button({ href, children }: ButtonProps) {
 
 export default function Header() {
     const [isExpanded, setIsExpanded] = useState(false)
+
+    const { screamPrice } = usePrice()
 
     return (
         <div className="relative bg-animated-rainbow pb-1 shadow-md z-10">
@@ -59,7 +62,7 @@ export default function Header() {
 
                     <div className="flex-1" />
 
-                    {/* <p className="hidden md:block text-xs font-mono">$12.23 💚</p> */}
+                    <p className="hidden md:block text-xs font-mono">1 SCREAM = ${screamPrice}</p>
                     <div className="hidden md:block">
                         <ConnectWalletButton type="rainbow" />
                     </div>
