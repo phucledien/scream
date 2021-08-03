@@ -36,7 +36,7 @@ export default function Header() {
             <div className="relative bg-animated-rainbow pb-1 shadow-md z-10">
                 <a href="https://stakesteak.com/farms2/SCREAM-FTM%20spLP" target="_blank" rel="noreferrer" className="block max-w-5xl mx-auto px-6 md:px-12 py-2 text-xs font-mono font-extrabold group">
                     <p>
-                        Hey you! Stake SCREAM-FTM LP tokens for maximum rewards on <span className="underline group-hover:no-underline">StakeSteak.com</span>.
+                        Hey you! Stake SCREAM-FTM LP tokens for maximum rewards on <span className="underline group-hover:no-underline">StakeSteak.com</span>
                     </p>
                 </a>
 
