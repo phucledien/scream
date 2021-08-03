@@ -18,7 +18,7 @@ export default function useStake() {
     const stake = async (amount) => {
         let formatAmount
         if (amount > 0) {
-            formatAmount = ethers.utils.parseEther(amount)
+            formatAmount = ethers.utils.parseEther(amount.toString())
         } else {
             formatAmount = 0
         }
