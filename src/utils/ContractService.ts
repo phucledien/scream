@@ -40,6 +40,8 @@ export const getSctokenContract = (name, provider?: ethers.Signer | ethers.provi
 
 export const getUnitrollerContract = (provider?: ethers.Signer | ethers.providers.Provider) => getContract(constants.CONTRACT_UNITROLLER_ADDRESS, JSON.parse(constants.CONTRACT_UNITROLLER_ABI), provider)
 
+export const getXscreamContract = (provider?: ethers.Signer | ethers.providers.Provider) => getContract('0xe3D17C7e840ec140a7A51ACA351a482231760824', JSON.parse(constants.CONTRACT_XSCREAM_ABI), provider)
+
 export const getPriceOracleContract = (address, provider?: ethers.Signer | ethers.providers.Provider) =>
     getContract(address || constants.CONTRACT_PRICE_ORACLE_ADDRESS, JSON.parse(constants.CONTRACT_PRICE_ORACLE_ABI), provider)
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import ethers from 'ethers'
+import { ethers } from 'ethers'
 import { getSctokenContract, getUnitrollerContract } from '../utils/ContractService'
 import { useActiveWeb3React } from '.'
 
@@ -34,7 +34,8 @@ export default function useRewards(tokenData?) {
             const fetchRewards = async () => {
                 const [compAccrued, compSpeeds] = await Promise.all([appContract.compAccrued(account), appContract.compSpeeds(tokenData.id)])
                 if (compAccrued) {
-                    setRewardValue(compAccrued.toNumber())
+                    const compReward = ethers.utils.formatEther(compAccrued)
+                    setRewardValue(Number(compReward))
                 } else {
                     setRewardValue(0)
                 }
