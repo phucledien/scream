@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react'
-import { Button, Select } from '@geist-ui/react'
+import { Button, Input, Select } from '@geist-ui/react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import Stats from '../components/Stats'
 import useStake from '../hooks/useStake'
+import StakeHeader from '../components/StakeHeader'
 
 export default function App() {
-
     const { stake, unstake, screamBalance, xscreamBalance, totalSupply, shareValue, xScreamAPY } = useStake()
+
     const [stakeInput, setStakeInput] = useState<any>('')
     const [unstakeInput, setUnStakeInput] = useState<any>('')
-    console.log(stakeInput)
 
     return (
         <>
             <Header />
-            <Stats />
+            <StakeHeader />
             <div className="max-w-5xl p-6 pb-12 mx-auto md:p-12 md:pb-24">
                 <div className="space-y-6 md:space-y-12">
                     <div className="w-full asd">
@@ -25,8 +25,7 @@ export default function App() {
                                     <div className="space-y-1">
                                         <p className="text-lg">Stake SCREAM</p>
                                         <p className="text-4xl font-extrabold">{xScreamAPY}% APY</p>
-                                        <p className="">{shareValue} SCREAM per xSCREAM</p>
-
+                                        <p className="font-mono text-xs">{shareValue} SCREAM per xSCREAM</p>
                                     </div>
                                     <div className="flex-1 h-60">&nbsp;</div>
                                     <div className="flex justify-end">
@@ -36,9 +35,12 @@ export default function App() {
                                                 <Select.Option value="2">6 months</Select.Option>
                                                 <Select.Option value="3">12 months</Select.Option>
                                             </Select> */}
-                                            <p className="">SCREAM Balance: {screamBalance}</p>
-                                            <input className="flex-1 p-2 text-2xl bg-transparent" value={stakeInput} onChange={(e) => setStakeInput(e.target.value)} type="number" placeholder="0.00" />
-                                            <Button onClick={() => stake(stakeInput)} size="large" type="secondary">
+                                            <p className="text-xs font-mono">SCREAM Balance: {screamBalance}</p>
+
+                                            <Input width="100%" value={stakeInput} onChange={(e) => setStakeInput(e.target.value)} type="number" placeholder="0.00" />
+
+                                            {/* <input className="flex-1 p-2 text-2xl bg-transparent" value={stakeInput} onChange={(e) => setStakeInput(e.target.value)} type="number" placeholder="0.00" /> */}
+                                            <Button onClick={() => stake(stakeInput)} type="secondary">
                                                 Stake SCREAM
                                             </Button>
                                         </div>
@@ -49,7 +51,7 @@ export default function App() {
                                 <div className="flex-1 space-y-1">
                                     <p className="text-lg">UnStake xSCREAM</p>
                                     <p className="text-4xl font-extrabold">Earn SCREAM</p>
-                                    <p className="">xSCREAM Supply: {totalSupply}</p>
+                                    <p className="font-mono text-xs">xSCREAM Supply: {totalSupply}</p>
                                 </div>
                                 <div className="flex flex-col space-y-2">
                                     {/* <Select width="100%" placeholder="Choose one" onChange={() => {}}>
@@ -57,10 +59,11 @@ export default function App() {
                                         <Select.Option value="2">6 months</Select.Option>
                                         <Select.Option value="3">12 months</Select.Option>
                                     </Select> */}
-                                    <p className="">xSCREAM Balance: {xscreamBalance}</p>
-                                    <input className="flex-1 p-2 text-2xl bg-transparent" value={unstakeInput} onChange={(e) => setUnStakeInput(e.target.value)} type="number" placeholder="0.00" />
+                                    <p className="text-xs font-mono">xSCREAM Balance: {xscreamBalance}</p>
 
-                                    <Button onClick={() => unstake(unstakeInput)} className="flex-1" auto size="large" type="secondary">
+                                    <Input width="100%" value={unstakeInput} onChange={(e) => setUnStakeInput(e.target.value)} type="number" placeholder="0.00" />
+
+                                    <Button onClick={() => unstake(unstakeInput)} className="flex-1" auto type="secondary">
                                         Unstake xSCREAM
                                     </Button>
                                 </div>
