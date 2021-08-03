@@ -8,23 +8,21 @@ export default function useRewards(tokenData?) {
     const [rewardValue, setRewardValue] = useState(0)
     const [lendingApy, setLendingApy] = useState(0)
     const [borrowApy, setBorrowApy] = useState(0)
+    const [compSpeeds, setCompSpeeds] = useState(0)
     const { account, library } = useActiveWeb3React()
-    // const { screamPrice } = usePrice()
+    const { screamPrice } = usePrice()
 
-    const calculateAPY = async (compSpeeds, scToken) => {
+    const calculateAPY = () => {
         if (!tokenData) return
-        const cash = await scToken.getCash()
-        const totalBorrow = await scToken.totalBorrows()
-        const totalSupply = cash + totalBorrow
-
-        // console.log(Number(cash), Number(totalBorrow), Number(totalSupply))
+        const totalSupply = tokenData.totalSupplyUsd
+        const totalBorrow = tokenData.totalBorrowsUsd
         try {
-            const screamPrice = 1
+            // const screamPrice = 1
             const blocksPerDay = 86400 // 1 seconds per block
             const daysPerYear = 365
-            const screamPerYear = compSpeeds.mul(blocksPerDay).mul(daysPerYear).mul(screamPrice)
-            const lendingAPY = screamPerYear.div(totalSupply).mul(100).toNumber()
-            const borrowAPY = screamPerYear.div(totalBorrow).mul(100).toNumber()
+            const screamPerYear = compSpeeds * blocksPerDay * daysPerYear * screamPrice
+            const lendingAPY = (screamPerYear * 100) / totalSupply
+            const borrowAPY = screamPerYear * 100 / totalBorrow
             setLendingApy(lendingAPY)
             setBorrowApy(borrowAPY)
         } catch (error) {
@@ -38,7 +36,7 @@ export default function useRewards(tokenData?) {
         if (account && tokenData) {
             const appContract = getUnitrollerContract(library?.getSigner())
             const fetchRewards = async () => {
-                const [compAccrued, compSpeeds] = await Promise.all([appContract.compAccrued(account), appContract.compSpeeds(tokenData.id)])
+                const [compAccrued, speeds] = await Promise.all([appContract.compAccrued(account), appContract.compSpeeds(tokenData.id)])
                 if (compAccrued) {
                     const compReward = ethers.utils.formatEther(compAccrued)
                     setRewardValue(Number(compReward))
@@ -46,11 +44,15 @@ export default function useRewards(tokenData?) {
                     setRewardValue(0)
                 }
 
-                const scToken = getSctokenContract(tokenData.underlyingSymbol.toLowerCase(), library)
-
-                calculateAPY(compSpeeds, scToken)
+                if (speeds) {
+                    const speed = ethers.utils.formatEther(speeds)
+                    setCompSpeeds(Number(speed))
+                } else {
+                    setCompSpeeds(0)
+                }
             }
             fetchRewards()
+            calculateAPY()
         }
     }, [account, tokenData])
 
