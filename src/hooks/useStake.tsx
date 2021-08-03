@@ -58,13 +58,12 @@ export default function useStake() {
         console.log('shareValue', shareValue)
         if (shareValue) {
             const difference = +new Date() - +new Date('August 3, 2021 07:00:00')
-            console.log('difference', difference)
+            
             const twelveHoursSinceLaunch = 0.5
             // const twelveHoursSinceLaunch = Math.floor(difference / (1000 * 60 * 60 * 12))
-            console.log('twelveHoursSinceLaunch', twelveHoursSinceLaunch)
 
             const apy = ((shareValue - 1) * 730 * 100) / twelveHoursSinceLaunch
-            console.log('apy', apy)
+
 
             setxScreamAPY(apy.toFixed(2))
         }
