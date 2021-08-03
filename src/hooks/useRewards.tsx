@@ -21,10 +21,12 @@ export default function useRewards(tokenData?) {
             const blocksPerDay = 86400 // 1 seconds per block
             const daysPerYear = 365
             const screamPerYear = compSpeeds * blocksPerDay * daysPerYear * screamPrice
-            const lendingAPY = ((screamPerYear * 100) / totalSupply).toFixed(0)
-            const borrowAPY = ((screamPerYear * 100) / totalBorrow).toFixed(0)
-            setLendingApy(lendingAPY)
-            setBorrowApy(borrowAPY)
+            const lendingAPY = (screamPerYear * 100) / totalSupply
+            const borrowAPY = (screamPerYear * 100) / totalBorrow
+            // console.log('lendingAPY', typeof lendingAPY)
+            // console.log('borrowAPY', borrowAPY)
+            setLendingApy(lendingAPY.toFixed(2))
+            setBorrowApy(borrowAPY.toFixed(2))
         } catch (error) {
             console.log(error)
             setLendingApy(0)
