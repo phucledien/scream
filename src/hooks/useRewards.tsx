@@ -16,9 +16,9 @@ export default function useRewards(tokenData?) {
         const cash = await scToken.getCash()
         const totalBorrow = await scToken.totalBorrows()
         const totalSupply = cash + totalBorrow
-        console.log(Number(cash), Number(totalBorrow), Number(totalSupply))
-        try {
 
+        // console.log(Number(cash), Number(totalBorrow), Number(totalSupply))
+        try {
             const screamPrice = 1
             const blocksPerDay = 86400 // 1 seconds per block
             const daysPerYear = 365

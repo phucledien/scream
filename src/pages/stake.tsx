@@ -21,7 +21,7 @@ export default function App() {
             <div className="max-w-5xl p-6 pb-12 mx-auto md:p-12 md:pb-24">
                 <div className="space-y-6 md:space-y-12">
                     <div className="w-full asd">
-                        <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
+                        <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
                             <div className="flex-1 p-2 shadow-xl md:col-span-2 rounded-xl bg-animated-rainbow">
                                 <div className="p-6 bg-white shadow-xl rounded-xl">
                                     <div className="space-y-1">
@@ -55,13 +55,14 @@ export default function App() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-col p-6 bg-white border border-gray-100 shadow-xl rounded-xl">
+                            <div className="w-full col-span-2 lg:col-span-1 flex flex-col p-6 bg-white border border-gray-100 shadow-xl rounded-xl">
                                 <div className="flex-1 space-y-1">
                                     <p className="text-lg">UnStake xSCREAM</p>
                                     <p className="text-4xl font-extrabold">Earn SCREAM</p>
                                     <p className="font-mono text-xs">xSCREAM Supply: {totalSupply}</p>
                                 </div>
-                                <div className="flex flex-col space-y-2">
+                                <div className="h-60 lg:h-auto" />
+                                <div className="max-w-sm ml-auto flex flex-col space-y-2">
                                     {/* <Select width="100%" placeholder="Choose one" onChange={() => {}}>
                                         <Select.Option value="1">3 Months</Select.Option>
                                         <Select.Option value="2">6 months</Select.Option>
