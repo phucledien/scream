@@ -49,7 +49,7 @@ export default function Footer() {
                     <div className="grid gap-6 grid-cols-1 md:grid-cols-3">
                         <div className="space-y-4 text-white">
                             <img className="w-60" src="/img/scream-logotype.png" alt="" />
-                            <p className="opacity-50 text-lg">Scream was established in 2021 by team of passionate engineers spread across the globe to empower finanical freedom.</p>
+                            <p className="opacity-50 text-lg">Scream was established in 2021 by team of passionate engineers spread across the globe to empower financial freedom.</p>
                         </div>
                         <div />
                         <div className="space-y-2">

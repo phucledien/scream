@@ -21,7 +21,7 @@ export default function App() {
         <>
             <SubscribePopup visible={subscribe} hide={() => setSubscribe(false)} />
             <div className="h-full flex flex-col">
-                <CryptoTicker visible={hide} />
+                {/* <CryptoTicker visible={hide} /> */}
 
                 <Tilt className="tilt relative z-30 flex flex-col flex-1">
                     <div className="p-12 flex-1 flex items-center justify-center tilt-inner">

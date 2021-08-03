@@ -22,7 +22,7 @@ export default function useRewards(tokenData?) {
             const daysPerYear = 365
             const screamPerYear = compSpeeds * blocksPerDay * daysPerYear * screamPrice
             const lendingAPY = (screamPerYear * 100) / totalSupply
-            const borrowAPY = screamPerYear * 100 / totalBorrow
+            const borrowAPY = (screamPerYear * 100) / totalBorrow
             setLendingApy(lendingAPY)
             setBorrowApy(borrowAPY)
         } catch (error) {

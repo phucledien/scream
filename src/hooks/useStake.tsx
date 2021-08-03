@@ -18,7 +18,7 @@ export default function useStake() {
     const stake = async (amount) => {
         let formatAmount
         if (amount > 0) {
-            formatAmount = ethers.utils.parseEther(amount)
+            formatAmount = ethers.utils.parseEther(amount.toString())
         } else {
             formatAmount = 0
         }
@@ -39,7 +39,7 @@ export default function useStake() {
     const unstake = async (amount) => {
         let formatAmount
         if (amount > 0) {
-            formatAmount = ethers.utils.parseEther(amount)
+            formatAmount = ethers.utils.parseEther(amount.toString())
         } else {
             formatAmount = 0
         }
@@ -55,18 +55,31 @@ export default function useStake() {
     }
 
     const calculateAPY = () => {
+        console.log('shareValue', shareValue)
         if (shareValue) {
-            const difference = +new Date() - +new Date(`August 3, 2021 07:00:00`)
-            const twelveHoursSinceLaunch = Math.floor(difference / (1000 * 60 * 60 * 12))
+            const difference = +new Date() - +new Date('August 3, 2021 07:00:00')
+            console.log('difference', difference)
+            const twelveHoursSinceLaunch = 0.5
+            // const twelveHoursSinceLaunch = Math.floor(difference / (1000 * 60 * 60 * 12))
+            console.log('twelveHoursSinceLaunch', twelveHoursSinceLaunch)
+
             const apy = ((shareValue - 1) * 730 * 100) / twelveHoursSinceLaunch
-            setxScreamAPY(apy)
+            console.log('apy', apy)
+
+            setxScreamAPY(apy.toFixed(2))
         }
     }
 
     useEffect(() => {
         if (account) {
             const fetchData = async () => {
-                const [allow, scream, xscream, share, supply] = await Promise.all([tokenContract.allowance(account, '0xe3D17C7e840ec140a7A51ACA351a482231760824'), tokenContract.balanceOf(account), xScreamContract.balanceOf(account), xScreamContract.getShareValue(), xScreamContract.totalSupply()])
+                const [allow, scream, xscream, share, supply] = await Promise.all([
+                    tokenContract.allowance(account, '0xe3D17C7e840ec140a7A51ACA351a482231760824'),
+                    tokenContract.balanceOf(account),
+                    xScreamContract.balanceOf(account),
+                    xScreamContract.getShareValue(),
+                    xScreamContract.totalSupply()
+                ])
                 // allow ? setAllowance(allow.toNumber()) : setAllowance(0)
                 if (allow) {
                     const formatAllowance = ethers.utils.formatEther(allow)
@@ -92,7 +105,7 @@ export default function useStake() {
             calculateAPY()
             fetchData()
         }
-    }, [account])
+    }, [account, shareValue])
 
     return {
         stake,
@@ -104,3 +117,5 @@ export default function useStake() {
         xScreamAPY
     }
 }
+
+// :)

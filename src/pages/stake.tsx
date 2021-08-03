@@ -14,13 +14,24 @@ export default function App() {
     const [stakeInput, setStakeInput] = useState<any>('')
     const [unstakeInput, setUnStakeInput] = useState<any>('')
 
+    const xScreamInScream = xscreamBalance * shareValue
+
     return (
         <>
             <Header />
             <StakeHeader />
             <div className="max-w-5xl p-6 pb-12 mx-auto md:p-12 md:pb-24">
                 <div className="space-y-6 md:space-y-12">
-                    <div className="w-full asd">
+                    {xScreamInScream && (
+                        <div className="w-full p-6 bg-white border border-gray-100 shadow-xl rounded-xl">
+                            <div className="space-y-1">
+                                <p className="text-xs font-mono">SCREAM value of staked xSCREAM</p>
+                                <p className="text-4xl">{xScreamInScream}</p>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="w-full">
                         <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
                             <div className="flex-1 p-2 shadow-xl md:col-span-2 rounded-xl bg-animated-rainbow">
                                 <div className="p-6 bg-white shadow-xl rounded-xl">
@@ -55,6 +66,10 @@ export default function App() {
                                     </div>
                                 </div>
                             </div>
+
+                            {/* {shareValue} <br />
+                            {xscreamBalance} <br />
+                            {xscreamBalance * shareValue} <br /> */}
                             <div className="w-full col-span-2 lg:col-span-1 flex flex-col p-6 bg-white border border-gray-100 shadow-xl rounded-xl">
                                 <div className="flex-1 space-y-1">
                                     <p className="text-lg">UnStake xSCREAM</p>
