@@ -14,7 +14,8 @@ export default function StakingSidebar({ open, hide }) {
     return (
         <Sidebar {...{ open, hide }} className="z-50">
             <div className="min-h-full overflow-auto">
-                <div className="p-6 space-y-8 md:p-12">
+                <div className="p-6 space-y-8 md:p-12 h-full flex flex-col">
+                    <div className="flex-1" />
                     <div className="space-y-1">
                         <p className="text-4xl font-extrabold">Rewards</p>
                         <p className="text-xl font-medium opacity-50">
@@ -24,14 +25,14 @@ export default function StakingSidebar({ open, hide }) {
                     </div>
 
                     {/* comment this out */}
-                    <div className="flex flex-col items-center justify-center space-y-2 text-white bg-pink-500 rounded-2xl h-60">
+                    {/* <div className="flex flex-col items-center justify-center space-y-2 text-white bg-pink-500 rounded-2xl h-60">
                         <p className="text-xl font-medium opacity-50">You've earned...</p>
                         <p className="text-4xl font-extrabold">{rewardValue}</p>
                         <p className="text-xl font-extrabold opacity-75">
                             sc
                             {stakingSidebarData.underlyingSymbol}
                         </p>
-                    </div>
+                    </div> */}
                     {/* comment this out */}
 
                     <div className="space-y-1 font-mono opacity-75">

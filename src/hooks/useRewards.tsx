@@ -63,9 +63,21 @@ export default function useRewards(tokenData?) {
         }
     }
 
-    const claimAll = () => {}
+    const claimAll = async () => {
+        if (account) {
+            const appContract = getUnitrollerContract(library?.getSigner())
+            let tx = null
+            try {
+                tx = await appContract['claimComp(address)'](account)
+                console.log(tx)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
 
     return {
+        claimAll,
         claimReward,
         rewardValue,
         lendingApy,
