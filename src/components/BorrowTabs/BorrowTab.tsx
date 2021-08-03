@@ -136,7 +136,7 @@ export default function BorrowTab({ markets, update }) {
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-center">
-                <p className="text-xl font-bold flex-1">Borrow Assets</p>
+                <p className="flex-1 text-xl font-bold">Borrow Assets</p>
 
                 <Select placeholder="Assets" value={asset?.id} onChange={onChangeAsset}>
                     {markets &&
@@ -179,18 +179,18 @@ export default function BorrowTab({ markets, update }) {
                 )}
             </div>
 
-            <div className="rounded-xl bg-black text-white p-4 text-xs">
+            <div className="p-4 text-xs text-white bg-black rounded-xl">
                 <p className="flex">
-                    <span className="opacity-50 flex-1">Borrow Limit</span>
+                    <span className="flex-1 opacity-50">Borrow Limit</span>
                     <span className="">${formatter(totalBorrowLimit, 2) || '-'}</span>
                 </p>
                 <p className="flex">
-                    <span className="opacity-50 flex-1">
+                    <span className="flex-1 opacity-50">
                         <span>Used Borrow Limit</span>
                         &nbsp;
                         <Tippy
                             content={
-                                <p className="bg-white p-2 rounded-xl shadow-xl border border-gray-100 text-xs">This factor tells you the total percentage of your borrow limit used before and after this transaction.</p>
+                                <p className="p-2 text-xs bg-white border border-gray-100 shadow-xl rounded-xl">This factor tells you the total percentage of your borrow limit used before and after this transaction.</p>
                             }
                         >
                             <i className="fas fa-info-circle" />
@@ -199,15 +199,15 @@ export default function BorrowTab({ markets, update }) {
                     <span className="">
                         {formatter(borrowPercent, 2, '%')}
                         &nbsp;
-                        <i className="fas fa-caret-right opacity-25" />
+                        <i className="opacity-25 fas fa-caret-right" />
                         &nbsp;
                         {formatter(newBorrowPercent, 2, '%')}
                     </span>
                 </p>
 
                 <p className="flex">
-                    <span className="opacity-50 flex-1">Reward APY</span>
-                    <span className="">{borrowApy || '??'}</span>
+                    <span className="flex-1 opacity-50">Reward APY</span>
+                    <span className="">{formatter(borrowApy, 2, '%') || '??'}</span>
                 </p>
             </div>
         </div>

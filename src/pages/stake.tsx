@@ -7,6 +7,8 @@ import useStake from '../hooks/useStake'
 import StakeHeader from '../components/StakeHeader'
 
 export default function App() {
+    // 1. Add Max button for inputs
+    // 2. Get rid of or fix your overview and total supply/total borrow
     const { stake, unstake, screamBalance, xscreamBalance, totalSupply, shareValue, xScreamAPY } = useStake()
 
     const [stakeInput, setStakeInput] = useState<any>('')

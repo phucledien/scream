@@ -14,8 +14,6 @@ export default function useStake() {
 
     const tokenContract = getTokenContract('scream', library?.getSigner())
     const xScreamContract = getXscreamContract(library?.getSigner())
-    console.log(tokenContract)
-    console.log(allowance, screamBalance, xscreamBalance)
 
     const stake = async (amount) => {
         let formatAmount
