@@ -39,7 +39,13 @@ export default function App() {
                                             </Select> */}
                                             <p className="text-xs font-mono">SCREAM Balance: {screamBalance}</p>
 
-                                            <Input width="100%" value={stakeInput} onChange={(e) => setStakeInput(e.target.value)} type="number" placeholder="0.00" />
+                                            <div className="flex space-x-2 items-center">
+                                                <Input width="100%" value={stakeInput} onChange={(e) => setStakeInput(e.target.value)} type="number" placeholder="0.00" size="small" />
+
+                                                <Button onClick={() => setStakeInput(screamBalance)} type="secondary" auto size="small">
+                                                    Max
+                                                </Button>
+                                            </div>
 
                                             {/* <input className="flex-1 p-2 text-2xl bg-transparent" value={stakeInput} onChange={(e) => setStakeInput(e.target.value)} type="number" placeholder="0.00" /> */}
                                             <Button onClick={() => stake(stakeInput)} type="secondary">
@@ -63,7 +69,13 @@ export default function App() {
                                     </Select> */}
                                     <p className="text-xs font-mono">xSCREAM Balance: {xscreamBalance}</p>
 
-                                    <Input width="100%" value={unstakeInput} onChange={(e) => setUnStakeInput(e.target.value)} type="number" placeholder="0.00" />
+                                    <div className="flex space-x-2 items-center">
+                                        <Input width="100%" value={unstakeInput} onChange={(e) => setUnStakeInput(e.target.value)} type="number" placeholder="0.00" size="small" />
+
+                                        <Button onClick={() => setUnStakeInput(xscreamBalance)} type="secondary" auto size="small">
+                                            Max
+                                        </Button>
+                                    </div>
 
                                     <Button onClick={() => unstake(unstakeInput)} className="flex-1" auto type="secondary">
                                         Unstake xSCREAM
