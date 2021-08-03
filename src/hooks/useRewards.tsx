@@ -2,29 +2,35 @@ import { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
 import { getSctokenContract, getUnitrollerContract } from '../utils/ContractService'
 import { useActiveWeb3React } from '.'
+import usePrice from './usePrice'
 
 export default function useRewards(tokenData?) {
     const [rewardValue, setRewardValue] = useState(0)
     const [lendingApy, setLendingApy] = useState(0)
     const [borrowApy, setBorrowApy] = useState(0)
     const { account, library } = useActiveWeb3React()
+    // const { screamPrice } = usePrice()
 
     const calculateAPY = async (compSpeeds, scToken) => {
         if (!tokenData) return
+        const cash = await scToken.getCash()
+        const totalBorrow = await scToken.totalBorrows()
+        const totalSupply = cash + totalBorrow
+        console.log(Number(cash), Number(totalBorrow), Number(totalSupply))
         try {
-            const totalSupply = await scToken.totalSupply()
-            const totalBorrow = await scToken.totalBorrows()
-            // write hook to calculate scream price
+
             const screamPrice = 1
             const blocksPerDay = 86400 // 1 seconds per block
             const daysPerYear = 365
             const screamPerYear = compSpeeds.mul(blocksPerDay).mul(daysPerYear).mul(screamPrice)
             const lendingAPY = screamPerYear.div(totalSupply).mul(100).toNumber()
             const borrowAPY = screamPerYear.div(totalBorrow).mul(100).toNumber()
-            return { lendingAPY, borrowAPY }
+            setLendingApy(lendingAPY)
+            setBorrowApy(borrowAPY)
         } catch (error) {
             console.log(error)
-            return { lendingApy: 0, borrowApy: 0 }
+            setLendingApy(0)
+            setBorrowApy(0)
         }
     }
 
@@ -42,9 +48,7 @@ export default function useRewards(tokenData?) {
 
                 const scToken = getSctokenContract(tokenData.underlyingSymbol.toLowerCase(), library)
 
-                const apys = await calculateAPY(compSpeeds, scToken)
-                setLendingApy(apys.lendingAPY)
-                setBorrowApy(apys.borrowAPY)
+                calculateAPY(compSpeeds, scToken)
             }
             fetchRewards()
         }

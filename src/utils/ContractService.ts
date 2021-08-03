@@ -49,6 +49,8 @@ export const getInterestModelContract = (address, provider?: ethers.Signer | eth
 
 export const getMulticallContract = (provider?: ethers.Signer | ethers.providers.Provider) => getContract(constants.CONTRACT_MULTICALL_ADDRESS, JSON.parse(constants.CONTRACT_MULTICALL_ABI), provider)
 
+export const getRouterContract = (provider?: ethers.Signer | ethers.providers.Provider) => getContract('0xF491e7B69E4244ad4002BC14e878a34207E38c29', JSON.parse(constants.CONTRACT_ROUTER_ABI), provider)
+
 export const fetchBalances = async (account: string, markets: any, provider?: ethers.Signer | ethers.providers.Provider) => {
   if(markets) {
     const abi = [

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { CONTRACT_TOKEN_ADDRESS } from '../../constants'
 import { useActiveWeb3React } from '../../hooks'
 import useAlerts from '../../hooks/useAlerts'
-import useMarkets from '../../hooks/useMarkets'
+import useRewards from '../../hooks/useRewards'
 import { formatter } from '../../utils'
 import { getSctokenContract, getTokenContract } from '../../utils/ContractService'
 import ConnectWalletButton from '../WalletConnect/ConnectWalletButton'
@@ -17,8 +17,8 @@ export default function SupplyTab({ markets, update }) {
     const [showSlider, setShowSlider] = useState(false)
     const [supplyPercent, setSupplyPercent] = useState(0)
 
-    const { lendingApy, borrowApy } = useMarkets(asset)
-
+    const { lendingApy } = useRewards(asset)
+    
     const { account, library } = useActiveWeb3React()
     const [, setToast] = useToasts()
     const { triggerTransactionAlert, deleteTransactionAlert } = useAlerts()
@@ -30,7 +30,7 @@ export default function SupplyTab({ markets, update }) {
             } else {
                 setAsset((markets || []).find((item) => item.id == asset.id))
             }
-        }
+        }        
     }, [markets])
 
     useEffect(() => {
@@ -122,7 +122,7 @@ export default function SupplyTab({ markets, update }) {
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-center">
-                <p className="text-xl font-bold flex-1">Lend Assets</p>
+                <p className="flex-1 text-xl font-bold">Lend Assets</p>
 
                 <Select placeholder="Assets" value={asset?.id} onChange={onChangeAsset}>
                     {markets &&
@@ -165,18 +165,18 @@ export default function SupplyTab({ markets, update }) {
                     </Button>
                 )}
             </div>
-            <div className="rounded-xl bg-black text-white p-4 text-xs">
+            <div className="p-4 text-xs text-white bg-black rounded-xl">
                 <p className="flex">
-                    <span className="opacity-50 flex-1">Balance</span>
+                    <span className="flex-1 opacity-50">Balance</span>
                     <span className="">{formatter(asset?.walletBalance, 6, asset?.underlyingSymbol?.toUpperCase()) || '-'}</span>
                 </p>
                 <p className="flex">
-                    <span className="opacity-50 flex-1">Deposit APY</span>
+                    <span className="flex-1 opacity-50">Deposit APY</span>
                     <span className="">{formatter(asset?.supplyAPY, 2, '%') || '-'}</span>
                 </p>
                 <p className="flex">
-                    <span className="opacity-50 flex-1">Reward APY</span>
-                    <span className="">{lendingApy || '??'}</span>
+                    <span className="flex-1 opacity-50">Reward APY</span>
+                    <span className="">{formatter(lendingApy, 2, '%') || '??'}</span>
                 </p>
             </div>
         </div>
