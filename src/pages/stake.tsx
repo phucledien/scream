@@ -22,7 +22,7 @@ export default function App() {
             <StakeHeader />
             <div className="max-w-5xl p-6 pb-12 mx-auto md:p-12 md:pb-24">
                 <div className="space-y-6 md:space-y-12">
-                    {xScreamInScream && (
+                    {xScreamInScream > 0 && (
                         <div className="w-full p-6 bg-white border border-gray-100 shadow-xl rounded-xl">
                             <div className="space-y-1">
                                 <p className="text-xs font-mono">SCREAM value of staked xSCREAM</p>
@@ -111,3 +111,5 @@ export default function App() {
         </>
     )
 }
+
+// :)

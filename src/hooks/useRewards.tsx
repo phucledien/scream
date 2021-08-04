@@ -12,19 +12,25 @@ export default function useRewards(tokenData?) {
     const { account, library } = useActiveWeb3React()
     const { screamPrice } = usePrice()
 
-    const calculateAPY = () => {
+    const calculateAPY = async () => {
         if (!tokenData) return
         const totalSupply = tokenData.totalSupplyUsd
         const totalBorrow = tokenData.totalBorrowsUsd
         try {
             // const screamPrice = 1
+            console.log('compSpeeds', compSpeeds)
+            console.log('totalBorrow', totalBorrow)
+            console.log('totalSupply', totalSupply)
+            console.log('screamPrice', screamPrice)
             const blocksPerDay = 86400 // 1 seconds per block
             const daysPerYear = 365
             const screamPerYear = compSpeeds * blocksPerDay * daysPerYear * screamPrice
-            const lendingAPY = ((screamPerYear * 100) / totalSupply).toFixed(0)
-            const borrowAPY = ((screamPerYear * 100) / totalBorrow).toFixed(0)
-            setLendingApy(lendingAPY)
-            setBorrowApy(borrowAPY)
+            const lendingAPY = (screamPerYear * 100) / totalSupply
+            const borrowAPY = (screamPerYear * 100) / totalBorrow
+            console.log('lendingAPY', lendingAPY)
+            console.log('borrowAPY', borrowAPY)
+            setLendingApy(lendingAPY.toFixed(2))
+            setBorrowApy(borrowAPY.toFixed(2))
         } catch (error) {
             console.log(error)
             setLendingApy(0)
@@ -33,28 +39,32 @@ export default function useRewards(tokenData?) {
     }
 
     useEffect(() => {
-        if (account && tokenData) {
-            const appContract = getUnitrollerContract(library?.getSigner())
-            const fetchRewards = async () => {
-                const [compAccrued, speeds] = await Promise.all([appContract.compAccrued(account), appContract.compSpeeds(tokenData.id)])
-                if (compAccrued) {
-                    const compReward = ethers.utils.formatEther(compAccrued)
-                    setRewardValue(Number(compReward))
-                } else {
-                    setRewardValue(0)
-                }
+        const onLoad = async () => {
+            if (account && tokenData) {
+                const appContract = await getUnitrollerContract(library?.getSigner())
+                const fetchRewards = async () => {
+                    const [compAccrued, speeds] = await Promise.all([appContract.compAccrued(account), appContract.compSpeeds(tokenData.id)])
 
-                if (speeds) {
-                    const speed = ethers.utils.formatEther(speeds)
-                    setCompSpeeds(Number(speed))
-                } else {
-                    setCompSpeeds(0)
+                    if (compAccrued) {
+                        const compReward = ethers.utils.formatEther(compAccrued)
+                        setRewardValue(Number(compReward))
+                    } else {
+                        setRewardValue(0)
+                    }
+
+                    if (speeds) {
+                        const speed = ethers.utils.formatEther(speeds)
+                        setCompSpeeds(Number(speed))
+                    } else {
+                        setCompSpeeds(0)
+                    }
                 }
+                await fetchRewards()
+                await calculateAPY()
             }
-            fetchRewards()
-            calculateAPY()
         }
-    }, [account, tokenData])
+        onLoad()
+    }, [account, tokenData, screamPrice, compSpeeds])
 
     const claimReward = async () => {
         if (!tokenData) return
