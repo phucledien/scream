@@ -62,7 +62,7 @@ export default function useStake() {
             const twelveHoursSinceLaunch = 0.5
             // const twelveHoursSinceLaunch = Math.floor(difference / (1000 * 60 * 60 * 12))
 
-            const apy = ((shareValue - 1) * 730 * 100) / twelveHoursSinceLaunch
+            const apy = ((shareValue - 1.05) * 730 * 100) / twelveHoursSinceLaunch
 
 
             setxScreamAPY(apy.toFixed(2))
